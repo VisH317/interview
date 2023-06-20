@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   googleFonts: {
     preconnect: true,
     families: {
-      'Nunito+Sans': true
+      Inter: true
     }
   }
 })

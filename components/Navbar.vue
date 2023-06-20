@@ -1,10 +1,17 @@
 <script setup>
-
+    click = () => console.log("test")
 </script>
 
 <template>
-    <div class="w-full fixed bg-white border-black border-2 p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center">
-        <nuxt-img src="/logo.png" height="70px" width="70px"/>
-        <p class="text-black font-semibold text-4xl">Intervoo</p>
+    <div class="w-full fixed bg-white border-black p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center">
+        <div class="flex flex-row gap-10 items-center w-3/12">
+            <nuxt-img src="/logo.png" height="70px" width="70px"/>
+            <p class="text-slate-800 font-semibold text-4xl">InterView</p>
+        </div>
+        <div class="flex flex-row gap-10 items-center w-1/6">
+            <nuxt-link to="/about" class="text-slate-900 font-light text-2xl">About</nuxt-link>
+            <nuxt-link to="/about" class="text-slate-900 font-light text-2xl">Pricing</nuxt-link>
+            <Button :action="click" text="Join Now"/>
+        </div>
     </div>
 </template>
