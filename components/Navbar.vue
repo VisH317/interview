@@ -1,9 +1,9 @@
 <script setup>
-    click = () => console.log("test")
+    const click = () => console.log("test")
 </script>
 
 <template>
-    <div class="w-full fixed bg-white border-black p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center">
+    <div class="w-full fixed border-black p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center">
         <div class="flex flex-row gap-10 items-center w-3/12 cursor-pointer">
             <nuxt-img src="/logo.png" height="70px" width="70px"/>
             <p class="text-slate-800 font-semibold text-4xl">InterView</p>

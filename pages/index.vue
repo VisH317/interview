@@ -2,5 +2,8 @@
 </script>
 
 <template>
-    <Navbar/>
+    <div class="w-screen min-h-screen">
+        <Navbar />
+        <Landing />
+    </div>
 </template>
