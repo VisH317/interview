@@ -1,4 +1,5 @@
 <script setup>
+    useSeoMeta({ title: "Prepare for Interviews and Tests in Minutes - InterviewSense" })
 </script>
 
 <template>
