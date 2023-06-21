@@ -7,5 +7,7 @@
         <Navbar />
         <Landing />
         <About />
+        <Pricing />
+        <Footer />
     </div>
 </template>
