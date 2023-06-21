@@ -3,8 +3,9 @@
 </script>
 
 <template>
-    <div class="w-screen min-h-screen">
+    <div class="w-screen min-h-screen overflow-x-hidden">
         <Navbar />
         <Landing />
+        <About />
     </div>
 </template>

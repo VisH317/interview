@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="w-full h-[90vh] bg-slate-200 z-40 pt-[10%] flex flex-col items-center gap-14">
+    <div class="w-full h-[90vh] bg-slate-200 z-40 pt-[10%] flex flex-col items-center gap-14 overflow-x-hidden">
         <h1 class="font-bold text-slate-800 text-7xl w-[55%] text-center">Your Personal Interview <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300">Assistant</span> Powered by AI</h1>
         <p class="text-slate-400 text-2xl w-[30%] text-center font-light">No more costly courses, long blog posts, and endless rabbit holes. Just a couple clicks and a couple minutes</p>
         <Button text="Get Started"/>

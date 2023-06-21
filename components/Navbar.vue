@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="w-full fixed border-black p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center">
+    <div class="w-full fixed backdrop-blur-lg border-black p-5 text-4xl font-semibold flex flex-row gap-10 justify-center items-center z-40">
         <div class="flex flex-row gap-10 items-center w-3/12 cursor-pointer">
             <nuxt-img src="/logo.png" height="70px" width="70px"/>
             <p class="text-slate-800 font-semibold text-4xl">InterView</p>
