@@ -10,4 +10,5 @@
         <Pricing />
         <Footer />
     </div>
+    <Modal open="true"/>
 </template>
