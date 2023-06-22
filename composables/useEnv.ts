@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 interface Env {
     SUPABASE_URL: string,
-    SUPABASE_KEY: string
+    SUPABASE_KEY: string,
 }
 
 const EnvType = z.object({
