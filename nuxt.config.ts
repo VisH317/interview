@@ -13,5 +13,9 @@ export default defineNuxtConfig({
       Inter: true
     }
   },
-  
+  components: [
+    { path: "~/components", extensions: ['vue'] },
+    { path: "~/components/auth", extensions: ['vue'] },
+    { path: "~/components/utils", extensions: ['vue'] },
+  ]
 })

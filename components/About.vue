@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="w-full bg-white z-40 p-5 flex flex-col items-center gap-14 py-10">
+    <div class="w-full bg-white p-5 flex flex-col items-center gap-14 py-10">
         <div class="container flex flex-col gap-20">
             <div class="w-full flex justify-center gap-10">
                 <div class="w-1/2 p-10 pr-20 flex flex-col gap-10 items-center justify-center">
