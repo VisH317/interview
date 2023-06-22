@@ -5,11 +5,18 @@
 <template>
     <Modal openDef="login-modal">
         <div class="w-full h-full flex justify-center">
-            <div class="w-[40%] h-full bg-slate-700 p-5">
-                Hello
+            <div class="w-[40%] h-full bg-slate-700 p-5 flex flex-col justify-center items-center gap-4">
+                <div class="flex justify-center items-center gap-4">
+                    <nuxt-img src="/logo.png" height="70px" width="70px"/>
+                    <p class="text-slate-100 font-semibold text-4xl">Interview<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Sense</span></p>
+                </div>
+                <!-- <div class="relative inline-flex items-center justify-center w-full">
+                    <hr class="w-64 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600">
+                     <span class="absolute px-3 font-normal text-slate-600 bg-slate-700 mx-auto dark:text-slate-400 "></span>
+                </div> -->
             </div>
             <div class="w-[60%] flex flex-col items-center justify-center gap-4">
-                <h3 class="text-6xl font-bold text-slate-800">Sign In</h3>
+                <h3 class="text-6xl font-bold text-slate-800">Welcome Back</h3>
                 <div class="h-12"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
                     <input type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: "/>
@@ -19,10 +26,13 @@
                     <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: "/>
                 </div>
                 <div class="relative inline-flex items-center justify-center w-full">
-                    <hr class="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
-                    <span class="absolute px-3 font-medium text-gray-900 bg-white mx-auto dark:text-gray-900">Let's Go</span>
+                    <hr class="w-64 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600">
+                    <span class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 ">See Updates</span>
                 </div>
-
+                <div class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-48 h-24">
+                    <button class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"></button>
+                    <div class="group-hover:shadow-lg border-2 border-slate-800 bg-slate-800 text-white duration-300 transition ease-in-out bg-slate-800 text-2xl font-light rounded-lg h-14 w-40 cursor-pointer text-center flex justify-center items-center z-20 absolute left-4 top-5" @click="action">Sign In</div>
+                </div>
                 
             </div>
         </div>
