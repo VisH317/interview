@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
-    // const login = useState('login-modal', () => false)
-
     const { openDef } = defineProps<{
         openDef: string
     }>()
 
     const open = useState<boolean>(openDef)
+    console.log(openDef, ": ", open)
 
 </script>
 
