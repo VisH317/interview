@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
     useSeoMeta({ title: "Prepare for Interviews and Tests in Minutes - InterviewSense" })
+
+    // const login = useState<boolean>("login-modal")
+
 </script>
 
 <template>
@@ -10,5 +13,5 @@
         <Pricing />
         <Footer />
     </div>
-    <Modal open="true"/>
+    <Modal />
 </template>

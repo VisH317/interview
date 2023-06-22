@@ -1,5 +1,5 @@
 <script setup>
-    const click = () => console.log("test")
+    const login = useState('login-modal')
 </script>
 
 <template>
@@ -11,7 +11,7 @@
         <div class="flex flex-row gap-10 items-center w-1/6">
             <nuxt-link to="/about" class="text-slate-900 font-light text-2xl duration-300 hover:text-slate-400">About</nuxt-link>
             <nuxt-link to="/about" class="text-slate-900 font-light text-2xl duration-300 hover:text-slate-400">Pricing</nuxt-link>
-            <Button :action="click" text="Join Now"/>
+            <Button :action="() => login=true" text="Sign In"/>
         </div>
     </div>
 </template>
