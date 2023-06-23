@@ -1,5 +1,6 @@
-<script setup>
-
+<script setup lang="ts">
+    const login = useState<boolean>('login-modal')
+    const signup = useState<boolean>('signup-modal')
 </script>
 
 <template>
@@ -26,8 +27,8 @@
                     <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: "/>
                 </div>
                 <div class="relative inline-flex items-center justify-center w-full">
-                    <hr class="w-64 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600">
-                    <span class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 ">See Updates</span>
+                    <hr class="w-80 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600">
+                    <span class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 " @click="() => { login = false; signup = true }">Sign Up Here :)</span>
                 </div>
                 <div class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-48 h-24">
                     <button class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"></button>
