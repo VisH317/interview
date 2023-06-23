@@ -1,6 +1,22 @@
 <script setup lang="ts">
+    import { ref } from 'vue'
+
+
     const login = useState<boolean>('login-modal')
     const signup = useState<boolean>('signup-modal')
+
+    // form states (ig use ref for local)
+    const email = ref<string>("")
+    const password = ref<string>("")
+
+    const disabled = ref<boolean>(true)
+
+    watch([email, password], ([e, p]) => {
+        if(e.length===0 || p.length===0) disabled.value = true
+        else disabled.value = false
+    })
+
+    
 </script>
 
 <template>
@@ -20,11 +36,11 @@
                 <h3 class="text-6xl font-bold text-slate-800">Welcome Back</h3>
                 <div class="h-12"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                    <input type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: "/>
+                    <input type="email" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: " v-model="email"/>
                 </div>
                 <div class="h-6"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: "/>
+                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: " v-model="password"/>
                 </div>
                 <div class="relative inline-flex items-center justify-center w-full">
                     <hr class="w-80 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600">

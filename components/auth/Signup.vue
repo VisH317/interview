@@ -1,7 +1,28 @@
 <script setup lang="ts">
 
-    let login = useState<boolean>("login-modal")
-    let signup = useState<boolean>("signup-modal")
+    const login = useState<boolean>("login-modal")
+    const signup = useState<boolean>("signup-modal")
+
+    // form states
+    const email = ref<string>("")
+    const password = ref<string>("")
+    const retype = ref<string>("")
+
+    // form barrier states
+    const disabled = ref<boolean>(true)
+    const matching = ref<boolean>(false)
+
+    watch([email, password, retype], ([e, p, r]) => {
+        if(p.length===0 || r.length===0) matching.value = true
+        if(e.length===0 || p.length===0 || r.length===0) disabled.value = true
+        else {
+            if(p!==r) matching.value = false
+            else {
+                matching.value = true
+                disabled.value = false
+            }
+        }
+    })
 
 </script>
 
@@ -22,15 +43,15 @@
                 <h3 class="text-6xl font-bold text-slate-800">Welcome!</h3>
                 <div class="h-12"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                    <input type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: "/>
+                    <input type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: " v-model="email"/>
                 </div>
                 <div class="h-6"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: "/>
+                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: " v-model="password"/>
                 </div>
                 <div class="h-6"/>
                 <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Retype Password: "/>
+                    <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Retype Password: " v-model="retype"/>
                 </div>
                 
                 <div class="relative inline-flex items-center justify-center w-full">
