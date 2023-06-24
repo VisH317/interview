@@ -24,6 +24,10 @@
         }
     })
 
+    const onSubmit = async () => {
+        
+    }
+
 </script>
 
 <template>
@@ -62,7 +66,7 @@
                     <span class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 " @click="() => { login = true; signup = false }">Sign In Here :)</span>
                 </div>
                 <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled ? '' : 'hover:-translate-y-1 hover:opacity-[0.85]'} w-48 h-24`">
-                    <button :disabled="disabled" class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute" v-if="!disabled"></button>
+                    <button :disabled="disabled" class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute" v-if="!disabled" @click="() => void onSubmit()"></button>
                     <div :class="` ${disabled ? 'bg-slate-300 cursor-default' : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'} text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`">Sign Up</div>
                 </div>
                 
