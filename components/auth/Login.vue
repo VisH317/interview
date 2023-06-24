@@ -1,6 +1,8 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
 
+    const router = useRouter()
+
+    const supabase = useSupabaseClient()
 
     const login = useState<boolean>('login-modal')
     const signup = useState<boolean>('signup-modal')
@@ -15,6 +17,12 @@
         if(e.length===0 || p.length===0) disabled.value = true
         else disabled.value = false
     })
+
+
+    const onSubmit = async () => {
+        await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
+        router.push("/dashboard")
+    }
 
     
 </script>
