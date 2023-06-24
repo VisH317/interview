@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+    const supabase = useSupabaseClient()
+
     const login = useState<boolean>("login-modal")
     const signup = useState<boolean>("signup-modal")
 
@@ -25,7 +27,9 @@
     })
 
     const onSubmit = async () => {
-        
+        await supabase.auth.signUp({ email: email.value, password: password.value })
+        alert("An email has been sent to your inbox, please confirm your email :)")
+        signup.value = false
     }
 
 </script>
