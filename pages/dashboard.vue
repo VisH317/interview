@@ -18,8 +18,8 @@
             </div>
             <div class="h-4"/>
             <div class="w-full">
-                <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer">⚙️ Settings </div>
-                <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer">📒 Account</div>
+                <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"><div class="inline"><font-awesome-icon icon="fa-solid fa-cog"/></div> Settings</div>
+                <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"><div class="inline"><font-awesome-icon icon="fa-solid fa-user"/></div> Account</div>
             </div>
             <div class="h-4"/>
             <div class="p-5">
