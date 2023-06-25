@@ -22,9 +22,13 @@
                 <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"><div class="inline"><font-awesome-icon icon="fa-solid fa-user"/></div> Account</div>
             </div>
             <div class="h-4"/>
-            <div class="p-5">
-                <p class="text-slate-600 font-semibold text-2xl">Your Note Pages</p>
-                <hr class="h-[2px] my-4 bg-gray-200 border-0 dark:bg-slate-400 rounded-lg">
+            <div class="">
+                <div class="p-5">
+                    <p class="text-slate-600 font-semibold text-2xl">Your Note Pages</p>
+                    <hr class="h-[2px] my-4 bg-gray-200 border-0 dark:bg-slate-400 rounded-lg">
+                </div>
+                <NavItem title="test" :id="1"/>
+                <NavItem title="test" :id="1"/>
             </div>
             </div>
         <div class="bg-white h-screen grow overflow-x-hidden overflow-y-auto">
