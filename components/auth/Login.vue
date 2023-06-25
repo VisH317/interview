@@ -25,9 +25,9 @@
         router.push("/dashboard")
     }
 
-    onMounted(() => {
-        if(user.value) router.push("/dashboard")
-    })
+    // onMounted(() => {
+    //     if(user.value) router.push("/dashboard")
+    // })
 
     
 </script>
