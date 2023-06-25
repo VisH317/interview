@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
     const router = useRouter()
+    const user = useSupabaseUser()
 
     const supabase = useSupabaseClient()
 
@@ -23,6 +24,10 @@
         await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
         router.push("/dashboard")
     }
+
+    onMounted(() => {
+        if(user.value) router.push("/dashboard")
+    })
 
     
 </script>
