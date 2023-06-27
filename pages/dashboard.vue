@@ -32,7 +32,7 @@
             </div>
             </div>
         <div class="bg-white h-screen grow overflow-x-hidden overflow-y-auto">
-            hola
+            <Main />
         </div>
     </div>
 </template>

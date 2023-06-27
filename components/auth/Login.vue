@@ -21,7 +21,10 @@
 
 
     const onSubmit = async () => {
-        await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
+        console.log("SUBMITTING")
+        const user = await supabase.auth.signInWithPassword({ email: email.value, password: password.value })
+        console.log("HEELO")
+        if(user.error) alert("Email and password do not match")
         router.push("/dashboard")
     }
 
