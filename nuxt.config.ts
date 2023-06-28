@@ -20,5 +20,8 @@ export default defineNuxtConfig({
   ],
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css'
-  ]
+  ],
+  build: {
+    transpile: ['slate-vue', 'vue-tsx-support']
+  }
 })
