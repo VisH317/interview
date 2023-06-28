@@ -8,6 +8,7 @@ const payload = z.object({
 })
 
 export default defineEventHandler(async event => {
+    console.log("post")
     const body = await readBody(event)
     try { 
         console.log("body: ", body)

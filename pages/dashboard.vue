@@ -45,8 +45,18 @@
     const deleteIndex = ref<number>(-1)
 
     const setDelete = (idx: number) => {
+        console.log("asfjaoeifj")
         deleteIndex.value = idx
         deleteOpen.value = true
+    }
+
+    const deleteNote = async () => {
+        await $fetch('/api/note', {
+            method: "DELETE",
+            query: { id: notes.value![deleteIndex.value].id }
+        })
+        refresh()
+        deleteOpen.value = false
     }
 
 </script>
@@ -71,7 +81,7 @@
                     <hr class="h-[2px] my-4 bg-gray-200 border-0 dark:bg-slate-400 rounded-lg">
                 </div>
                 <div class="overflow-y-auto grow">
-                    <NavItem v-for="(note, index) in notes" :title="note.title" :id="index" />
+                    <NavItem v-for="(note, index) in notes" :title="note.title" :id="index" @delete="() => setDelete(index)"/>
                 </div>
             </div>
             <div class="flex-none py-10">
@@ -100,12 +110,13 @@
     </DashModal>
     <DashModal width="15%" height="25vh" openDef="deleteNoteModal">
         <div class="p-10 flex flex-col gap-10 items-center justify-center">
-            <h1 class="text-slate-800 font-semibold text-4xl">Are you sure you want to delete {{ notes![deleteIndex].title }}?</h1>
-            <div class="flex justify-center w-full items-center gap-3"> 
-                <input type="text" class="w-[60%] p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-14" placeholder="Title: " v-model="title"/>
-                <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled ? '' : 'hover:-translate-y-1 hover:opacity-[0.85]'} w-40 h-24`" @click="() => void createNote()">
-                    <button :disabled="disabled" class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-40 h-full absolute" v-if="!disabled"></button>
-                    <div :class="` ${disabled ? 'bg-slate-300 cursor-default' : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'} text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">Create</div>
+            <h1 class="text-slate-800 font-semibold text-4xl text-center">Are you sure you want to delete {{ deleteIndex>-1 ? notes![deleteIndex].title : "" }}?</h1>
+            <div class="flex justify-center items-center w-full items-center gap-3"> 
+                <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`" @click="() => deleteOpen=false">
+                    <button :class="`text-slate-400 border-2 border-slate-400 duration-300 font-semibold transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">No</button>
+                </div>
+                <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`" @click="() => void deleteNote()">
+                    <button :class="` text-white duration-300 bg-red-500  transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">Yes</button>
                 </div>
             </div>
         </div>
