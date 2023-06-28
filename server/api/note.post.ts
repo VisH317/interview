@@ -8,5 +8,16 @@ const payload = z.object({
 })
 
 export default defineEventHandler(async event => {
+    const body = await readBody(event)
+    try { 
+        const val = payload.parse(body) 
+        await prisma.note.create({
+            data: val
+        })
+
+    } catch (error) { 
+        setResponseStatus(event, 500)
+        return
+    }
 
 })
