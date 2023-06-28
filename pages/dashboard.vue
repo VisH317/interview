@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Note } from '@prisma/client';
+
     useHead({
         title: "Dashboard - InterviewSense"
     })
@@ -39,6 +41,8 @@
         refresh()
         open.value = false
     }    
+
+    const currentNote = useState<string>("currentNote", () => null)
 
     // note deletion
     const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
@@ -81,7 +85,7 @@
                     <hr class="h-[2px] my-4 bg-gray-200 border-0 dark:bg-slate-400 rounded-lg">
                 </div>
                 <div class="overflow-y-auto grow">
-                    <NavItem v-for="(note, index) in notes" :title="note.title" :id="index" @delete="() => setDelete(index)"/>
+                    <NavItem v-for="(note, index) in notes" :title="note.title" :id="index" @delete="() => setDelete(index)" :uuid="note.id"/>
                 </div>
             </div>
             <div class="flex-none py-10">

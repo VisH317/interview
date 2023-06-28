@@ -1,15 +1,24 @@
 <script setup lang="ts">
 
-    defineProps<{
+    const props = defineProps<{
         title: string,
         id: number,
+        uuid: string
     }>()
 
     const clicked = ref<boolean>(false)
+
+    const currentNote = useState<string>("currentNote")
+
+    const setClick = () => {
+        clicked.value = !clicked.value
+        currentNote.value = props.uuid
+    }
+
 </script>
 
 <template>
-    <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4" @click="clicked=!clicked">
+    <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4" @click="setClick">
         <div :class="`flex-none ${clicked ? 'rotate-90 inline' : 'inline'} duration-300`"><font-awesome-icon icon="fa-solid fa-caret-right"/></div> 
         <p class="flex-none">{{ title }}</p>
         <div class="grow"/>
