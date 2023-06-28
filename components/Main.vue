@@ -1,5 +1,5 @@
-<script setup>
-    const currentNote = useState('currentNote')
+<script setup lang="ts">
+    const currentNote = useState<string | null>('currentNote')
 </script>
 
 <template>

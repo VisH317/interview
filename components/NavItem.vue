@@ -8,12 +8,19 @@
 
     const clicked = ref<boolean>(false)
 
-    const currentNote = useState<string>("currentNote")
+    const currentNote = useState<string | null>("currentNote")
 
     const setClick = () => {
         clicked.value = !clicked.value
-        currentNote.value = props.uuid
+        if(clicked.value) currentNote.value = props.uuid
+        else currentNote.value = null
+        console.log(currentNote.value)
     }
+
+    watch(currentNote, () => {
+        if(currentNote.value!==null && currentNote.value===props.uuid) clicked.value = true
+        else clicked.value = false
+    })
 
 </script>
 

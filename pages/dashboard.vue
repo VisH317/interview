@@ -42,7 +42,7 @@ import { Note } from '@prisma/client';
         open.value = false
     }    
 
-    const currentNote = useState<string>("currentNote", () => null)
+    const currentNote = useState<string | null>("currentNote", () => null)
 
     // note deletion
     const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
