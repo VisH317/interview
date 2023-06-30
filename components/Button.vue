@@ -1,9 +1,9 @@
 <script setup lang="ts">
-defineProps<{
-    action: () => Promise<void> | void,
-    text: string,
-    width?: boolean
-}>()
+    const props = defineProps<{
+        action: () => Promise<void> | void,
+        text: string,
+        width?: boolean
+    }>()
 </script>
 
 <template>

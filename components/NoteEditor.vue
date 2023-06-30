@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
     import { Editor, EditorContent } from '@tiptap/vue-3'
     import StarterKit from '@tiptap/starter-kit'
 
@@ -30,4 +30,4 @@
         <!-- <h1 class="text-slate-800 text-6xl font-semibold relative left-6">{{ note.title }}</h1> -->
         <editor-content :editor="editor" />
     </div>
-</template>
+</template> -->
