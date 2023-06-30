@@ -1,6 +1,19 @@
+import vuetify from 'vite-plugin-vuetify'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/supabase'],
+  modules: [
+    '@nuxtjs/tailwindcss', 
+    '@nuxtjs/google-fonts', 
+    '@nuxt/image', 
+    '@nuxtjs/supabase',
+    // async (options, nuxt) => {
+    //   nuxt.hooks.hook("vite:extendConfig", (config) =>
+    //     // @ts-ignore
+    //     config.plugins.push(vuetify())
+    //   );
+    // }
+  ],
   devtools: { enabled: true },
   app: {
     head: {
@@ -20,12 +33,12 @@ export default defineNuxtConfig({
   ],
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
-    'vuetify/lib/styles/main.sass'
+    // '@/assets/main.scss'
   ],
-  build: {
-    transpile: ['vuetify', 'tiptap-vuetify']
-  },
-  plugins: [
-    { src: '~/plugins/TiptapVuetify', mode: 'client' }
-  ]
+  // build: {
+  //   transpile: ['vuetify', 'tiptap-vuetify']
+  // },
+  // plugins: [
+  //   { src: '~/plugins/TiptapVuetify', mode: 'client' }
+  // ]
 })

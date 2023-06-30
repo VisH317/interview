@@ -29,9 +29,13 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@nuxtjs/vuetify": "^1.12.3",
     "@prisma/client": "4.16.1",
+    "@tiptap/pm": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
+    "@tiptap/vue-3": "^2.0.3",
     "sass": "^1.63.6",
     "slate-vue": "^0.2.0",
     "tiptap-vuetify": "^2.24.0",
+    "vite-plugin-vuetify": "^1.0.2",
     "vue-tsx-support": "^3.2.0"
   }
 }
