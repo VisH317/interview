@@ -67,12 +67,12 @@ import { Note } from '@prisma/client';
 
 <template>
     <div class="w-screen min-h-screen overflow-x-hidden flex flex-row">
-        <div class="flex-none bg-slate-100 h-screen w-[300px] overflow-x-hidden overflow-y-auto flex flex-col">
-            <div class="flex-none flex flex-row gap-3 items-center w-full cursor-pointer p-5 justify-center">
-                <nuxt-img src="/logo.png" height="70px" width="70px"/>
-                <!-- <p class="text-slate-800 font-semibold text-3xl">Interview<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Sense</span></p> -->
+        <div class="flex-none bg-slate-100 h-screen w-[260px] overflow-x-hidden overflow-y-auto flex flex-col">
+            <div class="flex-none flex flex-row gap-3 items-center w-full cursor-pointer p-5">
+                <nuxt-img src="/logo.png" height="40px" width="40px"/>
+                <p class="text-slate-800 font-semibold text-2xl">Interview<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Sense</span></p>
             </div>
-            <p class="flex-none text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium text-xl text-center">{{ user?.email?.split("@")[0] }}'s Notes</p>
+            <!-- <p class="flex-none text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium text-xl text-center">{{ user?.email?.split("@")[0] }}'s Notes</p> -->
             <div class="h-4"/>
             <div class="w-full">
                 <div class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"><div class="inline"><font-awesome-icon icon="fa-solid fa-cog"/></div> Settings</div>
@@ -81,8 +81,7 @@ import { Note } from '@prisma/client';
             <div class="flex-none h-4"/>
             <div class="grow overflow-y-hidden flex flex-col">
                 <div class="p-5 flex-none">
-                    <p class="text-slate-600 font-semibold text-2xl">Your Note Pages</p>
-                    <hr class="h-[2px] my-4 bg-gray-200 border-0 dark:bg-slate-400 rounded-lg">
+                    <p class="text-slate-400 font-semibold text-md">YOUR NOTE PAGES</p>
                 </div>
                 <div class="overflow-y-auto grow">
                     <NavItem v-for="(note, index) in notes" :title="note.title" :id="index" @delete="() => setDelete(index)" :uuid="note.id"/>
