@@ -26,8 +26,10 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@nuxtjs/vuetify": "^1.12.3",
     "@prisma/client": "4.16.1",
     "slate-vue": "^0.2.0",
+    "tiptap-vuetify": "^2.24.0",
     "vue-tsx-support": "^3.2.0"
   }
 }
