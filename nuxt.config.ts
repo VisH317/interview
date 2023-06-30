@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/supabase', '@nuxtjs/vuetify'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/supabase'],
   devtools: { enabled: true },
   app: {
     head: {
@@ -19,10 +19,11 @@ export default defineNuxtConfig({
     { path: "~/components/utils", extensions: ['vue'] },
   ],
   css: [
-    '@fortawesome/fontawesome-svg-core/styles.css'
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'vuetify/lib/styles/main.sass'
   ],
   build: {
-    transpile: ['vuetify/lib', 'tiptap-vuetify']
+    transpile: ['vuetify', 'tiptap-vuetify']
   },
   plugins: [
     { src: '~/plugins/TiptapVuetify', mode: 'client' }

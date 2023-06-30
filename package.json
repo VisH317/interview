@@ -1,6 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -28,6 +29,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@nuxtjs/vuetify": "^1.12.3",
     "@prisma/client": "4.16.1",
+    "sass": "^1.63.6",
     "slate-vue": "^0.2.0",
     "tiptap-vuetify": "^2.24.0",
     "vue-tsx-support": "^3.2.0"

@@ -3,7 +3,7 @@ import 'tiptap-vuetify/dist/main.css'
 
 export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.vueApp.use(TiptapVuetifyPlugin, {
-        vuetify: app.vuetify,
+        vuetify: nuxtApp.vuetify,
         iconsGroup: 'mdi'
     })
 })
