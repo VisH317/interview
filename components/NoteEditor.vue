@@ -1,20 +1,17 @@
-<script setup>
+<script setup lang="ts">
     import { Editor, EditorContent } from '@tiptap/vue-3'
     import StarterKit from '@tiptap/starter-kit'
 
-    const editor = ref(null)
+    const editor = ref(new Editor({
+        content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+        extensions: [
+            StarterKit,
+        ],
+    })  )
 
-    onMounted(() => {
-        editor = new Editor({
-            content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-            extensions: [
-                StarterKit,
-            ],
-        })  
-    }) 
 
     onBeforeUnmount(() => {
-        editor.destroy()
+        editor.value.destroy()
     })
 
 
