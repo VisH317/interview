@@ -33,12 +33,8 @@ export default defineNuxtConfig({
   ],
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
-    // '@/assets/main.scss'
   ],
-  // build: {
-  //   transpile: ['vuetify', 'tiptap-vuetify']
-  // },
-  // plugins: [
-  //   { src: '~/plugins/TiptapVuetify', mode: 'client' }
-  // ]
+  runtimeConfig: {
+    openaiKey: process.env.OPENAI_KEY
+  }
 })
