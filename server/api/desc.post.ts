@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 
         const data = await res.json() as ResponseTypes['createChatCompletion']
         
-        const ret = data.choices[0]?.message
+        const ret: string = data.choices[0]?.message?.content as string
 
         return ret
 
