@@ -38,13 +38,14 @@
         const { data: description } = await useAsyncData(`desc_${desc}`, () => $fetch("/api/desc", { method: "POST", body: { desc } }))
         const { data: todo } = await useAsyncData(`todo_${desc}`, () => $fetch("/api/todo", { method: "POST", body: { desc } }))
 
-        
+        const content: string = `<h1>${title.value}</h1><br><h2>Your Summary:</h2><p>${description.value}</p><br><h2>Your Tasks: </h2> <ul>${(todo.value as string[]).map(t => '<li>' + t + '</li>')}</ul>`
 
         await $fetch('/api/note', { 
             method: "POST",
             body: {
                 userid: user.value?.id,
-                title: title.value
+                title: title.value,
+                content
             }
         })
         refresh()
