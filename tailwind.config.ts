@@ -8,5 +8,8 @@ export default <Partial<Config>>{
                 primary: "#000000"       
             }
         }
-    }
+    },
+    plugins: [
+        require('@tailwindcss/typography')
+    ]
 }
