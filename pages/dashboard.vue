@@ -31,6 +31,11 @@ import { Note } from '@prisma/client';
     })
 
     const createNote = async () => {
+
+        // create summary and to do list
+
+        
+
         await $fetch('/api/note', { 
             method: "POST",
             body: {
