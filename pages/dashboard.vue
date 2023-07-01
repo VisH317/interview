@@ -23,10 +23,11 @@
     // note creation
     const open = useState<boolean>("createNoteModal", () => false)
     const title = ref<string>("")
+    const desc = ref<string>("")
     const disabled = ref<boolean>(true)
 
     watch(title, () => {
-        if(title.value.length!==0) disabled.value = false
+        if(title.value.length!==0 && desc.value.length!==0) disabled.value = false
         else disabled.value = true
     })
 
@@ -34,14 +35,10 @@
 
         // create summary and to do list
 
-        const toDo = await $fetch('/api/desc', {
-            method: "POST",
-            body: {
+        const { data: description } = await useAsyncData(`desc_${desc}`, () => $fetch("/api/desc", { method: "POST", body: { desc } }))
+        const { data: todo } = await useAsyncData(`todo_${desc}`, () => $fetch("/api/todo", { method: "POST", body: { desc } }))
 
-            }
-        })
-
-
+        
 
         await $fetch('/api/note', { 
             method: "POST",
