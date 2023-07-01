@@ -37,6 +37,11 @@
         }
     })
 
+    onBeforeUnmount(() => {
+        const html = editor.value?.getHTML()
+        
+    })
+
 
     const currentNote = useState<string | null>("currentNote")
 
