@@ -4,7 +4,8 @@ import { z } from 'zod'
 
 const payload = z.object({
     userid: z.string(),
-    title: z.string()
+    title: z.string(),
+    content: z.string()
 })
 
 export default defineEventHandler(async event => {
