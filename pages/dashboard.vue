@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Note } from '@prisma/client';
+    import { generateJSON } from '@tiptap/vue-3';
 
     useHead({
         title: "Dashboard - InterviewSense"
@@ -34,7 +34,14 @@ import { Note } from '@prisma/client';
 
         // create summary and to do list
 
-        
+        const toDo = await $fetch('/api/desc', {
+            method: "POST",
+            body: {
+
+            }
+        })
+
+
 
         await $fetch('/api/note', { 
             method: "POST",
@@ -107,8 +114,11 @@ import { Note } from '@prisma/client';
     <DashModal width="15%" height="25vh" openDef="createNoteModal">
         <div class="p-10 flex flex-col gap-10 items-center justify-center">
             <h1 class="text-slate-800 font-semibold text-4xl">Let's Get <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Started</span></h1>
-            <div class="flex justify-center w-full items-center gap-3">
-                <input type="text" class="w-[60%] p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-14" placeholder="Title: " v-model="title"/>
+            <div class="flex justify-center w-full gap-3">
+                <div class="flex flex-col items-center w-[60%] p-5 gap-5">
+                    <input type="text" class="w-full p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-14" placeholder="Title: " v-model="title"/>
+                    <textarea type="text" class="w-full p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-40" placeholder="Paste in the job description of the job you're applying to here: " v-model="desc"/>
+                </div>
                 <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled ? '' : 'hover:-translate-y-1 hover:opacity-[0.85]'} w-40 h-24`" @click="() => void createNote()">
                     <button :disabled="disabled" class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-40 h-full absolute" v-if="!disabled"></button>
                     <div :class="` ${disabled ? 'bg-slate-300 cursor-default' : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'} text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">Create</div>
