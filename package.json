@@ -29,6 +29,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@nuxtjs/vuetify": "^1.12.3",
     "@prisma/client": "4.16.1",
+    "@tiptap/extension-heading": "^2.0.3",
     "@tiptap/pm": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
