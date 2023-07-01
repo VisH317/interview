@@ -17,7 +17,7 @@
                     ? node.attrs.level 
                     : this.options.levels[0]
                 const classes = {
-                    1: 'text-4xl',
+                    1: 'text-4xl font-medium',
                     2: 'text-2xl',
                 }
                 return [
