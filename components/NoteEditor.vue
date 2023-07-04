@@ -1,20 +1,26 @@
 <script setup lang="ts">
-    import { useEditor, EditorContent } from '@tiptap/vue-3'
-    import StarterKit from '@tiptap/starter-kit'
-    import Heading from '@tiptap/extension-heading'
-    import { mergeAttributes } from '@tiptap/vue-3';
+import { useEditor, EditorContent } from "@tiptap/vue-3"
+import { StarterKit } from "@tiptap/starter-kit"
+import { Heading } from "@tiptap/extension-heading"
+import { mergeAttributes } from "@tiptap/vue-3"
 
-    const editor = useEditor({
-        content: '<h1>I’m running Tiptap with Vue.js. 🎉</h1>',
-        extensions: [
-            StarterKit.configure({
-                heading: false
-            }),
-            Heading.configure({ levels: [1, 2] }).extend({
+const currentNote = useState<string | null>("currentNote")
+
+const { data: note, refresh } = useFetch('/api/noteById', { query: { id: currentNote.value as string } })
+
+console.log("data::: ", note.value.content)
+
+const editor = useEditor({
+    content: note.value?.content,
+    extensions: [
+        StarterKit.configure({
+            heading: false
+        }),
+        Heading.configure({ levels: [1, 2] }).extend({
             levels: [1, 2],
             renderHTML({ node, HTMLAttributes }) {
-                const level = this.options.levels.includes(node.attrs.level) 
-                    ? node.attrs.level 
+                const level = this.options.levels.includes(node.attrs.level)
+                    ? node.attrs.level
                     : this.options.levels[0]
                 const classes = {
                     1: 'text-4xl font-medium',
@@ -28,30 +34,24 @@
                     0,
                 ]
             },
-    })
-        ],
-        editorProps: {
-            attributes: {
-                class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full"
-            }
+        })
+    ],
+    editorProps: {
+        attributes: {
+            class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full"
         }
-    })
+    }
+})
 
-    onBeforeUnmount(() => {
-        const html = editor.value?.getHTML()
-        
-    })
-
-
-    const currentNote = useState<string | null>("currentNote")
-
-    const { data: note, refresh } = useFetch('/api/noteById', { query: { id: currentNote.value as string } })
-
+onBeforeUnmount(() => {
+    const html = editor.value?.getHTML()
+    editor.value?.destroy()
+})
 
 </script>
 
 <template>
-    <div class="flex flex-col w-[1000px] max-w-[80%] gap-10 relative" v-if="currentNote!==null">
+    <div class="flex flex-col w-[1000px] max-w-[80%] gap-10 relative" v-if="currentNote !== null">
         <!-- <h1 class="text-slate-800 text-6xl font-semibold relative left-6">{{ note.title }}</h1> -->
         <editor-content :editor="editor" class="h-full outline-none p-5" />
     </div>

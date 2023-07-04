@@ -39,13 +39,13 @@ const createNote = async () => {
     // create summary and to do list
 
     const { data: description } = await useAsyncData(`desc_${desc}`, () =>
-        $fetch("/api/desc", { method: "POST", body: { desc } })
+        $fetch("/api/desc", { method: "POST", body: { desc: desc.value } })
     )
     const { data: todo } = await useAsyncData(`todo_${desc}`, () =>
-        $fetch("/api/todo", { method: "POST", body: { desc } })
+        $fetch("/api/todo", { method: "POST", body: { desc: desc.value } })
     )
 
-    const content = `<h1>${title.value}</h1><br><h2>Your Summary:</h2><p>${
+    const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${
         description.value
     }</p><br><h2>Your Tasks: </h2> <ul>${(todo.value as string[]).map(
         (t) => "<li>" + t + "</li>"
