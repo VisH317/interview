@@ -18,15 +18,7 @@ const currentNote = useState<string | null>('currentNote')
         <div class="flex flex-col w-[1000px] max-w-[80%] min-h-screen gap-10 relative top-10 border-black" v-else>
             <NoteEditor />
         </div>
-        <NoteModal open-def="quiz">
-            <div class="p-5">
-                hellur
-            </div>
-        </NoteModal>
-        <NoteModal open-def="flashcard">
-            <div class="p-5">
-                hellurrr
-            </div>
-        </NoteModal>
     </div>
+    <Quiz/>
+    <Flashcard/>
 </template>
