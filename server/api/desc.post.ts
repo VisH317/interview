@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
                 {
                     role: "system",
                     content:
-                        "You are a job advisor to help people understand what they need to learn and do to succeed at a specific company for their job interview. The job could be in any field. You will be provided with a job description, which may include information on requirements for the job, things to know, and things that the person will be doing. Provide a 3-5 sentence summary based on the job description explaining what needs to be known and what needs to be learned to succeed at the job interview",
+                        "You are a job advisor to help people understand what they need to learn and do to succeed at a specific company for their job interview. The job could be in any field. You will be provided with a job description, which may include information on requirements for the job, things to know, and things that the person will be doing. Provide a 3-5 sentence summary based on the job description explaining the job position, the company and what it does, and what needs to be known and what needs to be learned to succeed at the job interview",
                 },
                 { role: "user", content: `Job description: ${body.desc}` },
             ],

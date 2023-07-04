@@ -46,7 +46,7 @@ const createNote = async () => {
     )
 
     const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${description.value
-    }</p><br><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
+    }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
         .filter((t) => t.length >= 3)
         .map((t) => "<li>" + t + "</li>")}</ul>`
 
