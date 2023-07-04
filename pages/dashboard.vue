@@ -46,9 +46,9 @@ const createNote = async () => {
     )
 
     const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${description.value
-    }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
-        .filter((t) => t.length >= 3)
-        .map((t) => "<li>" + t + "</li>")}</ul>`
+        }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
+            .filter((t) => t.length >= 3)
+            .map((t) => "<li>" + t + "</li>")}</ul>`
 
     await $fetch("/api/note", {
         method: "POST",
@@ -169,15 +169,15 @@ const deleteNote = async () => {
                             placeholder="Paste in the job description of the job you're applying to here: " />
                     </div>
                     <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled
-                            ? ''
-                            : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                        ? ''
+                        : 'hover:-translate-y-1 hover:opacity-[0.85]'
                         } w-40 h-24`" @click="() => void createNote()">
                         <button v-if="!disabled" :disabled="disabled"
                             class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-40 h-full absolute"></button>
                         <div
                             :class="` ${disabled
-                                    ? 'bg-slate-300 cursor-default'
-                                    : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                                ? 'bg-slate-300 cursor-default'
+                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
                                 } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
                             Create
                         </div>

@@ -1,24 +1,23 @@
-import prisma from '../../utils/prisma'
-import { z } from 'zod'
-
+import prisma from "../../utils/prisma"
+import { z } from "zod"
 
 const payload = z.object({
     userid: z.string(),
     title: z.string(),
-    content: z.string()
+    content: z.string(),
 })
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
     console.log("post")
     const body = await readBody(event)
-    try { 
+    try {
         console.log("body: ", body)
-        const val = payload.parse(body) 
+        const val = payload.parse(body)
         await prisma.note.create({
-            data: val
+            data: val,
         })
         return "Note Created"
-    } catch (error) { 
+    } catch (error) {
         setResponseStatus(event, 500)
         return error as string
     }

@@ -1,7 +1,7 @@
 import { object } from "zod"
 import prisma from "../../utils/prisma"
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
     const query = getQuery(event)
     console.log("awioejfoaidsfj: ", query.id)
     // if(!('id ' in query)) return "No note exists"

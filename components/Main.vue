@@ -19,6 +19,6 @@ const currentNote = useState<string | null>('currentNote')
             <NoteEditor />
         </div>
     </div>
-    <Quiz/>
-    <Flashcard/>
+    <Quiz />
+    <Flashcard />
 </template>
