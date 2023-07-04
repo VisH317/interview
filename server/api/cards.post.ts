@@ -1,4 +1,4 @@
-import chain from "../../utils/quizChain"
+import chain from "../../utils/cardsChain"
 import prisma from "../../utils/prisma"
 import { RecursiveCharacterTextSplitter } from "langchain/dist/text_splitter"
 import { z } from "zod"

@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-    MapReduceDocumentsChain,
-    MapReduceDocumentsChainInput,
-    LLMChain,
-    StuffDocumentsChain,
-} from "langchain/chains"
+import { LLMChain, StuffDocumentsChain } from "langchain/chains"
 import { PromptTemplate, FewShotPromptTemplate } from "langchain"
-import { Document } from "langchain/dist/document"
 import { OpenAIChat } from "langchain/dist/llms/openai-chat"
 
 const llm = new OpenAIChat({ temperature: 0.1 })
@@ -26,7 +20,8 @@ const examples = [
     },
 ]
 
-const exampleFormatterTemplate = "document data: {documentData}\n\nQuestion Output: {questionOutput}"
+const exampleFormatterTemplate =
+    "document data: {documentData}\n\nQuestion Output: {questionOutput}"
 const examplePrompt = new PromptTemplate({
     inputVariables: ["documentData", "questionOutput"],
     template: exampleFormatterTemplate,
