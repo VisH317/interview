@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { LLMChain, StuffDocumentsChain } from "langchain/chains"
 import { PromptTemplate, FewShotPromptTemplate } from "langchain"
-import { OpenAIChat } from "langchain/dist/llms/openai-chat"
+import { OpenAI } from "langchain/llms/openai"
 
-const llm = new OpenAIChat({ temperature: 0.1 })
+const llm = new OpenAI({
+    temperature: 0.1,
+    modelName: "gpt-3.5-turbo",
+    openAIApiKey: process.env.OPENAI_KEY,
+})
 
 const examples = [
     {
