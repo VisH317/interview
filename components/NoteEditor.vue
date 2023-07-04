@@ -45,9 +45,15 @@ const editor = useEditor({
 
 onBeforeUnmount(() => {
     const html = editor.value?.getHTML()
+    $fetch("/api/note", {
+        method: "PATCH",
+        body: {
+            id: note.value?.id,
+            content: html,
+        },
+    })
     editor.value?.destroy()
 })
-
 </script>
 
 <template>
