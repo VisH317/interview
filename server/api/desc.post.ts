@@ -31,11 +31,7 @@ export default defineEventHandler(async (event) => {
             temperature: 0.2,
         })
 
-        console.log("res: ", res)
-
         const data = (await res.json()) as ResponseTypes["createChatCompletion"]
-
-        console.log("ACTUAL DATA: ", data)
 
         const ret: string = data.choices[0]?.message?.content as string
 

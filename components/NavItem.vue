@@ -14,7 +14,6 @@
         clicked.value = !clicked.value
         if(clicked.value) currentNote.value = props.uuid
         else currentNote.value = null
-        console.log(currentNote.value)
     }
 
     watch(currentNote, () => {

@@ -1,7 +1,6 @@
 <script setup>
 
     const signup = useState("signup-modal")
-    console.log(signup)
 
 </script>
 

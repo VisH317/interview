@@ -6,9 +6,9 @@ import { mergeAttributes } from "@tiptap/vue-3"
 
 const currentNote = useState<string | null>("currentNote")
 
-const { data: note, refresh } = useFetch('/api/noteById', { query: { id: currentNote.value as string } })
-
-console.log("data::: ", note.value.content)
+const { data: note, refresh } = await useFetch("/api/noteById", {
+    query: { id: currentNote.value as string },
+})
 
 const editor = useEditor({
     content: note.value?.content,
@@ -39,20 +39,21 @@ const editor = useEditor({
     editorProps: {
         attributes: {
             class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full"
-        }
-    }
+        },
+    },
 })
 
-onBeforeUnmount(() => {
+onBeforeUnmount(async () => {
     const html = editor.value?.getHTML()
-    $fetch("/api/note", {
+    console.log("WHY ARE YOU UNOMUNTING???")
+    await $fetch("/api/note", {
         method: "PATCH",
         body: {
             id: note.value?.id,
             content: html,
         },
     })
-    editor.value?.destroy()
+    // editor.value?.destroy()
 })
 </script>
 

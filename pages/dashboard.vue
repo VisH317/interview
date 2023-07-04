@@ -69,7 +69,6 @@ const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
 const deleteIndex = ref<number>(-1)
 
 const setDelete = (idx: number) => {
-    console.log("asfjaoeifj")
     deleteIndex.value = idx
     deleteOpen.value = true
 }

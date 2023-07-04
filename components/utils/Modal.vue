@@ -5,7 +5,6 @@
     }>()
 
     const open = useState<boolean>(openDef)
-    console.log(openDef, ": ", open)
 
 </script>
 
