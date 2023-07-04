@@ -11,11 +11,6 @@ import { OpenAIChat } from "langchain/dist/llms/openai-chat"
 
 const llm = new OpenAIChat({ temperature: 0.1 })
 
-// prompt templates
-const template = PromptTemplate.fromTemplate(`
-    Using the following information, create a list of quiz questions on the topic each separated by a newline. You can either create an open ended question with a single line, or a multiple choice question with a line for the question along with a comma-separated list of answers, as well as the correct answer from the choice list
-`)
-
 const examples = [
     {
         documentData:
@@ -54,3 +49,5 @@ const chain = new StuffDocumentsChain({
     llmChain,
     documentVariableName: "input",
 })
+
+export default chain
