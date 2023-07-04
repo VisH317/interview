@@ -64,6 +64,11 @@ const createNote = async () => {
 
 const currentNote = useState<string | null>("currentNote", () => null)
 
+// initialize current note vars
+useState<boolean>("flashcard", () => false)
+useState<boolean>("quiz", () => false)
+useState<boolean>("progress", () => false)
+
 // note deletion
 const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
 const deleteIndex = ref<number>(-1)
