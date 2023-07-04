@@ -8,5 +8,5 @@ export default defineEventHandler(async (event) => {
         where: { userid: id },
     })
 
-    return res;
+    return res
 })
