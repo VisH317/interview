@@ -1,16 +1,19 @@
 <script setup lang="ts">
-    useSeoMeta({ title: "Prepare for Interviews and Tests in Minutes - InterviewSense" })
+useSeoMeta({
+    title: "Prepare for Interviews and Tests in Minutes - InterviewSense",
+})
 
-    const user = useSupabaseUser()
-    const router = useRouter()
+const user = useSupabaseUser()
+const router = useRouter()
 
-    watch(user, () => {
-        if(user.value) router.push("/dashboard")
-    })
+watch(user, () => {
+    if (user.value) router.push("/dashboard")
+})
 
-    const login = useState<boolean>("login-modal", () => false)
-    const signup = useState<boolean>("signup-modal", () => false)
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const login = useState<boolean>("login-modal", () => false)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const signup = useState<boolean>("signup-modal", () => false)
 </script>
 
 <template>
@@ -21,6 +24,6 @@
         <Pricing />
         <Footer />
     </div>
-    <Login/>
-    <Signup/>
+    <Login />
+    <Signup />
 </template>
