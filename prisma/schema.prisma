@@ -14,4 +14,30 @@ model Note {
     userid String @db.Uuid()
 }
 
+model Quiz {
+    id String @id @db.Uuid @default(uuid())
+    title String
+    questions Question[]
+    userid String @db.Uuid()
+}
+
+enum QuestionType {
+    OPEN_ENDED
+    MULTIPLE_CHOICE
+}
+
+model Question {
+    id String @id @db.Uuid @default(uuid())
+    type QuestionType
+    question String
+    quizId String @db.Uuid 
+    quiz Quiz @relation (fields: [quizId], references: [id])
+}
+
+model Flashcard {
+    id String @id @db.Uuid @default(uuid())
+    userid String @db.Uuid()
+    cards String[]
+}
+
 // add objectives, quizzes, flashcards
