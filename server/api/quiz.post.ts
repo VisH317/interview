@@ -1,14 +1,16 @@
-import chain from "../../utils/quizChain"
-import prisma from "../../utils/prisma"
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter"
 import { z } from "zod"
+import chain from "../../utils/quizChain"
 
 const reqType = z.object({
     text: z.string(),
 })
 
 export default defineEventHandler(async (event) => {
-    const { text } = reqType.parse(await readBody())
+    console.log("test")
+    const { text } = reqType.parse(await readBody(event))
+
+    console.log("text: ", text)
 
     const splitter = RecursiveCharacterTextSplitter.fromLanguage("html", {
         chunkSize: 300,
@@ -17,9 +19,14 @@ export default defineEventHandler(async (event) => {
 
     const docs = await splitter.createDocuments([text])
 
+    console.log("docs: ", docs)
+
     const res = await chain.call({
         input_documents: docs,
     })
 
-    return res
+    console.log("res: ", res)
+    console.log("splitres: ", res.split("\n"))
+
+    return res.split("\n")
 })

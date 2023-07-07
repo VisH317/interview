@@ -1,27 +1,46 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
-const { data: quizzes, refresh } = await useFetch("/api/quiz", { query: { id: user.value?.id } })
+const { data: quizzes, refresh } = await useFetch("/api/quiz", {
+    query: { id: user.value?.id },
+})
 
 const quiz = useState<boolean>("quiz")
 const currentNote = useState<string | null>("currentNote")
 watch(currentNote, () => {
-    if (currentNote === null) quiz.value = false
+    if (currentNote.value === null) quiz.value = false
 })
 
 const currentQuiz = ref<boolean>(false)
 const loading = ref<boolean>(false)
 
-const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", { query: { id: currentNote } })
+const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
+    query: { id: currentNote.value },
+})
 
+const quizText = ref<string>("")
 
-const createQuiz = () => {
+const createQuiz = async () => {
     console.log("nothing here to see :)")
+    const { data: quizData } = await useAsyncData("genQuiz", () =>
+        $fetch("/api/quiz", {
+            method: "POST",
+            body: {
+                text: note.value.content,
+            },
+        })
+    )
+
+    console.log("data: ", quizData)
+
+    quizText.value = quizData.value
 }
 </script>
 
 <template>
     <NoteModal open-def="quiz">
-        <div :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'}`">LOADING</div>
+        <div
+            :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'}`">
+            LOADING</div>
         <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
             test
         </div>
@@ -46,5 +65,4 @@ const createQuiz = () => {
                 </div>
             </div>
         </div>
-    </NoteModal>
-</template>
+    </NoteModal></template>
