@@ -9,6 +9,7 @@ watch(currentNote, () => {
 })
 
 const currentQuiz = ref<boolean>(false)
+const loading = ref<boolean>(false)
 
 const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", { query: { id: currentNote } })
 
@@ -20,8 +21,9 @@ const createQuiz = () => {
 
 <template>
     <NoteModal open-def="quiz">
+        <div :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'}`">LOADING</div>
         <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
-            
+            test
         </div>
         <div v-else class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex justify-between w-[90%] items-center">
