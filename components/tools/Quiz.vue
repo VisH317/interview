@@ -8,6 +8,8 @@ watch(currentNote, () => {
     if (currentNote === null) quiz.value = false
 })
 
+const currentQuiz = ref<boolean>(false)
+
 const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", { query: { id: currentNote } })
 
 
@@ -18,7 +20,10 @@ const createQuiz = () => {
 
 <template>
     <NoteModal open-def="quiz">
-        <div class="p-5 py-10 flex flex-col items-center gap-5">
+        <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
+            
+        </div>
+        <div v-else class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex justify-between w-[90%] items-center">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note.title }}: Your Quizzes
