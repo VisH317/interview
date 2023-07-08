@@ -21,7 +21,7 @@ watch(currentNote, () => {
     if (currentNote.value === null) quiz.value = false
 })
 
-const currentQuiz = ref<boolean>(false)
+const currentQuiz = ref<"home" | "quiz" | "graded">("home")
 const loading = ref<boolean>(false)
 
 const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
@@ -124,7 +124,7 @@ const submitQuiz = async () => {
             }`">
             LOADING
         </div>
-        <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
+        <div v-if="currentQuiz==='quiz'" class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex-none">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz
@@ -137,6 +137,36 @@ const submitQuiz = async () => {
                             {{ question.question }}
                         </p>
                         <div v-for="(answer, idx) in question.answers">
+                            <input v-model="formStates[ix]" type="radio" :value="idx" />
+                            {{ answer }}
+                        </div>
+                    </div>
+                    <div v-else class="flex flex-col gap-2">
+                        <p class="text-xl text-slate-800">
+                            {{ question.question }}
+                        </p>
+                        <div
+                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                            <textarea type="text" class="w-full p-5 rounded-md outline-none text-lg"
+                                v-model="formStates[ix]" placeholder="Email: " style="resize: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="currentQuiz==='graded'" class="p-5 py-10 flex flex-col items-center gap-5">
+            <div class="flex-none">
+                <h2 class="text-4xl text-slate-400 font-semibold">
+                    {{ note?.title }}: Quiz Results
+                </h2>
+            </div>
+            <div class="grow flex flex-col gap-5 items-center">
+                <div v-for="(question, ix) in quizQuestions">
+                    <div v-if="'answers' in question" class="flex flex-col gap-2">
+                        <p class="text-xl text-slate-800">
+                            {{ question.question }}
+                        </p>
+                        <div v-for="(answer, idx) in question.answers" :class="`${formStates[ix]!==question.correct && idx===question.correct ? 'bg-red-300' : formStates[ix]===question.correct && idx===question.correct ? 'bg-green-300' : ''}`">
                             <input v-model="formStates[ix]" type="radio" :value="idx" />
                             {{ answer }}
                         </div>
