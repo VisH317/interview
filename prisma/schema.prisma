@@ -18,6 +18,7 @@ model Quiz {
     id String @id @db.Uuid @default(uuid())
     date DateTime
     questions String[]
+    responses String[]
     answers String[]
     graded Boolean
     userid String @db.Uuid()

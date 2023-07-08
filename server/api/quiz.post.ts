@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
             date: new Date(),
             questions: res.text.split("\n"),
             answers: [],
+            responses: [],
             graded: false,
             userid,
         },
