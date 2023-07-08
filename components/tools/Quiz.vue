@@ -108,12 +108,26 @@ const submitQuiz = async () => {
     let it = 0;
 
     const newQuestions = [...quizQuestions.value]
+    const newAnswers = []
 
     //eslint-disable-next-line array-callback-return
     quizQuestions.value.map((q) => {
         if ("answer" in q && q.answer === null) {
             q.answer = answers.value[it]
             it++
+        }
+    })
+
+    quizQuestions.value.map((q) => {
+        if ("answer" in q) newAnswers.push(q.answer)
+        else newAnswers.push(String(q.correct))
+    })
+
+    await $fetch("/api/quiz", {
+        method: "PATCH",
+        body: {
+            id: currentFormId.value,
+            answers: newAnswers
         }
     })
 
