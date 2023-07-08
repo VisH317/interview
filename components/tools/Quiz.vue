@@ -11,22 +11,42 @@ interface MultipleChoice {
 }
 
 const user = useSupabaseUser()
-const { data: quizzes, refresh } = await useFetch("/api/quiz", {
+const { data: quizzes, pending, refresh } = await useFetch("/api/quiz", {
     query: { id: user.value?.id },
 })
 
 const quiz = useState<boolean>("quiz")
 const currentNote = useState<string | null>("currentNote")
+
+console.log("pending: ", pending)
+console.log("currentNote: ", currentNote.value)
+
+// const { data: note, refresh: refreshNotes, error } = await useFetch("/api/noteById", {
+//     query: { id: currentNote.value },
+// })
+
+const { data: note, refresh: refreshNotes, error } = await useAsyncData(`get_note${currentNote}`, () => $fetch("/api/noteById", {
+    query: { id: currentNote.value as string }
+    }),
+    {
+        watch: [currentNote],
+    }
+)
+
+console.log("error: ", error.value)
+
 watch(currentNote, () => {
     if (currentNote.value === null) quiz.value = false
 })
 
+watch(note, () => {
+    console.log("noteChanges? ", note.value)
+})
+
+console.log("NOTE: ", note)
+
 const currentQuiz = ref<"home" | "quiz" | "graded">("home")
 const loading = ref<boolean>(false)
-
-const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
-    query: { id: currentNote.value },
-})
 
 const quizText = ref<string[]>([])
 const formStates = ref<(string | number)[]>([])

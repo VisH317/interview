@@ -4,7 +4,7 @@ import chain from "../../utils/quizChain"
 import prisma from "../../utils/prisma"
 
 const reqType = z.object({
-    userid: z.string()
+    userid: z.string(),
     text: z.string(),
 })
 
