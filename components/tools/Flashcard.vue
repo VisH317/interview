@@ -18,8 +18,8 @@ const createCard = () => {
 
 <template>
     <NoteModal open-def="flashcard">
-        <div class="p-5 py-10 flex flex-col items-center gap-5">
-            <div class="flex justify-between w-[90%] items-center">
+        <div class="p-5 py-10 flex flex-col items-center gap-5 h-full">
+            <div class="flex-none flex justify-between w-[90%] items-center">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note.title }}: Your Flashcards
                 </h2>
@@ -32,6 +32,15 @@ const createCard = () => {
                         Make Flashcards
                     </div>
                 </div>
+            </div>
+            <div v-if="note.cards && note.cards.length===0" class="grow flex justify-center items-center text-4xl text-slate-400 font-semibold">No Flashcards Yet, Generate Some Above ⬆</div>
+            <div v-else class="grow flex justify-center items-center gap-4">
+                <span class="p-5">
+                    <font-awesome-icon icon="fa-solid fa-caret-left" />
+                </span>
+                <span class="p-5">
+                    <font-awesome-icon icon="fa-solid fa-caret-right" />
+                </span>
             </div>
         </div>
     </NoteModal>
