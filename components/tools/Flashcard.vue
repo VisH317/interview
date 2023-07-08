@@ -33,11 +33,13 @@ console.log("card: ", note.value)
 const incrementVal = () => {
     if (val.value + 1 >= note.value.cards.length) val.value = 0;
     else val.value++
+    console.log("val: ", val.value)
 }
 
 const decrementVal = () => {
     if (val.value - 1 < 0) val.value = note.value.cards.length - 1
     else val.value--
+    console.log("val: ", val.value)
 }
 
 const createCard = async () => {
@@ -79,16 +81,16 @@ const createCard = async () => {
                 No Flashcards Yet, Generate Some Above ⬆
             </div>
             <div v-else class="grow flex justify-center items-center gap-4 w-full">
-                <span class="p-5 hover:bg-slate-100 rounded-xl" @click="decrementVal">
+                <span class="p-5 hover:bg-slate-100 rounded-xl z-20" @click="decrementVal">
                     <font-awesome-icon icon="fa-solid fa-caret-left" class="text-5xl" />
                 </span>
-                <div :class="`w-[700px] max-w-[80%] aspect-video overflow-hidden text-black duration-300`">
-                    <div :class="`flex flex-nowrap w-[${note.cards?.length * 100}%] h-full left-[${val*100}%]`">
+                <div :class="`w-[700px] max-w-[80%] aspect-video duration-300 overflow-hidden`">
+                    <div :class="`flex flex-nowrap w-[${note.cards?.length * 100}%] h-full relative duration-300 gap-4 px-4`" :style="`left: -${val*100}%`">
                         <Card v-for="card in note.cards" />
                         <!-- {{ note.cards.length * 100 }} -->
                     </div>
                 </div>
-                <span class="p-5 hover:bg-slate-100 rounded-xl" @click="incrementVal">
+                <span class="p-5 hover:bg-slate-100 rounded-xl z-20" @click="incrementVal">
                     <font-awesome-icon icon="fa-solid fa-caret-right" class="text-5xl" />
                 </span>
             </div>
