@@ -29,16 +29,14 @@ export default defineEventHandler(async (event) => {
 
     const record = await prisma.quiz.create({
         data: {
-            date: Date.now(),
-            questions: res.split("\n"),
+            date: new Date(),
+            questions: res.text.split("\n"),
             answers: [],
             graded: false,
             userid,
-        }
+        },
     })
+    console.log("splitres: ", res.text.split("\n"))
 
-    console.log("res: ", res)
-    console.log("splitres: ", res.split("\n"))
-
-    return [res.split("\n"), record.id]
+    return [res.text.split("\n"), record.id]
 })
