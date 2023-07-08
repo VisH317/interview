@@ -30,7 +30,7 @@ console.log("currentNote: ", currentNote.value)
 
 // fetching current modal state
 
-const { data: note, error } = await useAsyncData(
+const { data: note, error, refresh: refreshNotes } = await useAsyncData(
     `get_note${currentNote}`,
     () =>
         $fetch("/api/noteById", {
@@ -193,6 +193,8 @@ const submitQuiz = async () => {
     quizQuestions.value = newQuestions
     currentQuiz.value = "graded"
     loading.value = false
+
+    await refreshNotes()
 }
 
 // add old quiz function
@@ -200,22 +202,22 @@ const submitQuiz = async () => {
 const addOldQuiz = async (id: number) => {
     const quiz = quizzes.value![id]
     console.log("id: ", id)
-    console.log("quiz: ", quiz.id)
+    console.log("quiz: ", quiz)
 
     quizText.value = quiz.questions
     currentFormId.value = quiz.id
 
     // eslint-disable-next-line array-callback-return
-    quizText.value.map((t) => {
+    quizText.value.map((t, idx) => {
         const value: string[] = t.split(";")
         if (value[0]?.includes("open") || value[0]?.includes("ended")) {
             const ret: OpenEnded = {
                 question: value[1]?.replace(/^\s+|\s+$/g, ""),
-                answer: null,
+                answer: quiz.answers[idx] ? quiz.answers[idx] : null,
             }
             quizQuestions.value = [...quizQuestions.value, ret]
             // formStates.value = [...formStates.value, ""]
-            formStates.value = [...formStates.value, ""]
+            formStates.value = [...formStates.value, quiz.responses[idx] ? quiz.responses[idx] : ""]
             return
         }
 
@@ -229,14 +231,18 @@ const addOldQuiz = async (id: number) => {
         }
 
         // formStates.value = [...formStates.value, -1]
-        formStates.value = [...formStates.value, -1]
+        formStates.value = [...formStates.value, quiz.responses[idx] ? quiz.responses[idx] : -1]
         quizQuestions.value = [...quizQuestions.value, ret]
     })
 
     console.log("TeSTSETL ", formStates.value[0])
 
-    currentQuiz.value = "quiz"
+    currentQuiz.value = quiz.answers.length>0 ? "graded" : "quiz"
     loading.value = false
+}
+
+const back = () => {
+    currentQuiz.value = "home"
 }
 </script>
 
@@ -405,7 +411,7 @@ const addOldQuiz = async (id: number) => {
                             ? ''
                             : 'hover:-translate-y-1 hover:opacity-[0.85]'
                     } w-48 h-24`"
-                    @click="() => void submitQuiz()"
+                    @click="() => void back()"
                 >
                     <div
                         class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
@@ -418,7 +424,7 @@ const addOldQuiz = async (id: number) => {
                                 : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
                         } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
                     >
-                        Submit
+                        Back
                     </div>
                 </button>
             </div>
