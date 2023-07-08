@@ -319,7 +319,7 @@ const addOldQuiz = async (id: number) => {
                             ? ''
                             : 'hover:-translate-y-1 hover:opacity-[0.85]'
                     } w-48 h-24`"
-                    @click="() => void tempSubmitQuiz()"
+                    @click="() => void submitQuiz()"
                 >
                     <div
                         class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
@@ -339,20 +339,21 @@ const addOldQuiz = async (id: number) => {
         </div>
         <div
             v-else-if="currentQuiz === 'graded'"
-            class="p-5 py-10 flex flex-col items-center gap-5"
+            class="pt-10 flex flex-col items-center gap-5 h-full"
         >
             <div class="flex-none">
-                <h2 class="text-4xl text-slate-400 font-semibold">
+                <h2 class="text-5xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz Results
                 </h2>
             </div>
-            <div class="grow flex flex-col gap-5 items-center">
+            <div class="h-2"/>
+            <div class="grow flex flex-col gap-10 overflow-y-auto p-5">
                 <div v-for="(question, ix) in quizQuestions">
                     <div
                         v-if="'answers' in question"
                         class="flex flex-col gap-2"
                     >
-                        <p class="text-xl text-slate-800">
+                        <p class="text-xl text-slate-400 font-semibold">
                             {{ question.question }}
                         </p>
                         <div
@@ -371,15 +372,55 @@ const addOldQuiz = async (id: number) => {
                             {{ answer }}
                         </div>
                     </div>
-                    <div v-else class="flex flex-col gap-2">
-                        <p class="text-xl text-slate-800">
+                    <div v-else class="flex flex-col gap-5">
+                        <p class="text-2xl text-slate-400 font-semibold">
                             {{ question.question }}
                         </p>
-                        <p class="text-xl text-slate-800">
-                            Graded: {{ question.answer }}
+                        <div
+                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-full"
+                        >
+                            <input
+                                type="text"
+                                class="w-full p-5 h-full rounded-md outline-none text-lg bg-slate-200 text-slate-600 font-light"
+                                :value="'You Answered: '+formStates[ix]"
+                                placeholder="Answer: "
+                                style="resize: none"
+                                readonly
+                            />
+                        </div>
+                        <p :class="`text-lg font-light ${question.answer?.split(':')[0].toLowerCase().includes('incorrect') ? 'text-red-400' : 'text-green-400'}`">
+                            {{ question.answer }}
                         </p>
                     </div>
+                    <hr
+                            class="w-48 h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-slate-300"
+                        />
                 </div>
+            </div>
+            <div class="flex-none w-full justify-end flex pr-20 bg-slate-100 p-2 py-4">
+                <button
+                    :disabled="disabled"
+                    :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
+                        disabled
+                            ? ''
+                            : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                    } w-48 h-24`"
+                    @click="() => void submitQuiz()"
+                >
+                    <div
+                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
+                        v-if="!disabled"
+                    ></div>
+                    <div
+                        :class="` ${
+                            disabled
+                                ? 'bg-slate-300 cursor-default'
+                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                        } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                    >
+                        Submit
+                    </div>
+                </button>
             </div>
         </div>
         <div v-else class="p-5 py-10 flex flex-col items-center gap-5">

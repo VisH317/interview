@@ -22,5 +22,7 @@ export default defineEventHandler(async (event) => {
         questions: questions.join("\n"),
     })
 
+    console.log("text: ", res.text.split("\n"))
+
     return res.text.split("\n")
 })
