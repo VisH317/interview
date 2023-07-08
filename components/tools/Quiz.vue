@@ -53,6 +53,7 @@ const createQuiz = async () => {
         if(value[0]?.includes("open") || value[0]?.includes("ended")) {
             const ret: OpenEnded = { question: value[1]?.replace(/^\s+|\s+$/g, '') }
             quizQuestions.value = [...quizQuestions.value, ret]
+            formStates.value = [...formStates.value, ""]
             return
         }
 
@@ -65,18 +66,12 @@ const createQuiz = async () => {
             correct: Number(value[3]?.replace(/^\s+|\s+$/g, ''))
         }
 
+        formStates.value = [...formStates.value, -1]
         quizQuestions.value = [...quizQuestions.value, ret]
     })
 
     currentQuiz.value = true
     loading.value = false
-}
-
-const mapQuizText = () => {
-    return quizQUestions.value.map(t => {
-        const values: string[] = t.split(";")
-        if(values[0]?.includes("open") || values[0]?.includes("ended"))
-    })
 }
 </script>
 
@@ -86,9 +81,24 @@ const mapQuizText = () => {
             :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'}`">
             LOADING</div>
         <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
-            <h2 class="text-4xl text-slate-400 font-semibold">
-                {{ note?.title }}: Quiz
-            </h2>
+            <div class="flex-none">
+                <h2 class="text-4xl text-slate-400 font-semibold">
+                    {{ note?.title }}: Quiz
+                </h2>
+            </div>
+            <div class="grow flex flex-col gap-5 items-center">
+                <div v-for="(question, ix) in quizQuestions">
+                    <div class="flex flex-col gap-2" v-if="'answers' in question">
+                        <p class="text-xl text-slate-800">{{ question.question }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2" v-else>
+                        <p class="text-xl text-slate-800">{{ question.question }}</p>
+                        <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                            <textarea type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: " v-model="formStates[ix]!" style="resize: none"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div v-else class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex justify-between w-[90%] items-center">
