@@ -4,12 +4,13 @@ import chain from "../../utils/quizChain"
 import prisma from "../../utils/prisma"
 
 const reqType = z.object({
+    userid: z.string()
     text: z.string(),
 })
 
 export default defineEventHandler(async (event) => {
     console.log("test")
-    const { text } = reqType.parse(await readBody(event))
+    const { text, userid } = reqType.parse(await readBody(event))
 
     console.log("text: ", text)
 
@@ -28,7 +29,11 @@ export default defineEventHandler(async (event) => {
 
     await prisma.quiz.create({
         data: {
-            
+            date: Date.now(),
+            questions: res.split("\n"),
+            answers: [],
+            graded: false,
+            userid,
         }
     })
 

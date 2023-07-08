@@ -40,6 +40,7 @@ const createQuiz = async () => {
             method: "POST",
             body: {
                 text: note.value?.content,
+                userid: user.value?.id,
             },
         })
     )
