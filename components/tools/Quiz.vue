@@ -231,7 +231,7 @@ const submitQuiz = async () => {
             </div>
             <div class="flex flex-col w-[90%] gap-2">
                 <div v-for="quiz in quizzes" class="p-5">
-                    <h1>{{ quiz.title }}</h1>
+                    <h1>Quiz {{ quiz.date }}</h1>
                 </div>
             </div>
         </div>
