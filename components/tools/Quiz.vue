@@ -124,7 +124,7 @@ const submitQuiz = async () => {
             }`">
             LOADING
         </div>
-        <div v-if="currentQuiz==='quiz'" class="p-5 py-10 flex flex-col items-center gap-5">
+        <div v-if="currentQuiz === 'quiz'" class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex-none">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz
@@ -154,7 +154,7 @@ const submitQuiz = async () => {
                 </div>
             </div>
         </div>
-        <div v-else-if="currentQuiz==='graded'" class="p-5 py-10 flex flex-col items-center gap-5">
+        <div v-else-if="currentQuiz === 'graded'" class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex-none">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz Results
@@ -166,8 +166,9 @@ const submitQuiz = async () => {
                         <p class="text-xl text-slate-800">
                             {{ question.question }}
                         </p>
-                        <div v-for="(answer, idx) in question.answers" :class="`${formStates[ix]!==question.correct && idx===question.correct ? 'bg-red-300' : formStates[ix]===question.correct && idx===question.correct ? 'bg-green-300' : ''}`">
-                            <input v-model="formStates[ix]" type="radio" :value="idx" />
+                        <div v-for="(answer, idx) in question.answers"
+                            :class="`${formStates[ix] !== question.correct && idx === question.correct ? 'bg-red-300' : formStates[ix] === question.correct && idx === question.correct ? 'bg-green-300' : ''}`">
+                            <input type="radio" />
                             {{ answer }}
                         </div>
                     </div>
@@ -175,11 +176,9 @@ const submitQuiz = async () => {
                         <p class="text-xl text-slate-800">
                             {{ question.question }}
                         </p>
-                        <div
-                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                            <textarea type="text" class="w-full p-5 rounded-md outline-none text-lg"
-                                v-model="formStates[ix]" placeholder="Email: " style="resize: none" />
-                        </div>
+                        <p class="text-xl text-slate-800">
+                            Graded: {{ question.answer }}
+                        </p>
                     </div>
                 </div>
             </div>
