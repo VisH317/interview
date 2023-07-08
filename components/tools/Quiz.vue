@@ -125,6 +125,7 @@ const createQuiz = async () => {
 const submitQuiz = async () => {
     const arr = quizQuestions.value.filter((q) => !("answers" in q))
     const req: string[] = []
+    loading.value = true
     // eslint-disable-next-line array-callback-return
     arr.map((q, ix) => {
         req.push(
@@ -150,7 +151,7 @@ const submitQuiz = async () => {
     let it = 0
 
     const newQuestions = [...quizQuestions.value]
-    const newAnswers = []
+    const newAnswers: string[] = []
 
     // eslint-disable-next-line array-callback-return
     quizQuestions.value.map((q) => {
@@ -160,8 +161,9 @@ const submitQuiz = async () => {
         }
     })
 
+    // eslint-disable-next-line array-callback-return
     quizQuestions.value.map((q) => {
-        if ("answer" in q) newAnswers.push(q.answer)
+        if ("answer" in q) newAnswers.push(q.answer as string)
         else newAnswers.push(String(q.correct))
     })
 
@@ -183,6 +185,7 @@ const submitQuiz = async () => {
 
     quizQuestions.value = newQuestions
     currentQuiz.value = "graded"
+    loading.value = false
 }
 
 // add old quiz function
