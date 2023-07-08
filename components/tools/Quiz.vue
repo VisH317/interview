@@ -250,7 +250,7 @@ const back = () => {
     <NoteModal open-def="quiz">
         <div
             :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${
-                loading ? '' : ''
+                loading ? '' : 'hidden'
             }`"
         >
             LOADING
