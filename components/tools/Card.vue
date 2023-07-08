@@ -19,19 +19,19 @@ const flipFront = () => {
 
 <template>
     <div
-        :class="`w-1/2 aspect-video overflow-hidden ${hidden ? 'hidden' : ''}`"
+        :class="`w-1/2 relative h-2/3 overflow-hidden ${hidden ? 'hidden' : ''} border-2 border-black`"
     >
         <div
-            class="p-20 rounded-lg w-full aspect-square overflow-hidden duration-300"
+            class="p-20 rounded-lg w-full aspect-video overflow-hidden duration-300 border-2 bg-slate-100 absolute top-0 left-0"
             :style="`transform-style: preserve-3d; transform: ${r}; backface-visibility: hidden`"
-            @click="flipFront"
+            @click="flipBack"
         >
             test
         </div>
         <div
-            class="bg-slate-600 h-full p-5 rounded-lg w-full aspect-square duration-300 relative -top-full flex flex-col justify-center items-center"
+            class="p-20 rounded-lg w-full aspect-video overflow-hidden duration-300 border-2 bg-slate-600 absolute top-0 left-0"
             :style="`transform-style: preserve-3d; transform: ${b}; backface-visibility: hidden`"
-            @click="flipBack"
+            @click="flipFront"
         >
             test
         </div>
