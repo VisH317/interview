@@ -11,6 +11,7 @@ model Note {
     id String @id @default(uuid())
     title String
     content String
+    cards String[]
     userid String @db.Uuid()
 }
 

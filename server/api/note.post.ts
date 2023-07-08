@@ -14,7 +14,10 @@ export default defineEventHandler(async (event) => {
         console.log("body: ", body)
         const val = payload.parse(body)
         await prisma.note.create({
-            data: val,
+            data: {
+                ...val,
+                cards: [],
+            },
         })
         return "Note Created"
     } catch (error) {
