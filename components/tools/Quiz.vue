@@ -170,11 +170,18 @@ const submitQuiz = async () => {
         else newAnswers.push(String(q.correct))
     })
 
+    const responses: string[] = []
+
+    formStates.value.map(f => {
+        responses.push(String(f))
+    })
+
     await $fetch("/api/quiz", {
         method: "PATCH",
         body: {
             id: currentFormId.value,
             answers: newAnswers,
+            responses
         },
     })
 
@@ -266,15 +273,15 @@ const addOldQuiz = async (id: number) => {
             </div>
             <div class="w-full justify-end flex pr-20 bg-slate-100 p-2 py-4">
                 <button :disabled="disabled" :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled
-                        ? ''
-                        : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                    ? ''
+                    : 'hover:-translate-y-1 hover:opacity-[0.85]'
                     } w-48 h-24`" @click="() => void onSubmit()">
                     <div class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
                         v-if="!disabled"></div>
                     <div
                         :class="` ${disabled
-                                ? 'bg-slate-300 cursor-default'
-                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                            ? 'bg-slate-300 cursor-default'
+                            : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
                             } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
                         Submit
                     </div>
@@ -294,12 +301,12 @@ const addOldQuiz = async (id: number) => {
                             {{ question.question }}
                         </p>
                         <div v-for="(answer, idx) in question.answers" :class="`${formStates[ix] !== question.correct &&
+                            idx === question.correct
+                            ? 'bg-red-300'
+                            : formStates[ix] === question.correct &&
                                 idx === question.correct
-                                ? 'bg-red-300'
-                                : formStates[ix] === question.correct &&
-                                    idx === question.correct
-                                    ? 'bg-green-300'
-                                    : ''
+                                ? 'bg-green-300'
+                                : ''
                             }`">
                             <input type="radio" />
                             {{ answer }}
@@ -334,8 +341,8 @@ const addOldQuiz = async (id: number) => {
             <div class="h-4" />
             <div class="flex flex-col w-[90%] gap-2">
                 <div v-for="(quiz, id) in quizzes" :class="`p-5 ${quiz.answers.length !== 0
-                        ? 'hover:bg-green-300'
-                        : 'hover:bg-slate-200'
+                    ? 'hover:bg-green-300'
+                    : 'hover:bg-slate-200'
                     } duration-300`" @click="() => addOldQuiz(id)">
                     <h1 class="text-2xl font-semibold text-slate-800">
                         Quiz {{ quiz.date }}
