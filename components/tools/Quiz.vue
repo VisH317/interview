@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { STATUS_CODES } from "http"
-
+// interfaces for questions
 interface OpenEnded {
     question: string
     answer: string | null
@@ -11,6 +10,8 @@ interface MultipleChoice {
     answers: string[]
     correct: number
 }
+
+// fetching quizzes, user, quiz modal state
 
 const user = useSupabaseUser()
 const {
@@ -27,15 +28,9 @@ const currentNote = useState<string | null>("currentNote")
 console.log("pending: ", pending)
 console.log("currentNote: ", currentNote.value)
 
-// const { data: note, refresh: refreshNotes, error } = await useFetch("/api/noteById", {
-//     query: { id: currentNote.value },
-// })
+// fetching current modal state
 
-const {
-    data: note,
-    refresh: refreshNotes,
-    error,
-} = await useAsyncData(
+const { data: note, error } = await useAsyncData(
     `get_note${currentNote}`,
     () =>
         $fetch("/api/noteById", {
@@ -46,17 +41,11 @@ const {
     }
 )
 
-console.log("error: ", error.value)
-
 watch(currentNote, () => {
     if (currentNote.value === null) quiz.value = false
 })
 
-watch(note, () => {
-    console.log("noteChanges? ", note.value)
-})
-
-console.log("NOTE: ", note)
+// quiz states
 
 const currentQuiz = ref<"home" | "quiz" | "graded">("home")
 const loading = ref<boolean>(false)
@@ -72,13 +61,17 @@ watch(formStates, () => {
     let shouldDisable = false
     for (const state in formStates.value) {
         if (
-            (typeof formStates.value[state] === "string" && formStates.value[state].length === 0) ||
-            (typeof formStates.value[state] === "number" && formStates.value[state] as number < 0)
+            (typeof formStates.value[state] === "string" &&
+                formStates.value[state].length === 0) ||
+            (typeof formStates.value[state] === "number" &&
+                (formStates.value[state] as number) < 0)
         )
             shouldDisable = true
     }
     disabled.value = shouldDisable
 })
+
+// create quiz function
 
 const createQuiz = async () => {
     loading.value = true
@@ -127,6 +120,8 @@ const createQuiz = async () => {
     loading.value = false
 }
 
+// submit quiz function
+
 const submitQuiz = async () => {
     const arr = quizQuestions.value.filter((q) => !("answers" in q))
     const req: string[] = []
@@ -172,7 +167,8 @@ const submitQuiz = async () => {
 
     const responses: string[] = []
 
-    formStates.value.map(f => {
+    // eslint-disable-next-line array-callback-return
+    formStates.value.map((f) => {
         responses.push(String(f))
     })
 
@@ -181,13 +177,15 @@ const submitQuiz = async () => {
         body: {
             id: currentFormId.value,
             answers: newAnswers,
-            responses
+            responses,
         },
     })
 
     quizQuestions.value = newQuestions
     currentQuiz.value = "graded"
 }
+
+// add old quiz function
 
 const addOldQuiz = async (id: number) => {
     const quiz = quizzes.value![id]
@@ -230,27 +228,47 @@ const addOldQuiz = async (id: number) => {
 
 <template>
     <NoteModal open-def="quiz">
-        <div :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'
-            }`">
+        <div
+            :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${
+                loading ? '' : 'hidden'
+            }`"
+        >
             LOADING
         </div>
-        <div v-if="currentQuiz === 'quiz'" class="flex flex-col items-center h-full w-full">
+        <div
+            v-if="currentQuiz === 'quiz'"
+            class="flex flex-col items-center h-full w-full"
+        >
             <div class="flex-none py-5">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz
                 </h2>
             </div>
-            <div class="grow flex flex-col gap-5 overflow-y-auto w-full items-center">
-                <div v-for="(question, ix) in quizQuestions" class="p-5 w-[80%]">
-                    <div v-if="'answers' in question" class="flex flex-col gap-2">
+            <div
+                class="grow flex flex-col gap-5 overflow-y-auto w-full items-center"
+            >
+                <div
+                    v-for="(question, ix) in quizQuestions"
+                    class="p-5 w-[80%]"
+                >
+                    <div
+                        v-if="'answers' in question"
+                        class="flex flex-col gap-2"
+                    >
                         <p class="text-xl text-slate-500">
                             {{ question.question }}
                         </p>
                         <div v-for="(answer, idx) in question.answers">
-                            <input v-model="formStates[ix]" type="radio" :value="idx" />
+                            <input
+                                v-model="formStates[ix]"
+                                type="radio"
+                                :value="idx"
+                            />
                             {{ answer }}
                         </div>
-                        <hr class="w-48 h-1 mx-auto bg-slate-400 border-0 rounded md:my-10 dark:bg-slate-400" />
+                        <hr
+                            class="w-48 h-1 mx-auto bg-slate-400 border-0 rounded md:my-10 dark:bg-slate-400"
+                        />
                     </div>
                     <div v-else class="flex flex-col gap-2">
                         <p class="text-xl text-slate-400 font-light">
@@ -263,32 +281,52 @@ const addOldQuiz = async (id: number) => {
                             }}
                         </p>
                         <div
-                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-full h-32">
-                            <textarea type="text" class="w-full p-5 h-full rounded-md outline-none text-lg"
-                                v-model="formStates[ix]" placeholder="Answer: " style="resize: none" />
+                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-full h-32"
+                        >
+                            <textarea
+                                type="text"
+                                class="w-full p-5 h-full rounded-md outline-none text-lg"
+                                v-model="formStates[ix]"
+                                placeholder="Answer: "
+                                style="resize: none"
+                            />
                         </div>
-                        <hr class="w-48 h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-slate-300" />
+                        <hr
+                            class="w-48 h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-slate-300"
+                        />
                     </div>
                 </div>
             </div>
             <div class="w-full justify-end flex pr-20 bg-slate-100 p-2 py-4">
-                <button :disabled="disabled" :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled
-                    ? ''
-                    : 'hover:-translate-y-1 hover:opacity-[0.85]'
-                    } w-48 h-24`" @click="() => void onSubmit()">
-                    <div class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
-                        v-if="!disabled"></div>
+                <button
+                    :disabled="disabled"
+                    :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
+                        disabled
+                            ? ''
+                            : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                    } w-48 h-24`"
+                    @click="() => void submitQuiz()"
+                >
                     <div
-                        :class="` ${disabled
-                            ? 'bg-slate-300 cursor-default'
-                            : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
-                            } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
+                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
+                        v-if="!disabled"
+                    ></div>
+                    <div
+                        :class="` ${
+                            disabled
+                                ? 'bg-slate-300 cursor-default'
+                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                        } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                    >
                         Submit
                     </div>
                 </button>
             </div>
         </div>
-        <div v-else-if="currentQuiz === 'graded'" class="p-5 py-10 flex flex-col items-center gap-5">
+        <div
+            v-else-if="currentQuiz === 'graded'"
+            class="p-5 py-10 flex flex-col items-center gap-5"
+        >
             <div class="flex-none">
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}: Quiz Results
@@ -296,18 +334,25 @@ const addOldQuiz = async (id: number) => {
             </div>
             <div class="grow flex flex-col gap-5 items-center">
                 <div v-for="(question, ix) in quizQuestions">
-                    <div v-if="'answers' in question" class="flex flex-col gap-2">
+                    <div
+                        v-if="'answers' in question"
+                        class="flex flex-col gap-2"
+                    >
                         <p class="text-xl text-slate-800">
                             {{ question.question }}
                         </p>
-                        <div v-for="(answer, idx) in question.answers" :class="`${formStates[ix] !== question.correct &&
-                            idx === question.correct
-                            ? 'bg-red-300'
-                            : formStates[ix] === question.correct &&
+                        <div
+                            v-for="(answer, idx) in question.answers"
+                            :class="`${
+                                formStates[ix] !== question.correct &&
                                 idx === question.correct
-                                ? 'bg-green-300'
-                                : ''
-                            }`">
+                                    ? 'bg-red-300'
+                                    : formStates[ix] === question.correct &&
+                                      idx === question.correct
+                                    ? 'bg-green-300'
+                                    : ''
+                            }`"
+                        >
                             <input type="radio" />
                             {{ answer }}
                         </div>
@@ -329,21 +374,30 @@ const addOldQuiz = async (id: number) => {
                     {{ note?.title }}: Your Quizzes
                 </h2>
                 <div
-                    class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-48 h-24">
+                    class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-48 h-24"
+                >
                     <button
-                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"></button>
-                    <div class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-800 text-white text-2xl font-light py-3 px-5 rounded-lg items-center h-14 w-40 cursor-pointer text-center z-20 absolute left-4 top-5"
-                        @click="createQuiz">
+                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
+                    ></button>
+                    <div
+                        class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-800 text-white text-2xl font-light py-3 px-5 rounded-lg items-center h-14 w-40 cursor-pointer text-center z-20 absolute left-4 top-5"
+                        @click="createQuiz"
+                    >
                         Start a Quiz
                     </div>
                 </div>
             </div>
             <div class="h-4" />
             <div class="flex flex-col w-[90%] gap-2">
-                <div v-for="(quiz, id) in quizzes" :class="`p-5 ${quiz.answers.length !== 0
-                    ? 'hover:bg-green-300'
-                    : 'hover:bg-slate-200'
-                    } duration-300`" @click="() => addOldQuiz(id)">
+                <div
+                    v-for="(quiz, id) in quizzes"
+                    :class="`p-5 ${
+                        quiz.answers.length !== 0
+                            ? 'hover:bg-green-300'
+                            : 'hover:bg-slate-200'
+                    } duration-300`"
+                    @click="() => addOldQuiz(id)"
+                >
                     <h1 class="text-2xl font-semibold text-slate-800">
                         Quiz {{ quiz.date }}
                     </h1>
