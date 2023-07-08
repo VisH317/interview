@@ -1,4 +1,15 @@
 <script setup lang="ts">
+
+interface OpenEnded {
+    question: string
+}
+
+interface MultipleChoice {
+    question: string
+    answers: string[]
+    correct: number
+}
+
 const user = useSupabaseUser()
 const { data: quizzes, refresh } = await useFetch("/api/quiz", {
     query: { id: user.value?.id },
@@ -17,15 +28,18 @@ const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
     query: { id: currentNote.value },
 })
 
-const quizText = ref<string>("")
+const quizText = ref<string[]>([])
+const formStates = ref<(string | number)[]>([])
+const quizQuestions = ref<(OpenEnded | MultipleChoice)[]>([])
 
 const createQuiz = async () => {
+    loading.value = true
     console.log("nothing here to see :)")
     const { data: quizData } = await useAsyncData("genQuiz", () =>
         $fetch("/api/quiz", {
             method: "POST",
             body: {
-                text: note.value.content,
+                text: note.value?.content,
             },
         })
     )
@@ -33,6 +47,36 @@ const createQuiz = async () => {
     console.log("data: ", quizData)
 
     quizText.value = quizData.value
+
+    quizText.value.map(t => {
+        const value: string[] = t.split(";")
+        if(value[0]?.includes("open") || value[0]?.includes("ended")) {
+            const ret: OpenEnded = { question: value[1]?.replace(/^\s+|\s+$/g, '') }
+            quizQuestions.value = [...quizQuestions.value, ret]
+            return
+        }
+
+        const answers = value[2]?.split(",")
+        answers.map((a, ix) => answers[ix] = a.replace(/^\s+|\s+$/g, ''))
+
+        const ret: MultipleChoice = {
+            question: value[1]?.replace(/^\s+|\s+$/g, ''),
+            answers,
+            correct: Number(value[3]?.replace(/^\s+|\s+$/g, ''))
+        }
+
+        quizQuestions.value = [...quizQuestions.value, ret]
+    })
+
+    currentQuiz.value = true
+    loading.value = false
+}
+
+const mapQuizText = () => {
+    return quizQUestions.value.map(t => {
+        const values: string[] = t.split(";")
+        if(values[0]?.includes("open") || values[0]?.includes("ended"))
+    })
 }
 </script>
 
@@ -42,12 +86,14 @@ const createQuiz = async () => {
             :class="`w-full h-full absolute bg-[rgba(30,41,59,0.7)] z-50 flex justify-center items-center text-4xl font-semibold ${loading ? '' : 'hidden'}`">
             LOADING</div>
         <div v-if="currentQuiz" class="p-5 py-10 flex flex-col items-center gap-5">
-            test
+            <h2 class="text-4xl text-slate-400 font-semibold">
+                {{ note?.title }}: Quiz
+            </h2>
         </div>
         <div v-else class="p-5 py-10 flex flex-col items-center gap-5">
             <div class="flex justify-between w-[90%] items-center">
                 <h2 class="text-4xl text-slate-400 font-semibold">
-                    {{ note.title }}: Your Quizzes
+                    {{ note?.title }}: Your Quizzes
                 </h2>
                 <div
                     class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-48 h-24">
@@ -65,4 +111,5 @@ const createQuiz = async () => {
                 </div>
             </div>
         </div>
-    </NoteModal></template>
+    </NoteModal>
+</template>
