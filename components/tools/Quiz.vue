@@ -317,7 +317,12 @@ const back = () => {
                     </div>
                 </div>
             </div>
-            <div class="w-full justify-end flex pr-20 bg-slate-100 p-2 py-4">
+            <div class="w-full justify-end flex gap-10 pr-20 bg-slate-100 p-2 py-4">
+                <button
+                    :class="`group-hover:shadow-lg border-slate-800 border-2 duration-300 hover:border-slate-400 hover:text-slate-400 cursor-pointer text-slate-800 duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20`" @click="back"
+                >
+                    Back
+                </button>
                 <button
                     :disabled="disabled"
                     :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
@@ -341,6 +346,7 @@ const back = () => {
                         Submit
                     </div>
                 </button>
+                
             </div>
         </div>
         <div
@@ -403,29 +409,11 @@ const back = () => {
                         />
                 </div>
             </div>
-            <div class="flex-none w-full justify-end flex pr-20 bg-slate-100 p-2 py-4">
+            <div class="flex-none w-full justify-end flex pr-20 bg-slate-100 p-2 py-8">
                 <button
-                    :disabled="disabled"
-                    :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
-                        disabled
-                            ? ''
-                            : 'hover:-translate-y-1 hover:opacity-[0.85]'
-                    } w-48 h-24`"
-                    @click="() => void back()"
+                    :class="`group-hover:shadow-lg border-slate-800 border-2 duration-300 hover:border-slate-400 hover:text-slate-400 cursor-pointer text-slate-800 duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20`" @click="back"
                 >
-                    <div
-                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
-                        v-if="!disabled"
-                    ></div>
-                    <div
-                        :class="` ${
-                            disabled
-                                ? 'bg-slate-300 cursor-default'
-                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
-                        } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
-                    >
-                        Back
-                    </div>
+                    Back
                 </button>
             </div>
         </div>
