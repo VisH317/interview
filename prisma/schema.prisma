@@ -16,8 +16,10 @@ model Note {
 
 model Quiz {
     id String @id @db.Uuid @default(uuid())
-    title String
-    questions Question[]
+    date DateTime
+    questions String[]
+    answers String[]
+    graded Boolean
     userid String @db.Uuid()
 }
 
@@ -26,13 +28,13 @@ enum QuestionType {
     MULTIPLE_CHOICE
 }
 
-model Question {
-    id String @id @db.Uuid @default(uuid())
-    type QuestionType
-    question String
-    quizId String @db.Uuid 
-    quiz Quiz @relation (fields: [quizId], references: [id])
-}
+// model Question {
+//     id String @id @db.Uuid @default(uuid())
+//     type QuestionType
+//     question String
+//     quizId String @db.Uuid 
+//     quiz Quiz @relation (fields: [quizId], references: [id])
+// }
 
 model Flashcard {
     id String @id @db.Uuid @default(uuid())
