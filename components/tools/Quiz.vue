@@ -57,19 +57,25 @@ const currentFormId = ref<string>()
 
 const disabled = ref<boolean>(true)
 
-watch(formStates, () => {
-    let shouldDisable = false
-    for (const state in formStates.value) {
-        if (
-            (typeof formStates.value[state] === "string" &&
-                formStates.value[state].length === 0) ||
-            (typeof formStates.value[state] === "number" &&
-                (formStates.value[state] as number) < 0)
-        )
-            shouldDisable = true
-    }
-    disabled.value = shouldDisable
-})
+watch(
+    formStates,
+    () => {
+        console.log("test change")
+        let shouldDisable = false
+        for (const state in formStates.value) {
+            console.log("state: ", formStates.value[state] as string)
+            if (
+                (typeof formStates.value[state] === "string" &&
+                    (formStates.value[state] as string).length === 0) ||
+                (typeof formStates.value[state] === "number" &&
+                    (formStates.value[state] as number) < 0)
+            )
+                shouldDisable = true
+        }
+        disabled.value = shouldDisable
+    },
+    { deep: true }
+)
 
 // create quiz function
 
@@ -112,6 +118,7 @@ const createQuiz = async () => {
             correct: Number(value[3]?.replace(/^\s+|\s+$/g, "")),
         }
 
+        // formStates.value = [...formStates.value, -1]
         formStates.value = [...formStates.value, -1]
         quizQuestions.value = [...quizQuestions.value, ret]
     })
@@ -207,6 +214,7 @@ const addOldQuiz = async (id: number) => {
                 answer: null,
             }
             quizQuestions.value = [...quizQuestions.value, ret]
+            // formStates.value = [...formStates.value, ""]
             formStates.value = [...formStates.value, ""]
             return
         }
@@ -220,9 +228,12 @@ const addOldQuiz = async (id: number) => {
             correct: Number(value[3]?.replace(/^\s+|\s+$/g, "")),
         }
 
+        // formStates.value = [...formStates.value, -1]
         formStates.value = [...formStates.value, -1]
         quizQuestions.value = [...quizQuestions.value, ret]
     })
+
+    console.log("TeSTSETL ", formStates.value[0])
 
     currentQuiz.value = "quiz"
     loading.value = false
@@ -308,7 +319,7 @@ const addOldQuiz = async (id: number) => {
                             ? ''
                             : 'hover:-translate-y-1 hover:opacity-[0.85]'
                     } w-48 h-24`"
-                    @click="() => void submitQuiz()"
+                    @click="() => void tempSubmitQuiz()"
                 >
                     <div
                         class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
