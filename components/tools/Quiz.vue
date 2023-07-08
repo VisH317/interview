@@ -50,7 +50,7 @@ const createQuiz = async () => {
 
     quizText.value.map(t => {
         const value: string[] = t.split(";")
-        if(value[0]?.includes("open") || value[0]?.includes("ended")) {
+        if (value[0]?.includes("open") || value[0]?.includes("ended")) {
             const ret: OpenEnded = { question: value[1]?.replace(/^\s+|\s+$/g, '') }
             quizQuestions.value = [...quizQuestions.value, ret]
             formStates.value = [...formStates.value, ""]
@@ -88,13 +88,30 @@ const createQuiz = async () => {
             </div>
             <div class="grow flex flex-col gap-5 items-center">
                 <div v-for="(question, ix) in quizQuestions">
-                    <div class="flex flex-col gap-2" v-if="'answers' in question">
+                    <div v-if="'answers' in question" class="flex flex-col gap-2">
                         <p class="text-xl text-slate-800">{{ question.question }}</p>
+                        <div v-for="(answer, idx) in question.answers">
+                            <input
+                                v-model="formStates[ix]"
+                                type="radio"
+                                :value="idx"
+                            />
+                            {{ answer }}
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-2" v-else>
-                        <p class="text-xl text-slate-800">{{ question.question }}</p>
-                        <div class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
-                            <textarea type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: " v-model="formStates[ix]!" style="resize: none"/>
+                    <div v-else class="flex flex-col gap-2">
+                        <p class="text-xl text-slate-800">
+                            {{ question.question }}
+                        </p>
+                        <div
+                            class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                            <textarea
+                                type="text"
+                                class="w-full p-5 rounded-md outline-none text-lg"
+                                v-model="formStates[ix]"
+                                placeholder="Email: "
+                                style="resize: none"
+                            />
                         </div>
                     </div>
                 </div>
@@ -116,10 +133,9 @@ const createQuiz = async () => {
                 </div>
             </div>
             <div class="flex flex-col w-[90%] gap-2">
-                <div class="p-5" v-for="quiz in quizzes">
+                <div v-for="quiz in quizzes" class="p-5">
                     <h1>{{ quiz.title }}</h1>
                 </div>
             </div>
         </div>
-    </NoteModal>
-</template>
+</NoteModal></template>
