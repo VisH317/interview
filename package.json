@@ -44,6 +44,7 @@
     "langchain": "^0.0.102",
     "openai-edge": "^1.1.0",
     "sass": "^1.63.6",
+    "vue-spinner": "^1.0.4",
     "vue-tsx-support": "^3.2.0"
   }
 }
