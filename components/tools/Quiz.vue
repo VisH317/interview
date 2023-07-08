@@ -31,6 +31,7 @@ const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
 const quizText = ref<string[]>([])
 const formStates = ref<(string | number)[]>([])
 const quizQuestions = ref<(OpenEnded | MultipleChoice)[]>([])
+const currentFormId = ref<string>()
 
 const createQuiz = async () => {
     loading.value = true
@@ -47,7 +48,8 @@ const createQuiz = async () => {
 
     console.log("data: ", quizData)
 
-    quizText.value = quizData.value
+    quizText.value = quizData.value[0]
+    currentFormId.value = quizData.value[1]
 
     quizText.value.map((t) => {
         const value: string[] = t.split(";")

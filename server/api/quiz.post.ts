@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
         input_documents: docs,
     })
 
-    await prisma.quiz.create({
+    const record = await prisma.quiz.create({
         data: {
             date: Date.now(),
             questions: res.split("\n"),
@@ -40,5 +40,5 @@ export default defineEventHandler(async (event) => {
     console.log("res: ", res)
     console.log("splitres: ", res.split("\n"))
 
-    return res.split("\n")
+    return [res.split("\n"), record.id]
 })
