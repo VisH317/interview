@@ -6,7 +6,7 @@ import { OpenAI } from "langchain/llms/openai"
 const runtimeConfig = useRuntimeConfig()
 
 const llm = new OpenAI({
-    temperature: 0.1,
+    temperature: 0.7,
     modelName: "gpt-3.5-turbo",
     openAIApiKey: runtimeConfig.openaiKey,
 })

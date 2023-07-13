@@ -71,65 +71,33 @@ const createCard = async () => {
                     {{ note?.title }}: Your Flashcards
                 </h2>
                 <div
-                    class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-56 h-24"
-                >
+                    class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-56 h-24">
                     <button
-                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-56 h-full absolute"
-                    ></button>
-                    <div
-                        class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-800 text-white text-2xl font-light py-3 px-5 rounded-lg items-center h-14 w-52 cursor-pointer text-center z-20 absolute left-4 top-5"
-                        @click="() => void createCard()"
-                    >
-                        {{ note.cards ? 'New Flashcards' : 'make flashcards' }}
+                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-56 h-full absolute"></button>
+                    <div class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-800 text-white text-2xl font-light py-3 px-5 rounded-lg items-center h-14 w-52 cursor-pointer text-center z-20 absolute left-4 top-5"
+                        @click="() => void createCard()">
+                        {{ note?.cards ? "New Flashcards" : "make flashcards" }}
                     </div>
                 </div>
             </div>
-            <div
-                v-if="!note.cards || (note.cards && note.cards.length === 0)"
-                class="grow flex justify-center items-center text-4xl text-slate-400 font-semibold w-full"
-            >
+            <div v-if="!note?.cards || (note.cards && note.cards.length === 0)"
+                class="grow flex justify-center items-center text-4xl text-slate-400 font-semibold w-full">
                 No Flashcards Yet, Generate Some Above ⬆
             </div>
-            <div
-                v-else
-                class="grow flex justify-center items-center gap-4 w-full"
-            >
-                <span
-                    class="p-5 hover:bg-slate-100 rounded-xl z-20"
-                    @click="decrementVal"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-caret-left"
-                        class="text-5xl"
-                    />
+            <div v-else class="grow flex justify-center items-center gap-4 w-full">
+                <span class="p-5 hover:bg-slate-100 rounded-xl z-20" @click="decrementVal">
+                    <font-awesome-icon icon="fa-solid fa-caret-left" class="text-5xl" />
                 </span>
-                <div
-                    :class="`w-[700px] max-w-[80%] aspect-video duration-300 overflow-hidden`"
-                >
-                    <div
-                        :class="`flex flex-nowrap w-[${
-                            note.cards?.length * 100
-                        }%] h-full relative duration-300 gap-4 px-4`"
-                        :style="`left: -${val * 100}%`"
-                    >
-                        <Card
-                            v-for="card in note.cards"
-                            :term="card.split(':')[0].replace(/^\s+|\s+$/g, '')"
-                            :def="
-                                card.split(':')[1].replace(/^\s+|\s+$/g, '')
-                            "
-                        />
+                <div :class="`w-[700px] max-w-[80%] aspect-video duration-300 overflow-hidden`">
+                    <div :class="`flex flex-nowrap w-[${note.cards?.length * 100
+                        }%] h-full relative duration-300 gap-4 px-4`" :style="`left: -${val * 100}%`">
+                        <Card v-for="card in note.cards" :term="card.split(':')[0].replace(/^\s+|\s+$/g, '')" :def="card.split(':')[1].replace(/^\s+|\s+$/g, '')
+                            " />
                         <!-- {{ note.cards.length * 100 }} -->
                     </div>
                 </div>
-                <span
-                    class="p-5 hover:bg-slate-100 rounded-xl z-20"
-                    @click="incrementVal"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-caret-right"
-                        class="text-5xl"
-                    />
+                <span class="p-5 hover:bg-slate-100 rounded-xl z-20" @click="incrementVal">
+                    <font-awesome-icon icon="fa-solid fa-caret-right" class="text-5xl" />
                 </span>
             </div>
         </div>

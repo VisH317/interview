@@ -58,7 +58,7 @@ const createNote = async () => {
             content,
         },
     })
-    refresh()
+    await refresh()
     open.value = false
 }
 
@@ -83,7 +83,7 @@ const deleteNote = async () => {
         method: "DELETE",
         query: { id: notes.value![deleteIndex.value].id },
     })
-    refresh()
+    await refresh()
     deleteOpen.value = false
 }
 </script>
