@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+    const open = useState<boolean>("createNoteModal")
 </script>
 
 <template>
@@ -13,20 +13,8 @@
         <!-- <p class="flex-none text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium text-xl text-center">{{ user?.email?.split("@")[0] }}'s Notes</p> -->
         <div class="h-4" />
         <div class="w-full">
-            <div
-                class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4">
-                <div class="inline">
-                    <font-awesome-icon icon="fa-solid fa-cog" />
-                </div>
-                Settings
-            </div>
-            <div
-                class="w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4">
-                <div class="inline">
-                    <font-awesome-icon icon="fa-solid fa-user" />
-                </div>
-                Account
-            </div>
+            <SidebarItem icon="cog" text="Settings" @select="() => console.log('test')" />
+            <SidebarItem icon="user" text="Account" @select="() => console.log('account')" />
         </div>
         <div class="flex-none h-4" />
         <div class="grow overflow-y-hidden flex flex-col">
@@ -36,7 +24,7 @@
                 </p>
             </div>
             <div class="overflow-y-auto grow">
-                <NavItem v-for="(note, index) in notes" :id="index" :key="index" :uuid="note.id" :title="note.title"
+                <NavItem v-for="( note, index ) in  notes " :id=" index " :key=" index " :uuid=" note.id " :title=" note.title "
                     @delete="() => setDelete(index)" />
             </div>
         </div>
@@ -44,14 +32,14 @@
             <hr class="h-[2px] w-[90%] mx-auto bg-gray-200 border-0 dark:bg-slate-400 rounded-lg" />
             <div class="h-4" />
             <div class="group w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"
-                @click="() => (open = true)">
+                @click="() =>(open = true)">
                 <div class="inline">
                     <font-awesome-icon icon="fa-solid fa-plus" class="group-hover:rotate-[360deg] duration-300" />
                 </div>
                 Create Note
             </div>
             <div class="group w-full p-5 hover:bg-slate-300 duration-300 text-slate-400 font-normal text-xl cursor-pointer flex gap-4"
-                @click="logout">
+                @click=" logout ">
                 <div class="inline">
                     <font-awesome-icon icon="fa-solid fa-sign-out" class="group-hover:translate-x-1 duration-300" />
                 </div>
