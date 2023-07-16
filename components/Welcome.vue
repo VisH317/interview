@@ -3,6 +3,10 @@ const currentNote = useState<string | null>("currentNote")
 
 const name = ref<string>("")
 const desc = ref<string>("")
+
+defineEmits<{
+    (e: "createNote", name: string, desc: string): Promise<void>
+}>()
 </script>
 
 <template>
@@ -60,7 +64,7 @@ const desc = ref<string>("")
                     ></div>
                     <div
                         class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-800 text-white text-xl font-light flex justify-center rounded-lg items-center w-36 h-12 cursor-pointer text-center z-20 absolute left-3 top-4"
-                        @click="action"
+                        @click="() => void $emit('createNote', name, desc)"
                     >
                         Get Started
                     </div>

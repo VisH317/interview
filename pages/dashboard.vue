@@ -27,27 +27,33 @@ watch([title, desc], () => {
     else disabled.value = true
 })
 
-const createNote = async () => {
+const createNote = async (title: string, desc: string) => {
     // create summary and to do list
 
     // const { data: description } = await useAsyncData(`desc_${desc}`, () =>
     //     $fetch("/api/desc", { method: "POST", body: { desc: desc.value } })
     // )
+    console.log("HOLA COMO ESTA")
     const { data: todo } = await useAsyncData(`todo_${desc}`, () =>
-        $fetch("/api/todo", { method: "POST", body: { desc: desc.value } })
+        $fetch("/api/todo", { method: "POST", body: { desc } })
     )
 
-    const content = `<h1>${title.value}</h1>`
+    const content = `<h1>${title}</h1>`
+
+    console.log("FETCHING :)")
 
     await $fetch("/api/note", {
         method: "POST",
         body: {
             userid: user.value?.id,
-            title: title.value,
+            title,
             content,
-            todo
+            todo: todo.value,
         },
     })
+
+    console.log("CREATED :)")
+    
     await refresh()
     open.value = false
 }
@@ -80,13 +86,15 @@ const deleteNote = async () => {
             <div
                 class="bg-white h-screen grow overflow-x-hidden overflow-y-auto"
             >
-                <Main />
+                <Main
+                    @create-note="(title: string, desc: string) => void createNote(title, desc)"
+                />
             </div>
         </div>
 
         <!-- create modal -->
 
-        <DashModal width="15%" height="25vh" openDef="createNoteModal">
+        <DashModal width="15%" height="25vh" open-def="createNoteModal">
             <div class="p-10 flex flex-col gap-10 items-center justify-center">
                 <h1 class="text-slate-800 font-semibold text-4xl">
                     Let's Get
@@ -118,7 +126,7 @@ const deleteNote = async () => {
                                 ? ''
                                 : 'hover:-translate-y-1 hover:opacity-[0.85]'
                         } w-40 h-24`"
-                        @click="() => void createNote()"
+                        @click="() => void createNote(title, desc)"
                     >
                         <button
                             v-if="!disabled"
@@ -141,7 +149,7 @@ const deleteNote = async () => {
 
         <!-- delete modal -->
 
-        <DashModal width="15%" height="25vh" openDef="deleteNoteModal">
+        <DashModal width="15%" height="25vh" open-def="deleteNoteModal">
             <div class="p-10 flex flex-col gap-10 items-center justify-center">
                 <h1 class="text-slate-800 font-semibold text-4xl text-center">
                     Are you sure you want to delete

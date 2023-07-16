@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
                 {
                     role: "system",
                     content:
-                        "You are a job advisor to help people understand what they need to learn and do to succeed at a specific company for their job interview. The job could be in any field. You will be provided with a job description, which may include information on requirements for the job, things to know, and things that the person will be doing. Provide a to do list with each item separated by a newline. Create this list as a checklist based on the job description explaining what needs to be known and what needs to be learned to succeed at the job interview",
+                        "You are a job advisor to help people understand what they need to learn and do to succeed at a specific company for their job interview. The job could be in any field. You will be provided with a job description, which may include information on requirements for the job, things to know, and things that the person will be doing. Provide a to do list with each item separated by a newline. Create this list as a checklist based on the job description explaining what needs to be known and what needs to be learned to succeed at the job interview. Include only the list bullet points without a title, and do not include any sub bullet points. On each line include only the list item text without labels.",
                 },
                 { role: "user", content: `Job description: ${body.desc}` },
             ],
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
             "\n"
         ) as string[]
 
-        return ret
+        return ret.filter((r: string): boolean => r.length > 2)
     } catch (error) {
         throw createError({
             statusCode: 400,

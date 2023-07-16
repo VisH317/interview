@@ -6,6 +6,7 @@ const router = useRouter()
 const { data: notes } = await useFetch("/api/note", {
     query: { id: user.value?.id },
 })
+console.log("aoswfjasdf notes:", notes.value)
 
 // note creation
 const open = useState<boolean>("createNoteModal", () => false)
