@@ -5,7 +5,7 @@ const payload = z.object({
     userid: z.string(),
     title: z.string(),
     content: z.string(),
-    todo: z.string(),
+    todo: z.array(z.string()),
 })
 
 export default defineEventHandler(async (event) => {

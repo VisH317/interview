@@ -13,7 +13,7 @@ model Note {
     content String
     cards String[]
     userid String @db.Uuid()
-    todo String
+    todo String[]
 }
 
 model Quiz {
