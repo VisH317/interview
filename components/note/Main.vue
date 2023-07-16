@@ -23,6 +23,7 @@ defineEmits<{
         >
             <note-editor />
             <action-bar />
+            <todos />
         </div>
     </div>
     <Quiz />

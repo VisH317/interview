@@ -3,7 +3,7 @@ const hover = ref<boolean>(false)
 </script>
 
 <template>
-    <div class="absolute -bottom-[8%] p-3 right-[5%] h-[48%] rounded-t-[40px] w-20 pt-10 bg-gradient-to-b from-pink-300 to-blue-300 hover:w-60 duration-300" @mouseover="hover=true" @mouseout="hover=false">
+    <div class="fixed -bottom-[8%] p-3 right-[5%] h-[48%] rounded-t-[40px] w-20 pt-10 bg-gradient-to-b from-pink-300 to-blue-300 hover:w-60 duration-300" @mouseover="hover=true" @mouseout="hover=false">
         <div class="flex flex-col gap-8">
             <action-bar-item icon="globe" text="Add Website" :expand="hover" />
             <action-bar-item icon="camera" text="Add Video" :expand="hover" />
