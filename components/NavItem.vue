@@ -32,9 +32,9 @@ watch(currentNote, () => {
 </script>
 
 <template>
-    <div class="group w-full p-5 hover:bg-slate-300 items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
+    <div :class="`group w-full p-5 hover:bg-slate-300 items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px] ${clicked ? 'bg-slate-300' : ''}`"
         @click="setClick">
-        <div :class="`flex-none ${clicked ? 'rotate-90 inline' : 'inline'} duration-300 text-3xl`"><font-awesome-icon
+        <div :class="`flex-none ${clicked ? 'inline' : 'inline'} duration-300 text-3xl`"><font-awesome-icon
                 icon="fa-solid fa-sticky-note" /></div>
         <p class="flex-none font-medium">{{ title }}</p>
         <div class="grow" />

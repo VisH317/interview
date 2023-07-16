@@ -30,18 +30,14 @@ watch([title, desc], () => {
 const createNote = async () => {
     // create summary and to do list
 
-    const { data: description } = await useAsyncData(`desc_${desc}`, () =>
-        $fetch("/api/desc", { method: "POST", body: { desc: desc.value } })
-    )
+    // const { data: description } = await useAsyncData(`desc_${desc}`, () =>
+    //     $fetch("/api/desc", { method: "POST", body: { desc: desc.value } })
+    // )
     const { data: todo } = await useAsyncData(`todo_${desc}`, () =>
         $fetch("/api/todo", { method: "POST", body: { desc: desc.value } })
     )
 
-    const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${
-        description.value
-    }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
-        .filter((t) => t.length >= 3)
-        .map((t) => "<li>" + t + "</li>")}</ul>`
+    const content = `<h1>${title.value}</h1>`
 
     await $fetch("/api/note", {
         method: "POST",
@@ -49,6 +45,7 @@ const createNote = async () => {
             userid: user.value?.id,
             title: title.value,
             content,
+            todo
         },
     })
     await refresh()
