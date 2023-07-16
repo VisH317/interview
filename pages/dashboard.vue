@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import { generateJSON } from "@tiptap/vue-3"
-
 useHead({
     title: "Dashboard - InterviewSense",
 })
 
 const router = useRouter()
 const user = useSupabaseUser()
-const supabase = useSupabaseClient()
-
-const logout = () => {
-    supabase.auth.signOut()
-    router.push("/")
-}
 
 onMounted(() => {
     if (!user.value) router.push("/")
@@ -45,10 +37,11 @@ const createNote = async () => {
         $fetch("/api/todo", { method: "POST", body: { desc: desc.value } })
     )
 
-    const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${description.value
-        }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
-            .filter((t) => t.length >= 3)
-            .map((t) => "<li>" + t + "</li>")}</ul>`
+    const content = `<h1>${title.value}</h1><h2>Your Summary:</h2><p>${
+        description.value
+    }</p><h2>Your Tasks: </h2> <ul>${(todo.value as string[])
+        .filter((t) => t.length >= 3)
+        .map((t) => "<li>" + t + "</li>")}</ul>`
 
     await $fetch("/api/note", {
         method: "POST",
@@ -62,7 +55,7 @@ const createNote = async () => {
     open.value = false
 }
 
-const currentNote = useState<string | null>("currentNote", () => null)
+useState<string | null>("currentNote", () => null)
 
 // initialize current note vars
 useState<boolean>("flashcard", () => false)
@@ -71,12 +64,7 @@ useState<boolean>("progress", () => false)
 
 // note deletion
 const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
-const deleteIndex = ref<number>(-1)
-
-const setDelete = (idx: number) => {
-    deleteIndex.value = idx
-    deleteOpen.value = true
-}
+const deleteIndex = useState<number>("deleteNoteIndex", () => -1)
 
 const deleteNote = async () => {
     await $fetch("/api/note", {
@@ -89,63 +77,99 @@ const deleteNote = async () => {
 </script>
 
 <template>
-    <div>
+    <div class="font-['Inter',sans-serif]">
         <div class="w-screen min-h-screen overflow-x-hidden flex flex-row">
             <Sidebar />
-            <div class="bg-white h-screen grow overflow-x-hidden overflow-y-auto">
+            <div
+                class="bg-white h-screen grow overflow-x-hidden overflow-y-auto"
+            >
                 <Main />
             </div>
         </div>
+
+        <!-- create modal -->
+
         <DashModal width="15%" height="25vh" openDef="createNoteModal">
             <div class="p-10 flex flex-col gap-10 items-center justify-center">
                 <h1 class="text-slate-800 font-semibold text-4xl">
                     Let's Get
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Started</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
+                        >Started</span
+                    >
                 </h1>
                 <div class="flex justify-center items-center w-full gap-3">
-                    <div class="flex flex-col items-center justify-center w-[60%] p-5 gap-5">
-                        <input v-model="title" type="text"
+                    <div
+                        class="flex flex-col items-center justify-center w-[60%] p-5 gap-5"
+                    >
+                        <input
+                            v-model="title"
+                            type="text"
                             class="w-full p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-14"
-                            placeholder="Title: " />
-                        <textarea v-model="desc" type="text"
+                            placeholder="Title: "
+                        />
+                        <textarea
+                            v-model="desc"
+                            type="text"
                             class="w-full p-4 outline-none hover:border-slate-400 focus:border-slate-400 duration-300 border-2 border-slate-300 rounded-lg text-xl h-40"
-                            placeholder="Paste in the job description of the job you're applying to here: " />
+                            placeholder="Paste in the job description of the job you're applying to here: "
+                        />
                     </div>
-                    <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${disabled
-                        ? ''
-                        : 'hover:-translate-y-1 hover:opacity-[0.85]'
-                        } w-40 h-24`" @click="() => void createNote()">
-                        <button v-if="!disabled" :disabled="disabled"
-                            class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-40 h-full absolute"></button>
+                    <div
+                        :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
+                            disabled
+                                ? ''
+                                : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                        } w-40 h-24`"
+                        @click="() => void createNote()"
+                    >
+                        <button
+                            v-if="!disabled"
+                            :disabled="disabled"
+                            class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-40 h-full absolute"
+                        ></button>
                         <div
-                            :class="` ${disabled
-                                ? 'bg-slate-300 cursor-default'
-                                : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
-                                } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
+                            :class="` ${
+                                disabled
+                                    ? 'bg-slate-300 cursor-default'
+                                    : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                            } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                        >
                             Create
                         </div>
                     </div>
                 </div>
             </div>
         </DashModal>
+
+        <!-- delete modal -->
+
         <DashModal width="15%" height="25vh" openDef="deleteNoteModal">
             <div class="p-10 flex flex-col gap-10 items-center justify-center">
                 <h1 class="text-slate-800 font-semibold text-4xl text-center">
                     Are you sure you want to delete
                     {{ deleteIndex > -1 ? notes![deleteIndex].title : "" }}?
                 </h1>
-                <div class="flex justify-center items-center w-full items-center gap-3">
-                    <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`"
-                        @click="() => (deleteOpen = false)">
+                <div
+                    class="flex justify-center items-center w-full items-center gap-3"
+                >
+                    <div
+                        :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`"
+                        @click="() => (deleteOpen = false)"
+                    >
                         <button
-                            :class="`text-slate-400 border-2 border-slate-400 duration-300 font-semibold transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
+                            :class="`text-slate-400 border-2 border-slate-400 duration-300 font-semibold transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                        >
                             No
                         </button>
                     </div>
-                    <div :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`"
-                        @click="() => void deleteNote()">
+                    <div
+                        :class="`group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-40 h-24`"
+                        @click="() => void deleteNote()"
+                    >
                         <button
-                            :class="` text-white duration-300 bg-red-500  transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`">
+                            :class="` text-white duration-300 bg-red-500  transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                        >
                             Yes
                         </button>
                     </div>
