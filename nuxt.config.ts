@@ -32,6 +32,7 @@ export default defineNuxtConfig({
         { path: "~/components/utils", extensions: ["vue"] },
         { path: "~/components/tools", extensions: ["vue"] },
         { path: "~/components/sidebar", extensions: ["vue"] },
+        { path: "~/components/note", extensions: ["vue"] },
     ],
     css: ["@fortawesome/fontawesome-svg-core/styles.css"],
     runtimeConfig: {

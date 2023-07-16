@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEditor, EditorContent } from "@tiptap/vue-3"
 import { StarterKit } from "@tiptap/starter-kit"
+import { Placeholder } from "@tiptap/extension-placeholder"
 import { Heading } from "@tiptap/extension-heading"
 import { mergeAttributes } from "@tiptap/vue-3"
 
@@ -34,7 +35,10 @@ const editor = useEditor({
                     0,
                 ]
             },
-        })
+        }),
+        Placeholder.configure({
+            placeholder: "Start writing some notes here...",
+        }),
     ],
     editorProps: {
         attributes: {
@@ -58,8 +62,8 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <div class="flex flex-col w-[1000px] max-w-[80%] gap-10 relative" v-if="currentNote !== null">
+    <div class="flex w-[1000px]  pl-[5%] pt-[10%] max-w-[85%] gap-10 relative" v-if="currentNote !== null">
         <!-- <h1 class="text-slate-800 text-6xl font-semibold relative left-6">{{ note.title }}</h1> -->
-        <editor-content :editor="editor" class="h-full outline-none p-5" />
+        <editor-content :editor="editor" class="h-full outline-none p-5 w-full" />
     </div>
 </template>

@@ -19,9 +19,10 @@ defineEmits<{
         />
         <div
             v-else
-            class="flex flex-col w-[1400px] flex flex-col items-center max-w-[80%] min-h-screen gap-10 relative top-10 border-black"
+            class="flex flex-col w-full flex flex-col min-h-screen gap-10 relative"
         >
-            <NoteEditor />
+            <note-editor />
+            <action-bar />
         </div>
     </div>
     <Quiz />

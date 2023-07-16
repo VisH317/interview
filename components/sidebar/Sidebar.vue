@@ -88,7 +88,7 @@ const logout = async () => {
                 />
                 <SidebarItem icon="sign-out" text="Logout" @select="logout" />
                 <div
-                    class="group w-full bg-gradient-to-br from-pink-300 to-blue-300 items-center p-5 hover:-translate-y-1 duration-300 text-white font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
+                    class="group w-full bg-gradient-to-r from-pink-300 to-blue-300 items-center p-5 hover:-translate-y-1 duration-300 text-white font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
                     @click="() => console.log('upgrade :)')"
                 >
                     <div class="inline">

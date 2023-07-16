@@ -53,7 +53,7 @@ const createNote = async (title: string, desc: string) => {
     })
 
     console.log("CREATED :)")
-    
+
     await refresh()
     open.value = false
 }
