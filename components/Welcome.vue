@@ -7,8 +7,8 @@ const currentNote = useState<string | null>("currentNote")
         class="w-full h-full flex flex-col items-center relative justify-center"
     >
         <div
-            class="flex flex-col w-[700px] max-w-[80%] gap-5 relative"
             v-if="currentNote === null"
+            class="flex flex-col w-[700px] max-w-[80%] gap-5 relative"
         >
             <h1 class="text-slate-800 text-[70px] font-bold relative left-6">
                 Welcome! 🎉
@@ -45,7 +45,7 @@ const currentNote = useState<string | null>("currentNote")
                     style="resize: none"
                 />
             </div>
-            <div class="h-2"/>
+            <div class="h-2" />
             <div class="w-full flex justify-end">
                 <button
                     class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-44 h-20 relative -left-5 justify-center"
