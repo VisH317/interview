@@ -53,12 +53,15 @@ const logout = async () => {
         <div class="w-full"></div>
         <div class="flex-none h-4" />
         <div class="grow overflow-y-hidden flex flex-col">
-            <div class="p-5 flex-none">
-                <p class="text-slate-400 font-semibold text-md">
-                    YOUR NOTE PAGES
-                </p>
+            <div>
+                <h2
+                    class="font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase px-[8%]"
+                >
+                    Notes
+                </h2>
             </div>
-            <div class="overflow-y-auto grow">
+            <div class="h-4" />
+            <div class="overflow-y-auto grow py-1 px-5">
                 <NavItem
                     v-for="(note, index) in notes"
                     :id="index"
@@ -71,7 +74,7 @@ const logout = async () => {
         </div>
         <div class="flex-none py-10">
             <h2
-                class="font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase px-[5%]"
+                class="font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase px-[8%]"
             >
                 Actions
             </h2>

@@ -11,12 +11,12 @@ defineEmits<{
 
 <template>
     <div
-        class="group w-full p-5 hover:bg-slate-300 duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
+        class="group w-full items-center p-5 hover:bg-slate-300 duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
         @click="() => $emit('select')"
     >
         <div class="inline">
             <font-awesome-icon :icon="`fa-solid fa-${icon}`" :class="`text-2xl font-bold ${anim}`" />
         </div>
-        {{ text }}
+        <div>{{ text }}</div>
     </div>
 </template>
