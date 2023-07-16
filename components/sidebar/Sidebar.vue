@@ -48,7 +48,6 @@ const logout = async () => {
                 >
             </p>
         </div>
-        <!-- <p class="flex-none text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium text-xl text-center">{{ user?.email?.split("@")[0] }}'s Notes</p> -->
         <div class="h-4" />
         <div class="w-full"></div>
         <div class="flex-none h-4" />
@@ -79,16 +78,6 @@ const logout = async () => {
                 Actions
             </h2>
             <div class="h-4" />
-            <!-- <SidebarItem
-                icon="cog"
-                text="Settings"
-                @select="() => console.log('settings')"
-            /> -->
-            <!-- <SidebarItem
-                icon="user"
-                text="Account"
-                @select="() => console.log('account')"
-            /> -->
             <div class="w-full flex flex-col py-1 px-5 gap-2">
                 <SidebarItem
                     icon="plus"
@@ -97,6 +86,15 @@ const logout = async () => {
                     @select="() => (open = true)"
                 />
                 <SidebarItem icon="sign-out" text="Logout" @select="logout" />
+                <div
+                    class="group w-full bg-gradient-to-br from-pink-300 to-blue-300 items-center p-5 hover:-translate-y-1 duration-300 text-white font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
+                    @click="() => console.log('upgrade :)')"
+                >
+                    <div class="inline">
+                        <font-awesome-icon :icon="`fa-solid fa-angle-double-up`" :class="`text-2xl font-bold ${anim}`" />
+                    </div>
+                    <div>Upgrade</div>
+                </div>
             </div>
         </div>
         <div class="flex-none h-8" />
