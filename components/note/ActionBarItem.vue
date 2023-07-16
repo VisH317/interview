@@ -10,7 +10,7 @@ defineProps<{
     <div class="w-full flex justify-center items-center p-2 text-white">
         <font-awesome-icon
             :icon="`fa-solid fa-${icon}`"
-            class="text-2xl text-white"
+            class="text-3xl text-white"
         />
     </div>
 </template>
