@@ -18,24 +18,32 @@ const props = defineProps<{
     note: Note
 }>()
 
+const currentNote = useState<string | null>("currentNote")
+console.log("oawiejfaowij: ", currentNote.value)
+
+const { data: note } = await useFetch("/api/noteById", {
+    query: { id: currentNote.value as string },
+})
+console.log("note::: ", note.value)
+
 const quizModal = useState<boolean>("quiz")
 const quizLoading = useState<boolean>("quizLoading")
 const quizState = useState<Home | InProgress | Graded>("quizState")
 
 const createQuiz = async () => {
     quizLoading.value = true
-    console.log("nothing here to see :)")
+    console.log("nothing here to see :): ", props.note)
     const { data: quizData } = await useAsyncData("genQuiz", () =>
         $fetch("/api/quiz", {
             method: "POST",
             body: {
-                text: props.note.content,
+                text: note.value?.content,
                 userid: user.value?.id,
             },
         })
     )
 
-    console.log("data: ", quizData)
+    console.log("data: ", quizData.value)
 
     const data: InProgress = {
         type: "quiz",
@@ -87,11 +95,12 @@ const createQuiz = async () => {
                     >
                 </p>
             </div>
+            <div class="flex-none h-4" />
             <div
                 :class="`grow ${
                     quizzes.length === 0
                         ? 'flex justify-center items-center'
-                        : ''
+                        : 'flex flex-col w-full'
                 }`"
             >
                 <div v-if="quizzes.length === 0" class="text-slate-400">
