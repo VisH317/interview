@@ -53,6 +53,13 @@ const createQuiz = async () => {
     quizState.value = data
     quizLoading.value = false
 }
+
+const inProgressQuiz = (quiz: Quiz) => {
+    quizState.value = {
+        type: "quiz",
+        activeQuizId: quiz.id,
+    }
+}
 </script>
 
 <template>
@@ -110,6 +117,7 @@ const createQuiz = async () => {
                     v-for="quiz in quizzes"
                     :key="quiz.id"
                     :quiz="quiz"
+                    @review="(quiz: Quiz) => inProgressQuiz(quiz)"
                 />
             </div>
         </div>

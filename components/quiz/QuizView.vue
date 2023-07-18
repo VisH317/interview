@@ -7,10 +7,11 @@ type InProgress = {
 const quizState = useState<InProgress>("quizState")
 
 const { data: quiz } = await useFetch("/api/quizById", { query: { id: quizState.value.activeQuizId } })
-console.log("QUIZZZZ: ", quiz)
+console.log("QUIZZZZ: ", quiz.value)
 </script>
 
 <template>
-    TESTING
-    {{ quiz.value.id }}
+    <div>
+        {{ quiz.id }}
+    </div>
 </template>
