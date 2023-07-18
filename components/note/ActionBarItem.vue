@@ -4,10 +4,14 @@ defineProps<{
     expand: boolean
     icon: string
 }>()
+
+defineEmits<{
+    (e: "click"): void
+}>()
 </script>
 
 <template>
-    <div :class="`w-full flex ${expand ? 'justify-start' : 'justify-start'} items-center p-3 py-3 text-white cursor-pointer duration-300 gap-5 hover:bg-[rgba(0,0,0,0.1)] rounded-[15px]`">
+    <div :class="`w-full flex ${expand ? 'justify-start' : 'justify-start'} items-center p-3 py-3 text-white cursor-pointer duration-300 gap-5 hover:bg-[rgba(0,0,0,0.1)] rounded-[15px]`" @click="() => $emit('click')">
         <div class="w-8">
             <font-awesome-icon
                 :icon="`fa-solid fa-${icon}`"

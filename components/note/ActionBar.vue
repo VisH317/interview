@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const hover = ref<boolean>(false)
+const quiz = useState<boolean>("quiz")
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const hover = ref<boolean>(false)
         <hr class="h-[1px] my-8 bg-white border-0 dark:bg-white w-[80%] mx-auto" />
         <div class="flex flex-col gap-8">
             <action-bar-item icon="id-card" text="Flashcards" :expand="hover" />
-            <action-bar-item icon="check-circle" text="Start Quiz" :expand="hover" />
+            <action-bar-item icon="check-circle" text="Start Quiz" :expand="hover" @click="quiz=true"/>
         </div>
     </div>
 </template>

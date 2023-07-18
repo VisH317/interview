@@ -112,28 +112,28 @@ onBeforeUnmount(async () => {
         <div class="h-16"/>
         <div :class="`flex flex-row pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-default"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Add Website
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Add Video
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Start Quiz
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
