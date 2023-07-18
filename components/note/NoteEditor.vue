@@ -4,12 +4,16 @@ import { StarterKit } from "@tiptap/starter-kit"
 import { Placeholder } from "@tiptap/extension-placeholder"
 import { Heading } from "@tiptap/extension-heading"
 import { mergeAttributes } from "@tiptap/vue-3"
+import suggestion from "../../utils/suggestion"
+import Commands from "../../utils/commands"
 
 const currentNote = useState<string | null>("currentNote")
 
 const { data: note, refresh } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
+
+const visible = ref<boolean>(true)
 
 console.log("content: ", note.value?.content.slice(-7))
 
@@ -52,8 +56,12 @@ const editor = useEditor({
             },
         }),
         Placeholder.configure({
-            placeholder: "Start writing here...\n\nnotes: make it easier to access writing tools + quiz tools, add emphasis there\n\n/website makes url pop up\n\n/video enter makes modal pop up",
-            emptyNodeClass: "first:before:text-gray-400 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none first:before:h-0" 
+            placeholder: "Start writing here... (Type / to see actions)",
+            emptyNodeClass:
+                "first:before:text-gray-400 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none first:before:h-0",
+        }),
+        Commands.configure({
+            suggestion,
         }),
     ],
     editorProps: {
@@ -61,6 +69,15 @@ const editor = useEditor({
             class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full",
         },
     },
+    onFocus({ editor, event }) {
+        visible.value = false
+    },
+    onBlur({ editor, event }) {
+        visible.value = true
+    },
+    onUpdate({ editor }) {
+        console.log("editor: ", editor)
+    }
 })
 
 onBeforeUnmount(async () => {
@@ -81,18 +98,47 @@ onBeforeUnmount(async () => {
     <div
         class="flex w-[1200px] pt-[5%] max-w-[85%] gap-10 relative flex-col min-h-screen"
         @keyup="() => console.log('test')"
+        @click="() => editor?.commands.focus()"
         v-if="currentNote !== null"
     >
-        <h1 class="text-slate-800 text-7xl font-bold pl-[10%]">{{ note.title }}</h1>
+        <h1 class="text-slate-800 text-7xl font-bold pl-[10%]">
+            {{ note.title }}
+        </h1>
         <editor-content
             :editor="editor"
-            class=" outline-none p-5 w-full"
+            class="min-h-20 outline-none p-5 w-full"
         />
-        <div class="flex flex-row pl-[10%] gap-5">
-            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Add Website</button>
-            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Add Video</button>
-            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Start Quiz</button>
-            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Open Flashcards</button>
+        <!-- <div :class="`${visible ? 'h-0' : 'h-16'} duration-300`"/> -->
+        <div class="h-16"/>
+        <div :class="`flex flex-row pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
+            <button
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-default"
+                :disabled="visible"
+                @click.stop
+            >
+                Add Website
+            </button>
+            <button
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                :disabled="visible"
+                @click.stop
+            >
+                Add Video
+            </button>
+            <button
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                :disabled="visible"
+                @click.stop
+            >
+                Start Quiz
+            </button>
+            <button
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300"
+                :disabled="visible"
+                @click.stop
+            >
+                Open Flashcards
+            </button>
         </div>
     </div>
 </template>
