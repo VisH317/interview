@@ -8,8 +8,8 @@
                 :class="{ 'is-selected': index === selectedIndex }"
                 @click="selectItem(index)"
             >
-                <h1 v-if="item.title === 'Heading 1'">{{ item.title }}</h1>
-                <h2 v-if="item.title === 'Heading 2'">{{ item.title }}</h2>
+                <h1 v-if="item.title === 'Heading 1'" class="text-4xl font-bold">{{ item.title }}</h1>
+                <h2 v-if="item.title === 'Heading 2'" class="text-3xl font-semibold">{{ item.title }}</h2>
                 <b v-if="item.title === 'Bold'">{{ item.title }}</b>
                 <em v-if="item.title === 'Italic'">{{ item.title }}</em>
             </button>
@@ -109,7 +109,7 @@ export default {
     background: transparent;
     border-radius: 0.4rem;
     border: 1px solid transparent;
-    padding: 0.2rem 0.4rem;
+    padding: 0.5rem 1rem;
     transition: 0.3s;
 
     &.is-selected {
