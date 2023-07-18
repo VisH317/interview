@@ -1,22 +1,26 @@
 <script setup lang="ts">
-interface Quiz {
-    id: string
-    date: Date
-    questions: string[]
-    responses: string[]
-    answers: string[]
-    graded: boolean
-    userid: string
+import type { Note, Quiz } from '@prisma/client'
+
+type Home = { type: "home" }
+type InProgress = {
+    type: "quiz"
+    activeQuizId: string
 }
+type Graded = {
+    type: "graded"
+    activeQuizId: string
+}
+
+const user = useSupabaseUser()
 
 const props = defineProps<{
     quizzes: typeof Proxy<Array<Quiz>>
+    note: Note
 }>()
 
 const quizModal = useState<boolean>("quiz")
-const activeQuizId = useState<string | null>("activeQuiz")
-const quizText = useState<string[]>("quizTextNew")
 const quizLoading = useState<boolean>("quizLoading")
+const quizState = useState<Home | InProgress | Graded>("quizState")
 
 const createQuiz = async () => {
     quizLoading.value = true
@@ -25,7 +29,7 @@ const createQuiz = async () => {
         $fetch("/api/quiz", {
             method: "POST",
             body: {
-                text: note.value?.content,
+                text: props.note.content,
                 userid: user.value?.id,
             },
         })
@@ -33,36 +37,12 @@ const createQuiz = async () => {
 
     console.log("data: ", quizData)
 
-    quizText.value = quizData.value[0]
-    activeQuizId.value = quizData.value[1]
+    const data: InProgress = {
+        type: "quiz",
+        activeQuizId: quizData.value[1],
+    }
 
-    // quizText.value.map((t) => {
-    //     const value: string[] = t.split(";")
-    //     if (value[0]?.includes("open") || value[0]?.includes("ended")) {
-    //         const ret: OpenEnded = {
-    //             question: value[1]?.replace(/^\s+|\s+$/g, ""),
-    //             answer: null,
-    //         }
-    //         quizQuestions.value = [...quizQuestions.value, ret]
-    //         formStates.value = [...formStates.value, ""]
-    //         return
-    //     }
-
-    //     const answers = value[2]?.split(",")
-    //     answers.map((a, ix) => (answers[ix] = a.replace(/^\s+|\s+$/g, "")))
-
-    //     const ret: MultipleChoice = {
-    //         question: value[1]?.replace(/^\s+|\s+$/g, ""),
-    //         answers,
-    //         correct: Number(value[3]?.replace(/^\s+|\s+$/g, "")),
-    //     }
-
-    //     // formStates.value = [...formStates.value, -1]
-    //     formStates.value = [...formStates.value, -1]
-    //     quizQuestions.value = [...quizQuestions.value, ret]
-    // })
-
-    // currentQuiz.value = "quiz"
+    quizState.value = data
     quizLoading.value = false
 }
 </script>
