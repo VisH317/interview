@@ -2,16 +2,19 @@
     <div class="items">
         <template v-if="items.length">
             <button
-                class="item"
-                :class="{ 'is-selected': index === selectedIndex }"
                 v-for="(item, index) in items"
                 :key="index"
+                class="item"
+                :class="{ 'is-selected': index === selectedIndex }"
                 @click="selectItem(index)"
             >
-                {{ item }}
+                <h1 v-if="item.title === 'Heading 1'">{{ item.title }}</h1>
+                <h2 v-if="item.title === 'Heading 2'">{{ item.title }}</h2>
+                <b v-if="item.title === 'Bold'">{{ item.title }}</b>
+                <em v-if="item.title === 'Italic'">{{ item.title }}</em>
             </button>
         </template>
-        <div class="item" v-else>No result</div>
+        <div v-else class="item">No result</div>
     </div>
 </template>
 
@@ -95,6 +98,7 @@ export default {
     overflow: hidden;
     font-size: 0.9rem;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0px 10px 20px rgba(0, 0, 0, 0.1);
+    // width: 100px;
 }
 
 .item {
@@ -106,9 +110,10 @@ export default {
     border-radius: 0.4rem;
     border: 1px solid transparent;
     padding: 0.2rem 0.4rem;
+    transition: 0.3s;
 
     &.is-selected {
-        border-color: #000;
+        background-color: #e2e8f0;
     }
 }
 </style>
