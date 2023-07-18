@@ -36,7 +36,7 @@ defineEmits<{
                 <input
                     v-model="name"
                     type="text"
-                    class="py-5 px-5 outline-none rounded-[9px] w-full h-full"
+                    class="py-5 px-5 outline-none rounded-[9px] w-full h-full border-none"
                 />
             </div>
             <div class="h-4" />
@@ -50,7 +50,7 @@ defineEmits<{
             >
                 <textarea
                     v-model="desc"
-                    class="py-5 px-5 outline-none rounded-[9px] w-full h-full"
+                    class="py-5 px-5 outline-none rounded-[9px] w-full h-full border-none"
                     style="resize: none"
                 />
             </div>
