@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 const router = useRouter()
-const user = useSupabaseUser()
 
 const supabase = useSupabaseClient()
 

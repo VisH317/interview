@@ -11,11 +11,22 @@ const { data: note, refresh } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
 
+console.log("content: ", note.value?.content.slice(-7))
+
+const content = ref<string>(
+    note.value?.content.split("<").length - 1 <= 2
+        ? (note.value?.content as string) + "type something here..."
+        : (note.value?.content as string)
+)
+
 const editor = useEditor({
-    content: note.value?.content,
+    content:
+        note.value?.content.slice(-7) === "<p></p>"
+            ? note.value?.content
+            : note.value?.content + "<p></p>",
     extensions: [
         StarterKit.configure({
-            heading: false
+            heading: false,
         }),
         Heading.configure({ levels: [1, 2] }).extend({
             levels: [1, 2],
@@ -24,25 +35,30 @@ const editor = useEditor({
                     ? node.attrs.level
                     : this.options.levels[0]
                 const classes = {
-                    1: 'text-4xl font-medium',
-                    2: 'text-2xl',
+                    1: "text-4xl font-medium",
+                    2: "text-2xl",
                 }
                 return [
                     `h${level}`,
-                    mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-                        class: `${classes[level]}`,
-                    }),
+                    mergeAttributes(
+                        this.options.HTMLAttributes,
+                        HTMLAttributes,
+                        {
+                            class: `${classes[level]}`,
+                        }
+                    ),
                     0,
                 ]
             },
         }),
         Placeholder.configure({
-            placeholder: "Start writing some notes here...",
+            placeholder: "Start writing here...\n\nnotes: make it easier to access writing tools + quiz tools, add emphasis there\n\n/website makes url pop up\n\n/video enter makes modal pop up",
+            emptyNodeClass: "first:before:text-gray-400 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none first:before:h-0" 
         }),
     ],
     editorProps: {
         attributes: {
-            class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full"
+            class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none h-full",
         },
     },
 })
@@ -62,8 +78,21 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <div class="flex w-[1000px]  pl-[5%] pt-[10%] max-w-[85%] gap-10 relative" v-if="currentNote !== null">
-        <!-- <h1 class="text-slate-800 text-6xl font-semibold relative left-6">{{ note.title }}</h1> -->
-        <editor-content :editor="editor" class="h-full outline-none p-5 w-full" />
+    <div
+        class="flex w-[1200px] pt-[5%] max-w-[85%] gap-10 relative flex-col min-h-screen"
+        @keyup="() => console.log('test')"
+        v-if="currentNote !== null"
+    >
+        <h1 class="text-slate-800 text-7xl font-bold pl-[10%]">{{ note.title }}</h1>
+        <editor-content
+            :editor="editor"
+            class=" outline-none p-5 w-full"
+        />
+        <div class="flex flex-row pl-[10%] gap-5">
+            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Add Website</button>
+            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Add Video</button>
+            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Start Quiz</button>
+            <button class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px]">Open Flashcards</button>
+        </div>
     </div>
 </template>
