@@ -99,7 +99,7 @@ const submitQuiz = async () => {
             <div class="w-full h-full p-10 flex flex-col gap-5">
                 <div class="flex-none">
                     <p class="text-5xl font-bold text-slate-800">
-                        Question: {{ active }}
+                        Question {{ active+1 }}
                     </p>
                 </div>
                 <div class="flex-none h-6" />

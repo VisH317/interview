@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Quiz } from "@prisma/client"
+
 type OEState = {
     type: "oe"
     content: string
@@ -11,7 +13,7 @@ type MCState = {
 
 defineProps<{
     active: number
-    formStates: (OEState | MCState)[]
+    quiz: Quiz
 }>()
 defineEmits<{
     (e: "activeChange", num: number): void
@@ -33,17 +35,17 @@ defineEmits<{
         <div class="flex-none h-10" />
         <div class="grow flex flex-wrap gap-4 w-[80%] justify-start">
             <div
-                v-for="(state, ix) in formStates"
+                v-for="ix in Array(quiz.questions.length).keys()"
                 :key="ix"
-                :class="` border-2 rounded-[50%] flex justify-center items-center aspect-square cursor-pointer ${
+                :class="`border-none rounded-[50%] flex justify-center items-center aspect-square cursor-pointer ${
                     ix === active
                         ? 'text-white bg-gradient-to-r bg-no-repeat from-pink-300 to-blue-300 border-none'
-                        : (typeof state.content === 'number' &&
-                              state.content === -1) ||
-                          (typeof state.content === 'string' &&
-                              state.content === '')
-                        ? 'bg-transparent border-slate-500 text-slate-300'
-                        : 'bg-slate-500 border-slate-500 text-slate-300'
+                        : (quiz.answers[ix].length === 1 &&
+                              quiz.answers[ix] === quiz.responses[ix]) ||
+                          (quiz.answers[ix].length >= 1 &&
+                              !quiz.answers[ix].split(':')[0].includes('in'))
+                        ? 'bg-green-500 opacity-80'
+                        : 'bg-red-500 opacity-80'
                 } w-10 h-10`"
                 @click="() => $emit('activeChange', ix)"
             >
