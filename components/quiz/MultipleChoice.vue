@@ -16,7 +16,7 @@ const props = defineProps<{
     index: number
 }>()
 const emit = defineEmits<{
-    (e: "change", output: number): void
+    (e: "change", output: string): void
 }>()
 </script>
 
@@ -29,7 +29,6 @@ const emit = defineEmits<{
         </div>
         <div class="flex-none h-6" />
         <div class="flex-none">
-            <p>{{ question.question }}</p>
             <p class="font-medium text-slate-400 text-xl">
                 {{ question.question.split(";")[1].split(":")[1] }}
             </p>
@@ -50,7 +49,7 @@ const emit = defineEmits<{
                     class="flex items-center mb-4"
                 >
                     <input
-                        v-model="output"
+                        v-model="question.content"
                         :id="ans"
                         type="radio"
                         :value="ix"

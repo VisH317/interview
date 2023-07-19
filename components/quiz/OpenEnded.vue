@@ -5,9 +5,16 @@ type OEState = {
     content: string
 }
 
-defineProps<{
+const value = ref<string>(question.content)
+
+watch(value, () => emit("change", value.value))
+
+const { question } = defineProps<{
     question: OEState
     index: number
+}>()
+const emit = defineEmits<{
+    (e: "change", output: number): void
 }>()
 </script>
 
@@ -24,7 +31,7 @@ defineProps<{
         <div class="flex-none h-px w-[100%] bg-gradient-to-r from-pink-300 to-blue-300"></div>
         <div class="flex-none h-2" />
         <div class="grow w-full flex justify-center">
-            <textarea class="w-[90%] h-full outline-none outline-transparent border-0 appearance-none" style="resize: none" placeholder="Your Answer Here..." />
+            <textarea class="w-[90%] h-full outline-none outline-transparent border-0 appearance-none" style="resize: none" placeholder="Your Answer Here..." v-model="value"/>
         </div>
     </div>
 </template>
