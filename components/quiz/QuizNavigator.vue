@@ -12,6 +12,7 @@ type MCState = {
 defineProps<{
     active: number
     formStates: (OEState | MCState)[]
+    disabled: boolean
 }>()
 defineEmits<{
     (e: 'activeChange', num: number): void
@@ -65,8 +66,9 @@ defineEmits<{
                 </button>
             </div>
             <button
-                class="group bg-gradient-to-r w-full justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
+                class="group bg-gradient-to-r w-full disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                 @click="() => $emit('activeChange', active - 1)"
+                :disabled="disabled"
             >
                 Submit
             </button>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { watch } from "fs"
+
 type InProgress = {
     type: "quiz"
     activeQuizId: string
@@ -16,6 +18,31 @@ type MCState = {
     content: number
 }
 
+const currentNote = useState<string | null>("currentNote")
+console.log("oawiejfaowij: ", currentNote.value)
+
+const { data: note } = await useFetch("/api/noteById", {
+    query: { id: currentNote.value as string },
+})
+
+// const disabled = ref<boolean>(true)
+
+// watch(
+//     formStates,
+//     () => {
+//         const ov: boolean = false
+//         formStates.value.forEach((f) => {
+//             if (
+//                 (f.type === "oe" && f.content.length === 0) ||
+//                 (f.type === "mc" && f.content === -1)
+//             )
+//                 ov = true
+//         })
+//         disabled.value = ov
+//     },
+//     { deep: true }
+// )
+
 const quizState = useState<InProgress>("quizState")
 
 const { data: quiz } = await useFetch("/api/quizById", {
@@ -32,9 +59,15 @@ const formStates = ref<(OEState | MCState)[]>(
     })
 )
 
-const updateValue = (output: string | number) => {
-    console.log("outputss: ", output)
-    formStates.value[active] = { ...formStates.value[active], content: output }
+const submitQuiz = async () => {
+    await $fetch("/api/grade", {
+        method: "POST",
+        body: {
+            id: quiz.value?.id,
+            questions: formStates.value,
+            text: note.value?.content
+        }
+    })
 }
 </script>
 
@@ -85,7 +118,10 @@ const updateValue = (output: string | number) => {
                         v-model="formStates[active].content"
                     />
                 </div>
-                <div v-if="formStates[active].type === 'mc'" class="grow w-full flex justify-center">
+                <div
+                    v-if="formStates[active].type === 'mc'"
+                    class="grow w-full flex justify-center"
+                >
                     <div
                         class="w-[90%] h-full flex flex-col justify-center gap-5"
                     >
