@@ -56,7 +56,7 @@ const createQuiz = async () => {
 
 const inProgressQuiz = (quiz: Quiz) => {
     quizState.value = {
-        type: "quiz",
+        type: quiz.graded ? "graded" : "quiz",
         activeQuizId: quiz.id,
     }
 }

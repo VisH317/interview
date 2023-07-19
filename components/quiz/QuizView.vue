@@ -6,6 +6,11 @@ type InProgress = {
     activeQuizId: string
 }
 
+type Graded = {
+    type: "graded",
+    activeQUizId: string
+}
+
 type OEState = {
     type: "oe"
     question: string
@@ -43,7 +48,7 @@ const { data: note } = await useFetch("/api/noteById", {
 //     { deep: true }
 // )
 
-const quizState = useState<InProgress>("quizState")
+const quizState = useState<InProgress | Graded>("quizState")
 
 const { data: quiz } = await useFetch("/api/quizById", {
     query: { id: quizState.value.activeQuizId },
@@ -68,6 +73,11 @@ const submitQuiz = async () => {
             text: note.value?.content
         }
     })
+
+    quizState.value = {
+        type: "graded",
+        activeQuizId: quizState.value?.activeQuizId
+    }
 }
 </script>
 
@@ -153,6 +163,7 @@ const submitQuiz = async () => {
         <QuizNavigator
             :active="active"
             :form-states="formStates"
+            @submit="() => void submitQuiz()"
             @active-change="
                 (ix) =>
                     (active =

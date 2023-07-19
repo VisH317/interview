@@ -67,7 +67,11 @@ export default defineEventHandler(async (event) => {
 
     await prisma.quiz.update({
         where: { id },
-        data: { answers, responses },
+        data: {
+            answers,
+            responses,
+            graded: true,
+        },
     })
 
     return res.text.split("\n")

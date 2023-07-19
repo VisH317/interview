@@ -12,11 +12,10 @@ type MCState = {
 defineProps<{
     active: number
     formStates: (OEState | MCState)[]
-    disabled: boolean
 }>()
 defineEmits<{
-    (e: 'activeChange', num: number): void
-    (e: 'submit'): void
+    (e: "activeChange", num: number): void
+    (e: "back"): void
 }>()
 </script>
 
@@ -31,7 +30,7 @@ defineEmits<{
                 Progress
             </p>
         </div>
-        <div class="flex-none h-10"/>
+        <div class="flex-none h-10" />
         <div class="grow flex flex-wrap gap-4 w-[80%] justify-start">
             <div
                 v-for="(state, ix) in formStates"
@@ -48,7 +47,7 @@ defineEmits<{
                 } w-10 h-10`"
                 @click="() => $emit('activeChange', ix)"
             >
-                {{ ix+1 }}
+                {{ ix + 1 }}
             </div>
         </div>
         <div class="flex-none flex w-[80%] flex-col gap-3">
@@ -57,21 +56,26 @@ defineEmits<{
                     class="group bg-slate-500 w-1/2 justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
                     @click="() => $emit('activeChange', active - 1)"
                 >
-                    <font-awesome-icon icon="fa-solid fa-caret-left" class="text-white text-4xl"/>
+                    <font-awesome-icon
+                        icon="fa-solid fa-caret-left"
+                        class="text-white text-4xl"
+                    />
                 </button>
                 <button
                     class="group bg-slate-500 w-1/2 justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
                     @click="() => $emit('activeChange', active + 1)"
                 >
-                    <font-awesome-icon icon="fa-solid fa-caret-right" class="text-white text-4xl"/>
+                    <font-awesome-icon
+                        icon="fa-solid fa-caret-right"
+                        class="text-white text-4xl"
+                    />
                 </button>
             </div>
             <button
                 class="group bg-gradient-to-r w-full disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
-                @click="() => $emit('submit')"
-                :disabled="disabled"
+                @click="() => $emit('back')"
             >
-                Submit
+                Back
             </button>
         </div>
     </div>

@@ -31,5 +31,6 @@ const {
     <NoteModal open-def="quiz">
         <Tracker v-if="visState.type === 'home'" :quizzes="quizzes" />
         <QuizView v-if="visState.type === 'quiz'" />
+        <Graded v-if="visState.type === 'graded'" />
     </NoteModal>
 </template>
