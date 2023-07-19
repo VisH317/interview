@@ -36,7 +36,7 @@ const examplePrompt = new PromptTemplate({
 const prompt = new FewShotPromptTemplate({
     examples,
     examplePrompt,
-    prefix: "Using the following information, create a list of quiz questions on the topic each separated by a newline. You can either create an open ended question with a single line, or a multiple choice question with a line for the question along with a comma-separated list of answers, as well as the correct answer from the choice list. Include a balance of multiple choice and open ended questions. For open ended questions, return the type at the start, a semicolon, and then the question. For multiple choice questions, include a comma-separated list that has the type, the question, 4 answer choices separated by commas, and the index of the right answer choice (from 0-3).",
+    prefix: "Using the following information, create a list of quiz questions on the topic each separated by a newline. You can either create an open ended question with a single line, or a multiple choice question with a line for the question along with a comma-separated list of answers, as well as the correct answer from the choice list. Include a balance of multiple choice and open ended questions. For open ended questions, return the type at the start, a semicolon, and then the question. For multiple choice questions, include a comma-separated list that has the type, the question, 4 answer choices separated by commas, and the index of the right answer choice (from 0-3). The document input will be given in HTML format, but do not use any tags as subjects for quiz questions. ",
     suffix: "Document data: {input}\nNumber of Questions: 10\nQuestion Output: ",
     inputVariables: ["input"],
     exampleSeparator: "\n\n\n",
