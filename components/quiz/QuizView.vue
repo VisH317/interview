@@ -36,12 +36,29 @@ const formStates = ref<(OEState | MCState)[]>(
 <template>
     <div class="w-full h-full flex p-5">
         <div class="w-[70%]">
-            <p>Question {{ active+1 }}</p>
+            <OpenEnded
+                v-if="formStates[active].type === 'oe'"
+                :question="formStates[active]"
+                :index="active"
+            />
+            <MultipleChoice
+                v-if="formStates[active].type === 'mc'"
+                :question="formStates[active]"
+                :index="active"
+            />
         </div>
         <QuizNavigator
             :active="active"
             :form-states="formStates"
-            @active-change="(ix) => (active = ix<0 ? formStates.length-1 : ix>=formStates.length ? 0 : ix)"
+            @active-change="
+                (ix) =>
+                    (active =
+                        ix < 0
+                            ? formStates.length - 1
+                            : ix >= formStates.length
+                            ? 0
+                            : ix)
+            "
         />
     </div>
 </template>

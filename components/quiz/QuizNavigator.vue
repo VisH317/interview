@@ -20,7 +20,7 @@ defineEmits<{
 
 <template>
     <div
-        class="w-[30%] rounded-[15px] bg-slate-600 h-full p-5 flex flex-col justify-center items-center pt-[10%] pb-[5%]"
+        class="w-[30%] rounded-[15px] bg-slate-600 h-full p-5 flex flex-col justify-center items-center pt-[5%] pb-[5%]"
     >
         <div class="flex-none">
             <p
