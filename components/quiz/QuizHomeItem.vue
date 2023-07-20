@@ -23,7 +23,11 @@ console.log("typeofasdfasdf: ", typeof props.quiz.date)
 </script>
 
 <template>
-    <div class="flex p-5 rounded-[15px] hover:bg-slate-100 w-full items-center" @mouseover="hovering=true" @mouseout="hovering=false">
+    <div
+        class="flex p-5 rounded-[15px] hover:bg-slate-100 w-full items-center"
+        @mouseover="hovering = true"
+        @mouseout="hovering = false"
+    >
         <div class="flex-none">
             <p class="text-2xl font-medium text-slate-600">
                 Quiz
@@ -37,12 +41,14 @@ console.log("typeofasdfasdf: ", typeof props.quiz.date)
             </p>
         </div>
         <div class="grow"></div>
-        <div class="flex-none">
-            <p class="text-2xl text-slate-500">Grade</p>
+        <div :class="`flex-none ${quiz.grade !== null ? '' : 'hidden'}`">
+            <p class="text-2xl text-slate-500">{{ quiz.grade + "/" + quiz.questions.length }}</p>
         </div>
         <div class="w-2" />
         <div
-            :class="`group w-40 rounded-[10px] border-[1px] border-slate-100 ml-[5%] hover:-translate-y-1 ${hovering ? 'grad-hover' : 'grad'}`"
+            :class="`group w-40 rounded-[10px] border-[1px] border-slate-100 ml-[5%] hover:-translate-y-1 ${
+                hovering ? 'grad-hover' : 'grad'
+            }`"
         >
             <div
                 class="w-full justify-center items-center text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 px-8 py-3 duration-300 font-medium text-xl cursor-pointer flex gap-4 rounded-[15px]"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Note, Quiz } from '@prisma/client'
+import type { Note, Quiz } from "@prisma/client"
 
 type Home = { type: "home" }
 type InProgress = {
@@ -9,6 +9,11 @@ type InProgress = {
 type Graded = {
     type: "graded"
     activeQuizId: string
+}
+
+interface IGrade {
+    grade: number
+    num: number
 }
 
 const user = useSupabaseUser()
@@ -29,6 +34,20 @@ console.log("note::: ", note.value)
 const quizModal = useState<boolean>("quiz")
 const quizLoading = useState<boolean>("quizLoading")
 const quizState = useState<Home | InProgress | Graded>("quizState")
+
+const calculateGrade = (): IGrade => {
+    let grade = 0
+    let num = 0
+    props.quizzes.forEach((q) => {
+        if (q.grade !== null) {
+            grade += q.grade / q.questions.length
+            num++
+        }
+    })
+    grade = Math.round((grade / num) * 100)
+
+    return { grade, num }
+}
 
 const createQuiz = async () => {
     quizLoading.value = true
@@ -70,10 +89,10 @@ const inProgressQuiz = (quiz: Quiz) => {
             <p
                 class="text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium"
             >
-                95%
+                {{ calculateGrade().grade }}%
             </p>
             <p class="text-xl text-slate-300">
-                Average Grade out of 14 quizzes
+                Average Grade out of {{ calculateGrade().num }} quizzes
             </p>
             <div class="h-4" />
             <div
@@ -85,7 +104,11 @@ const inProgressQuiz = (quiz: Quiz) => {
             <div class="h-2" />
             <div
                 class="group bg-slate-600 w-40 justify-center items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
-                @click="() => { quizModal=false }"
+                @click="
+                    () => {
+                        quizModal = false
+                    }
+                "
             >
                 Back
             </div>
