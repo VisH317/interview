@@ -14,6 +14,7 @@ type Graded = {
 interface IGrade {
     grade: number
     num: number
+    gradeList: number[]
 }
 
 const user = useSupabaseUser()
@@ -38,15 +39,18 @@ const quizState = useState<Home | InProgress | Graded>("quizState")
 const calculateGrade = (): IGrade => {
     let grade = 0
     let num = 0
+    const gradeList: number[] = []
+
     props.quizzes.forEach((q) => {
         if (q.grade !== null) {
             grade += q.grade / q.questions.length
             num++
+            gradeList.push(Math.round(q.grade / q.questions.length))
         }
     })
     grade = Math.round((grade / num) * 100)
 
-    return { grade, num }
+    return { grade, num, gradeList }
 }
 
 const createQuiz = async () => {
