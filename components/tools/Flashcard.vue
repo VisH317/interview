@@ -4,7 +4,7 @@ const { data: flashcards, refresh } = await useFetch("/api/cards", {
     query: { id: user.value?.id },
 })
 
-const flashcard = useState<boolean>("flashcard")
+const flashcard = useState<boolean>("quiz")
 const currentNote = useState<string | null>("currentNote")
 const val = ref<number>(0)
 watch(currentNote, () => {
@@ -41,6 +41,7 @@ const decrementVal = () => {
 }
 
 const createCard = async () => {
+    console.log("testing")
     const { data: cards } = await useAsyncData(
         `get_cards_${note.value?.id}`,
         () =>
@@ -58,9 +59,9 @@ const createCard = async () => {
 
 <template>
     <NoteModal open-def="flashcard">
-        <div class="p-5 py-10 flex flex items-center gap-5 h-full relative">
+        <div class="p-5 py-5 flex flex items-center gap-5 h-full relative">
             <div
-                class="flex-none flex w-[30%] h-full rounded-[15px] bg-slate-600 items-center flex-col justify-center gap-10"
+                class="flex-none flex w-[30%] h-full rounded-[15px] bg-slate-600 items-center flex-col justify-center gap-10 select-none"
             >
                 <h2 class="text-4xl text-slate-400 font-semibold">
                     {{ note?.title }}
@@ -96,44 +97,91 @@ const createCard = async () => {
             </div>
             <div
                 v-else
-                class="grow flex justify-center items-center gap-4 w-full"
+                class="flex flex-col items-center w-[70%] gap-10 h-full py-12"
             >
-                <span
-                    class="p-5 hover:bg-slate-100 rounded-xl z-20"
-                    @click="decrementVal"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-caret-left"
-                        class="text-5xl"
-                    />
-                </span>
-                <div
-                    :class="`w-[700px] max-w-[80%] aspect-video duration-300 overflow-hidden`"
-                >
-                    <div
-                        :class="`flex flex-nowrap w-[${
-                            note.cards?.length * 100
-                        }%] h-full relative duration-300 gap-4 px-4`"
-                        :style="`left: -${val * 100}%`"
+                <div class="flex-none flex justify-center select-none">
+                    <p class="text-5xl font-bold text-slate-800">
+                        Your
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
+                            >Flashcards</span
+                        >
+                    </p>
+                </div>
+                <div class="grow flex justify-center items-center gap-4 w-full">
+                    <span
+                        class="p-5 hover:bg-slate-100 rounded-xl z-20"
+                        @click="decrementVal"
                     >
-                        <Card
-                            v-for="card in note.cards"
-                            :key="card"
-                            :term="card.split(':')[0].replace(/^\s+|\s+$/g, '')"
-                            :def="card.split(':')[1].replace(/^\s+|\s+$/g, '')"
+                        <font-awesome-icon
+                            icon="fa-solid fa-caret-left"
+                            class="text-5xl"
                         />
-                        {{ note.cards.length * 100 }}
+                    </span>
+                    <div
+                        :class="`w-[700px] max-w-[80%] aspect-video duration-300 overflow-hidden`"
+                    >
+                        <div
+                            :class="`grow flex w-[${
+                                note.cards?.length * 100
+                            }%] h-full relative duration-300`"
+                            :style="`left: -${val * 100}%`"
+                        >
+                            <Card
+                                v-for="card in note.cards"
+                                :key="card"
+                                :term="
+                                    card.split(':')[0].replace(/^\s+|\s+$/g, '')
+                                "
+                                :def="
+                                    card.split(':')[1].replace(/^\s+|\s+$/g, '')
+                                "
+                            />
+                            <!-- {{ note.cards.length * 100 }} -->
+                        </div>
+                    </div>
+                    <span
+                        class="p-5 hover:bg-slate-100 rounded-xl z-20"
+                        @click="incrementVal"
+                    >
+                        <font-awesome-icon
+                            icon="fa-solid fa-caret-right"
+                            class="text-5xl"
+                        />
+                    </span>
+                </div>
+                <div
+                    class="flex-none flex flex-col items-center gap-5 select-none w-full"
+                >
+                    <div>
+                        <p class="text-5xl font-semibold text-slate-800">
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
+                                >{{ val + 1 + "/" + note.cards?.length }}</span
+                            >
+                        </p>
+                    </div>
+                    <div
+                        class="relative w-[90%] h-6 overflow-hidden rounded-2xl"
+                    >
+                        <div
+                            class="absolute top-0 z-10 left-0 w-full h-full bg-gradient-to-r from-slate-100 to-slate-200"
+                        />
+                        <div
+                            :class="`absolute top-0 left-0 h-full bg-gradient-to-r z-50 from-pink-300 to-blue-300 rounded-2xl duration-300`"
+                            :style="{
+                                width: `${Math.round(
+                                    ((val + 1) / note.cards?.length) * 100
+                                )}%`,
+                            }"
+                        />
+                        {{
+                            `w-[${Math.round(
+                                ((val + 1) / note.cards?.length) * 100
+                            )}%]`
+                        }}
                     </div>
                 </div>
-                <span
-                    class="p-5 hover:bg-slate-100 rounded-xl z-20"
-                    @click="incrementVal"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-caret-right"
-                        class="text-5xl"
-                    />
-                </span>
             </div>
         </div>
     </NoteModal>

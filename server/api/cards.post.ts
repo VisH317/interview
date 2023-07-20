@@ -1,7 +1,7 @@
-import chain from "../../utils/cardsChain"
-import prisma from "../../utils/prisma"
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter"
 import { z } from "zod"
+import chain from "../../utils/cardsChain"
+import prisma from "../../utils/prisma"
 
 const reqType = z.object({
     id: z.string(),

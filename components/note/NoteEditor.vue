@@ -102,14 +102,14 @@ onBeforeUnmount(async () => {
         v-if="currentNote !== null"
     >
         <h1 class="text-slate-800 text-7xl font-bold pl-[10%]">
-            {{ note.title }}
+            {{ note?.title }}
         </h1>
         <editor-content
             :editor="editor"
             class="min-h-20 outline-none p-5 w-full"
         />
         <!-- <div :class="`${visible ? 'h-0' : 'h-16'} duration-300`"/> -->
-        <div class="h-16"/>
+        <div class="h-16" />
         <div :class="`flex flex-row pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
@@ -140,5 +140,6 @@ onBeforeUnmount(async () => {
                 Open Flashcards
             </button>
         </div>
+        <div class="h-16" />
     </div>
 </template>
