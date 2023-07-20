@@ -30,7 +30,6 @@ const {
     }
 )
 
-
 const incrementVal = () => {
     if (val.value + 1 >= (note.value?.cards.length as number)) val.value = 0
     else val.value++
@@ -69,13 +68,13 @@ const createCard = async () => {
                 <div class="flex flex-col gap-5 items-center w-full">
                     <button
                         class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
-                        @click="() => $emit('submit')"
+                        @click="() => void createCard()"
                     >
                         New Cards
                     </button>
                     <button
                         class="group bg-slate-500 w-[50%] justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
-                        @click="() => $emit('back', active + 1)"
+                        @click="flashcard = false"
                     >
                         <!-- <font-awesome-icon icon="fa-solid fa-caret-right" class="text-white text-4xl"/> -->
                         Back
@@ -84,9 +83,16 @@ const createCard = async () => {
             </div>
             <div
                 v-if="!note?.cards || (note.cards && note.cards.length === 0)"
-                class="grow flex justify-center items-center text-4xl text-slate-400 font-semibold w-full"
+                class="grow flex justify-center items-center text-2xl text-slate-400 font-medium w-full"
             >
-                No Flashcards Yet, Generate Some Above ⬆
+                <p>
+                    No Flashcards Yet,
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 hover:from-pink-200 hover:to-blue-200 cursor-pointer"
+                        @click="() => void createCard()"
+                        >Generate Some</span
+                    >
+                </p>
             </div>
             <div
                 v-else

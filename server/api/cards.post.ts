@@ -22,6 +22,13 @@ export default defineEventHandler(async (event) => {
         input_documents: docs,
     })
 
+    if (res.text.split("\n")[1].split(":").length < 2) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: "No Information Provided",
+        })
+    }
+
     await prisma.note.update({
         where: { id },
         data: {
