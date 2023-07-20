@@ -28,4 +28,5 @@ defineEmits<{
     </div>
     <Quiz />
     <Flashcard />
+    <Website />
 </template>

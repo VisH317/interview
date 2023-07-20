@@ -2,6 +2,7 @@
 const hover = ref<boolean>(false)
 const quiz = useState<boolean>("quiz")
 const flashcard = useState<boolean>("flashcard")
+const website = useState<boolean>("website")
 </script>
 
 <template>
@@ -11,7 +12,12 @@ const flashcard = useState<boolean>("flashcard")
         @mouseout="hover = false"
     >
         <div class="flex flex-col gap-8">
-            <action-bar-item icon="globe" text="Add Website" :expand="hover" />
+            <action-bar-item
+                icon="globe"
+                text="Add Website"
+                :expand="hover"
+                @click="website = true"
+            />
             <action-bar-item icon="camera" text="Add Video" :expand="hover" />
         </div>
         <hr

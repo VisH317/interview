@@ -63,7 +63,7 @@ useState<string | null>("currentNote", () => null)
 // initialize current note vars
 useState<boolean>("flashcard", () => false)
 useState<boolean>("quiz", () => false)
-useState<boolean>("progress", () => false)
+useState<boolean>("website", () => false)
 
 // note deletion
 const deleteOpen = useState<boolean>("deleteNoteModal", () => false)
