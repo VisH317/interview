@@ -96,7 +96,7 @@ onBeforeUnmount(async () => {
 
 <template>
     <div
-        class="flex w-[1200px] pt-[5%] max-w-[85%] gap-10 relative flex-col min-h-screen"
+        class="flex w-[1200px] pt-[5%] max-w-[85%] gap-10 relative flex-col min-h-screen "
         @keyup="() => console.log('test')"
         @click="() => editor?.commands.focus()"
         v-if="currentNote !== null"
@@ -110,30 +110,30 @@ onBeforeUnmount(async () => {
         />
         <!-- <div :class="`${visible ? 'h-0' : 'h-16'} duration-300`"/> -->
         <div class="h-16" />
-        <div :class="`flex flex-row pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
+        <div :class="`fixed flex flex-row bottom-14 pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Add Website
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Add Video
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >
                 Start Quiz
             </button>
             <button
-                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-70 duration-300 disabled:cursor-pointer"
+                class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
                 :disabled="visible"
                 @click.stop
             >

@@ -14,6 +14,7 @@ model Note {
   cards   String[]
   userid  String   @db.Uuid
   todo    String[]
+  desc    String   @default("\"\"")
 }
 
 model Quiz {

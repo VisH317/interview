@@ -16,6 +16,12 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const chartOptions = ref({
     responsive: true,
     maintainAspectRatio: false,
+    legend: {
+        labels: {
+            fontColor: "blue",
+            fontSize: 18,
+        },
+    },
 })
 
 const calculateGrade = (): IGrade => {
@@ -28,7 +34,7 @@ const calculateGrade = (): IGrade => {
         if (q.grade !== null) {
             grade += q.grade / q.questions.length
             num++
-            gradeList.push(Math.round(q.grade / q.questions.length))
+            gradeList.push(Math.round((q.grade / q.questions.length) * 100))
             dateList.push(
                 new Date(q.date).getMonth() + "/" + new Date(q.date).getDate()
             )
@@ -44,14 +50,14 @@ const chartData = ref({
     datasets: [
         {
             backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx;
-              const gradient = canvas.createLinearGradient(0,0,0,160);
+                const canvas = ctx.chart.ctx
+                const gradient = canvas.createLinearGradient(0, 0, 0, 160)
 
-              gradient.addColorStop(0, '#f9a8d4');
-            //   gradient.addColorStop(.5, 'cyan');
-              gradient.addColorStop(1, '#93c5fd');
+                gradient.addColorStop(0, "#f9a8d4")
+                //   gradient.addColorStop(.5, 'cyan');
+                gradient.addColorStop(1, "#93c5fd")
 
-              return gradient;
+                return gradient
             },
             data: calculateGrade().gradeList,
         },
@@ -141,7 +147,11 @@ const inProgressQuiz = (quiz: Quiz) => {
             </p>
             <div class="h-4" />
             <div class="w-[80%] h-[30%]">
-                <Bar :data="chartData" :options="chartOptions" class="w-40" />
+                <Bar
+                    :data="chartData"
+                    :options="chartOptions"
+                    style="color: white"
+                />
             </div>
             <div class="h-4" />
             <div
