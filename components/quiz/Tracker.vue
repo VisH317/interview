@@ -1,5 +1,62 @@
 <script setup lang="ts">
 import type { Note, Quiz } from "@prisma/client"
+import { Bar, Line } from "vue-chartjs"
+import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+} from "chart.js"
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
+const chartOptions = ref({
+    responsive: true,
+    maintainAspectRatio: false,
+})
+
+const calculateGrade = (): IGrade => {
+    let grade = 0
+    let num = 0
+    const gradeList: number[] = []
+    const dateList: string[] = []
+
+    props.quizzes.forEach((q) => {
+        if (q.grade !== null) {
+            grade += q.grade / q.questions.length
+            num++
+            gradeList.push(Math.round(q.grade / q.questions.length))
+            dateList.push(
+                new Date(q.date).getMonth() + "/" + new Date(q.date).getDate()
+            )
+        }
+    })
+    grade = Math.round((grade / num) * 100)
+
+    return { grade, num, gradeList, dateList }
+}
+
+const chartData = ref({
+    labels: calculateGrade().dateList,
+    datasets: [
+        {
+            backgroundColor: (ctx) => {
+              const canvas = ctx.chart.ctx;
+              const gradient = canvas.createLinearGradient(0,0,0,160);
+
+              gradient.addColorStop(0, '#f9a8d4');
+            //   gradient.addColorStop(.5, 'cyan');
+              gradient.addColorStop(1, '#93c5fd');
+
+              return gradient;
+            },
+            data: calculateGrade().gradeList,
+        },
+    ],
+})
 
 type Home = { type: "home" }
 type InProgress = {
@@ -15,6 +72,7 @@ interface IGrade {
     grade: number
     num: number
     gradeList: number[]
+    dateList: string[]
 }
 
 const user = useSupabaseUser()
@@ -35,23 +93,6 @@ console.log("note::: ", note.value)
 const quizModal = useState<boolean>("quiz")
 const quizLoading = useState<boolean>("quizLoading")
 const quizState = useState<Home | InProgress | Graded>("quizState")
-
-const calculateGrade = (): IGrade => {
-    let grade = 0
-    let num = 0
-    const gradeList: number[] = []
-
-    props.quizzes.forEach((q) => {
-        if (q.grade !== null) {
-            grade += q.grade / q.questions.length
-            num++
-            gradeList.push(Math.round(q.grade / q.questions.length))
-        }
-    })
-    grade = Math.round((grade / num) * 100)
-
-    return { grade, num, gradeList }
-}
 
 const createQuiz = async () => {
     quizLoading.value = true
@@ -98,6 +139,10 @@ const inProgressQuiz = (quiz: Quiz) => {
             <p class="text-xl text-slate-300">
                 Average Grade out of {{ calculateGrade().num }} quizzes
             </p>
+            <div class="h-4" />
+            <div class="w-[80%] h-[30%]">
+                <Bar :data="chartData" :options="chartOptions" class="w-40" />
+            </div>
             <div class="h-4" />
             <div
                 class="group bg-gradient-to-r w-40 justify-center from-pink-300 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
