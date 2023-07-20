@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const currentNote = useState<string>("currentNote")
 
-const { data: note } = useFetch("/api/noteById", {
+const { data: note } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
 console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)

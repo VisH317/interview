@@ -1,11 +1,43 @@
 <script setup lang="ts">
+interface IOutput {
+    url: string
+    info: string
+}
+
 const open = useState<boolean>("website")
+
+const currentNote = useState<string>("currentNote")
+const loading = useState<boolean>("loading")
+
+const { data: note } = await useFetch("/api/noteById", {
+    query: { id: currentNote.value as string },
+})
 
 const web = ref<string>("")
 
 const addWebsite = async () => {
-    if(web.value.length<4) return
-    const output = await useAsyncData(`website`, () => $fetch("http://localhost:8000"))
+    // loading.value = true
+    // if (web.value.length < 4) return
+    // const { data: newContent }: { data: IOutput } = await useAsyncData(
+    //     `website`,
+    //     () =>
+    //         $fetch("http://localhost:8000", {
+    //             method: "POST",
+    //             body: {
+    //                 job_desc: note.value?.desc,
+    //                 url: web.value,
+    //             },
+    //         })
+    // )
+
+    // await $fetch("/api/website", {
+    //     method: "POST",
+    //     body: {
+    //         id: note.value?.id,
+    //         content: newContent,
+    //     },
+    // })
+    // loading.value = false
 }
 </script>
 
@@ -21,7 +53,15 @@ const addWebsite = async () => {
             @click.stop
         >
             <div class="flex-none">
-                <h1 class="text-4xl text-slate-800 font-bold"><p class="text-center">Add a <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Website</span><br/>to Your Notes</p></h1>
+                <h1 class="text-4xl text-slate-800 font-bold">
+                    <p class="text-center">
+                        Add a
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
+                            >Website</span
+                        ><br />to Your Notes
+                    </p>
+                </h1>
             </div>
             <div class="grow flex flex-col justify-center gap-4 w-[70%]">
                 <h2
@@ -29,9 +69,7 @@ const addWebsite = async () => {
                 >
                     website url
                 </h2>
-                <div
-                    class="bg-slate-200 rounded-[10px] h-16 border-[1px] test"
-                >
+                <div class="bg-slate-200 rounded-[10px] h-16 border-[1px] test">
                     <input
                         v-model="web"
                         type="text"
@@ -42,7 +80,7 @@ const addWebsite = async () => {
             <div class="flex justify-center gap-4">
                 <div
                     class="group bg-gradient-to-r w- h-12 justify-center border-slate-400 w-40 border-2 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
-                    @click="open=false"
+                    @click="open = false"
                 >
                     Back
                 </div>
