@@ -35,9 +35,12 @@ export default defineEventHandler(async (event) => {
 
     const oeQuestions: IOE[] = []
 
+    let grade = 0
+
     questions.forEach((q) => {
         if (q.type === "mc") {
             const ans = Number(q.question.split(";")[3].split(":")[1])
+            if (q.content === ans) grade++
             answers.push(String(ans))
             responses.push(String(q.content))
         } else {
@@ -60,6 +63,7 @@ export default defineEventHandler(async (event) => {
     const oeAnswers: string[] = res.text.split("\n")
 
     oeQuestions.forEach((q, idx) => {
+        if (!oeAnswers[idx].split(":")[0].includes("in")) grade++
         answers[q.idx] = oeAnswers[idx]
     })
 
@@ -71,6 +75,7 @@ export default defineEventHandler(async (event) => {
             answers,
             responses,
             graded: true,
+            grade
         },
     })
 

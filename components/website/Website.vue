@@ -29,7 +29,7 @@ const addWebsite = async () => {
     //             },
     //         })
     // )
-
+    // 
     // await $fetch("/api/website", {
     //     method: "POST",
     //     body: {
@@ -86,7 +86,7 @@ const addWebsite = async () => {
                 </div>
                 <div
                     class="group bg-gradient-to-r w- h-12 justify-center from-pink-300 to-blue-300 w-40 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
-                    @click="() => void createQuiz()"
+                    @click="() => void addWebsite()"
                 >
                     Add Site
                 </div>

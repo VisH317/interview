@@ -1,49 +1,39 @@
-datasource db {
-    provider = "postgresql"
-    url = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client-js"
 }
 
-generator client {
-    provider = "prisma-client-js"
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Note {
-    id String @id @default(uuid())
-    title String
-    // desc String
-    content String
-    cards String[]
-    userid String @db.Uuid()
-    todo String[]
+  id      String   @id @default(uuid())
+  title   String
+  content String
+  cards   String[]
+  userid  String   @db.Uuid
+  todo    String[]
 }
 
 model Quiz {
-    id String @id @db.Uuid @default(uuid())
-    date DateTime
-    questions String[]
-    responses String[]
-    answers String[]
-    graded Boolean
-    userid String @db.Uuid()
+  id        String   @id @default(uuid()) @db.Uuid
+  date      DateTime
+  questions String[]
+  responses String[]
+  answers   String[]
+  graded    Boolean
+  userid    String   @db.Uuid
+  grade     Int?
+}
+
+model Flashcard {
+  id     String   @id @default(uuid()) @db.Uuid
+  userid String   @db.Uuid
+  cards  String[]
 }
 
 enum QuestionType {
-    OPEN_ENDED
-    MULTIPLE_CHOICE
+  OPEN_ENDED
+  MULTIPLE_CHOICE
 }
-
-// model Question {
-//     id String @id @db.Uuid @default(uuid())
-//     type QuestionType
-//     question String
-//     quizId String @db.Uuid 
-//     quiz Quiz @relation (fields: [quizId], references: [id])
-// }
-
-model Flashcard {
-    id String @id @db.Uuid @default(uuid())
-    userid String @db.Uuid()
-    cards String[]
-}
-
-// add objectives, quizzes, flashcards
