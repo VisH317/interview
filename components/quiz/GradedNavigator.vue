@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import type { Quiz } from "@prisma/client"
 
-type OEState = {
-    type: "oe"
-    content: string
-}
-
-type MCState = {
-    type: "mc"
-    content: number
-}
-
 defineProps<{
     active: number
     quiz: Quiz
@@ -44,8 +34,8 @@ defineEmits<{
                               quiz.answers[ix] === quiz.responses[ix]) ||
                           (quiz.answers[ix].length >= 1 &&
                               !quiz.answers[ix].split(':')[0].includes('in'))
-                        ? 'bg-green-500 opacity-80'
-                        : 'bg-red-500 opacity-80'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-red-500 opacity-80 text-white'
                 } w-10 h-10`"
                 @click="() => $emit('activeChange', ix)"
             >

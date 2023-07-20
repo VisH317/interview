@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 // interfaces for questions
 interface OpenEnded {
     question: string
@@ -454,4 +454,4 @@ const back = () => {
             </div>
         </div>
     </NoteModal>
-</template>
+</template> -->

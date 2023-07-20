@@ -107,7 +107,7 @@ const inProgressQuiz = (quiz: Quiz) => {
                 :class="`grow ${
                     quizzes.length === 0
                         ? 'flex justify-center items-center'
-                        : 'flex flex-col w-full'
+                        : 'flex flex-col w-[90%] items-center'
                 }`"
             >
                 <div v-if="quizzes.length === 0" class="text-slate-400">
