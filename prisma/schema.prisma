@@ -10,6 +10,7 @@ generator client {
 model Note {
     id String @id @default(uuid())
     title String
+    // desc String
     content String
     cards String[]
     userid String @db.Uuid()

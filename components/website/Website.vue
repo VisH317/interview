@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const open = useState<boolean>("website")
+
+const web = ref<string>("")
+
+const addWebsite = async () => {
+    if(web.value.length<4) return
+    const output = await useAsyncData(`website`, () => $fetch("http://localhost:8000"))
+}
 </script>
 
 <template>
@@ -26,7 +33,7 @@ const open = useState<boolean>("website")
                     class="bg-slate-200 rounded-[10px] h-16 border-[1px] test"
                 >
                     <input
-                        v-model="name"
+                        v-model="web"
                         type="text"
                         class="py-5 px-5 outline-none rounded-[9px] w-full h-full border-none"
                     />
@@ -35,7 +42,7 @@ const open = useState<boolean>("website")
             <div class="flex justify-center gap-4">
                 <div
                     class="group bg-gradient-to-r w- h-12 justify-center border-slate-400 w-40 border-2 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
-                    @click="() => void createQuiz()"
+                    @click="open=false"
                 >
                     Back
                 </div>
