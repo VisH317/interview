@@ -54,19 +54,19 @@ const onSubmit = async () => {
                 <h3 class="text-6xl font-bold text-slate-800">Welcome!</h3>
                 <div class="h-12" />
                 <div
-                    class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]">
                     <input type="text" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Email: "
                         v-model="email" />
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]">
                     <input type="password" class="w-full p-5 rounded-md outline-none text-lg" placeholder="Password: "
                         v-model="password" />
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 p-[2px] rounded-lg bg-gradient-to-br from-blue-300 to-pink-300 w-[70%]">
+                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]">
                     <input type="password" class="w-full p-5 rounded-md outline-none text-lg"
                         placeholder="Retype Password: " v-model="retype" />
                 </div>
@@ -93,3 +93,28 @@ const onSubmit = async () => {
         </div>
     </div>
 </Modal></template>
+
+<style scoped>
+.test {
+    border: double 2px transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(white, white),
+        linear-gradient(to right, #e2e8f0, #e2e8f0);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    transition: 0.15s;
+    display: hidden;
+}
+
+.test:hover {
+    border: double 2px transparent;
+    background-image: linear-gradient(white, white),
+        linear-gradient(to right, #f9a8d4, #93c5fd);
+}
+
+.test:focus {
+    border: double 2px transparent;
+    background-image: linear-gradient(white, white),
+        linear-gradient(to right, #f9a8d4, #93c5fd);
+}
+</style>
