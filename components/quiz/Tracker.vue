@@ -91,18 +91,16 @@ const props = defineProps<{
 const currentNote = useState<string | null>("currentNote")
 console.log("oawiejfaowij: ", currentNote.value)
 
-const { data: note } = await useFetch("/api/noteById", {
-    query: { id: currentNote.value as string },
-})
-console.log("note::: ", note.value)
-
 const quizModal = useState<boolean>("quiz")
 const quizLoading = useState<boolean>("quizLoading")
 const quizState = useState<Home | InProgress | Graded>("quizState")
 
 const createQuiz = async () => {
+    const { data: note } = await useFetch("/api/noteById", {
+        query: { id: currentNote.value as string },
+    })
+
     quizLoading.value = true
-    console.log("nothing here to see :): ", props.note)
     const { data: quizData } = await useAsyncData("genQuiz", () =>
         $fetch("/api/quiz", {
             method: "POST",
