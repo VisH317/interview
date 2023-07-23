@@ -4,6 +4,9 @@ const currentNote = useState<string>("currentNote")
 const { data: note } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
+
+const todos = ref<boolean[]>(note.value?.todo)
+
 console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
 </script>
 
@@ -23,15 +26,32 @@ console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
                 <div class="h-2 flex-none" />
                 <ul class="p-5 grow overflow-y-auto flex flex-col gap-5">
                     <div
-                        v-for="todo in note?.todo"
+                        v-for="(todo, ix) in note?.todo"
                         :key="todo"
-                        class="flex gap-3"
+                        class="flex gap-3 relative"
                     >
-                        <input
-                            :id="todo"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gradient-to-r from-white to-white border-gray-300 rounded focus:ring-blue-300 focus:ring-2 checked:from-blue-300 checked:to-pink-300"
-                        />
+                        <div class="relative">
+                            <input type="checkbox" :id="todo" v-model="todos[ix]" className="
+                                peer shrink-0
+                                appearance-none w-[20px] h-[20px] border-2 border-slate-200 rounded-sm bg-white
+                                checked:bg-slate-400 checked:border-0"
+                            />
+                            <div class="hidden peer-checked:block absolute w-[15px] h-[15px] ml-[2.5px] mt-[2.5px] z-50 top-0 left-0 pointer-events-none">
+                                <svg
+                                    className="w-full h-full mt-1 pointer-events-none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="white"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <!-- <p class="text-4xl">HOLA</p> -->
+                            </div>
+                        </div>
                         <label :for="todo" class="text-slate-500 font-light">{{ todo }}</label>
                     </div>
                 </ul>

@@ -9,35 +9,44 @@ const open = useState<boolean>("website")
 const currentNote = useState<string>("currentNote")
 const loading = useState<boolean>("loading")
 
-const { data: note } = await useFetch("/api/noteById", {
-    query: { id: currentNote.value as string },
-})
+// const { data: note, refresh } = await useFetch("/api/noteById", {
+//     query: { id: currentNote.value as string },
+//     watch: [currentNote],
+// })
+// console.log("note: ", note.value)
+
+// watch(currentNote, () => {
+//     console.log("refreshing !!!")
+//     refresh().then(() => console.log("new note: ", note.value))
+// })
 
 const web = ref<string>("")
 
 const addWebsite = async () => {
-    // loading.value = true
-    // if (web.value.length < 4) return
-    // const { data: newContent }: { data: IOutput } = await useAsyncData(
-    //     `website`,
-    //     () =>
-    //         $fetch("http://localhost:8000", {
-    //             method: "POST",
-    //             body: {
-    //                 job_desc: note.value?.desc,
-    //                 url: web.value,
-    //             },
-    //         })
-    // )
-    // 
-    // await $fetch("/api/website", {
-    //     method: "POST",
-    //     body: {
-    //         id: note.value?.id,
-    //         content: newContent,
-    //     },
-    // })
-    // loading.value = false
+    const { data: note } = await useFetch("/api/noteById", {
+        query: { id: currentNote.value as string },
+    })
+    loading.value = true
+    if (web.value.length < 4) return
+    const { data: newContent } = await useAsyncData(`website`, () =>
+        $fetch("http://localhost:8000/scrape", {
+            method: "POST",
+            body: {
+                job_desc: note.value?.desc,
+                url: web.value,
+            },
+        })
+    )
+
+    await $fetch("/api/website", {
+        method: "POST",
+        body: {
+            id: note.value?.id,
+            content: newContent,
+        },
+    })
+    open.value = false
+    loading.value = false
 }
 </script>
 
