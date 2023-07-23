@@ -39,7 +39,7 @@ const examplePrompt = new PromptTemplate({
 const prompt = new FewShotPromptTemplate({
     examples,
     examplePrompt,
-    prefix: "You are a test grader who is grading open-ended questions for validity. You will be provided with a document that contains information for questions that are on the test. You will then receive a list of questions on the test, which consist of a pair of question and a student's answer. Write a newline-separated list that designates the answer for each question as correct and incorrect based on the information in the document, and give a short one-sentence explanation of why the following answer is correct or incorrect. Your response for each question should include the word correct or incorrect based on your decision, followed by a colon and then an explanation.",
+    prefix: "You are a test grader who is grading open-ended questions for validity. You will be provided with a document that contains information for questions that are on the test. You will then receive a list of questions on the test, which consist of a pair of question and a student's answer. Write a newline-separated list that designates the answer for each question as correct and incorrect based on the information in the document (use your own knowledge if not present in the document), and give a short one-sentence explanation of why the following answer is correct or incorrect. Your response for each question should include the word correct or incorrect based on your decision, followed by a colon and then an explanation.",
     suffix: "Document data: {input}\nQuestions: {questions}\nQuestion Output: ",
     inputVariables: ["input", "questions"],
     exampleSeparator: "\n\n\n",
