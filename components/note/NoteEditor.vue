@@ -96,7 +96,7 @@ onBeforeUnmount(async () => {
 
 <template>
     <div
-        class="flex w-[1200px] pt-[5%] max-w-[85%] gap-10 relative flex-col min-h-screen "
+        class="flex w-[1200px] min-w-[50%] pt-[5%] max-w-[85%] ml-[8%] gap-10 relative flex-col"
         @keyup="() => console.log('test')"
         @click="() => editor?.commands.focus()"
         v-if="currentNote !== null"

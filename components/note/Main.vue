@@ -8,7 +8,7 @@ defineEmits<{
 
 <template>
     <div
-        class="w-full h-screen overflow-x-hidden overflow-y-auto flex flex-col items-center relative"
+        class="w-full h-screen overflow-x-hidden overflow-y-auto bg-white flex flex-col items-center relative"
     >
         <!-- <div class="w-full h-16 bg-slate-50">
 

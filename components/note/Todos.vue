@@ -11,7 +11,7 @@ console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
 </script>
 
 <template>
-    <div class="fixed -top-[500px] right-10 min-w-[20%] w-[450px] hover:top-0 duration-300">
+    <div class="fixed -top-[500px] right-10 min-w-[25%] w-[450px] hover:top-0 duration-300 z-50">
         <div class="h-[500px] bg-slate-100 py-5 pt-10">
             <div class="w-full h-full flex flex-col items-center">
                 <div class="flex-none">
