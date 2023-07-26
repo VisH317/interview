@@ -17,15 +17,24 @@ watch([email, password], ([e, p]) => {
     else disabled.value = false
 })
 
-const onSubmit = async () => {
+const onSubmit = () => {
     console.log("SUBMITTING")
-    const user = await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value,
-    })
-    console.log("HEELO")
-    if (user.error) alert("Email and password do not match")
-    await router.push("/dashboard")
+    // const user = await supabase.auth.signInWithPassword({
+    //     email: email.value,
+    //     password: password.value,
+    // })
+    // console.log("HEELO")
+    // if (user.error) alert("Email and password do not match")
+    // await router.push("/dashboard")
+    supabase.auth
+        .signInWithPassword({
+            email: email.value,
+            password: password.value,
+        })
+        .then((u) => {
+            console.log("u: ", u.data)
+            router.push("/dashboard")
+        })
 }
 
 // onMounted(() => {
@@ -34,14 +43,14 @@ const onSubmit = async () => {
 </script>
 
 <template>
-    <Modal openDef="login-modal">
+    <Modal open-def="login-modal">
         <div class="w-full h-full flex justify-center">
             <div
                 class="w-[40%] h-full bg-slate-700 p-5 flex flex-col justify-center items-center gap-4"
             >
                 <div class="flex justify-center items-center gap-4">
                     <nuxt-img src="/logo.png" height="70px" width="70px" />
-                    <p class="text-slate-100 font-semibold text-4xl">
+                    <p class="text-slate-100 font-semibold text-3xl">
                         Interview<span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
                             >Sense</span
@@ -59,24 +68,24 @@ const onSubmit = async () => {
                 <h3 class="text-6xl font-bold text-slate-800">Welcome Back</h3>
                 <div class="h-12" />
                 <div
-                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
-                        type="email"
-                        class="w-full p-5 rounded-md outline-none text-lg"
-                        placeholder="Email: "
                         v-model="email"
+                        type="email"
+                        class="w-full p-5 rounded-[11px] outline-none text-lg"
+                        placeholder="Email: "
                     />
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
-                        type="password"
-                        class="w-full p-5 rounded-md outline-none text-lg"
-                        placeholder="Password: "
                         v-model="password"
+                        type="password"
+                        class="w-full p-5 rounded-[11px] outline-none text-lg"
+                        placeholder="Password: "
                     />
                 </div>
                 <div
@@ -102,12 +111,12 @@ const onSubmit = async () => {
                             ? ''
                             : 'hover:-translate-y-1 hover:opacity-[0.85]'
                     } w-48 h-24`"
-                    @click="() => void onSubmit()"
+                    @click="onSubmit"
                 >
                     <button
+                        v-if="!disabled"
                         :disabled="disabled"
                         class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-48 h-full absolute"
-                        v-if="!disabled"
                     ></button>
                     <div
                         :class="` ${
