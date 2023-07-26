@@ -32,14 +32,30 @@ watch(currentNote, () => {
 </script>
 
 <template>
-    <div :class="`group w-full p-5 hover:bg-slate-300 items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px] ${clicked ? 'bg-slate-300' : ''}`"
-        @click="setClick">
-        <div :class="`flex-none ${clicked ? 'inline' : 'inline'} duration-300 text-3xl`"><font-awesome-icon
-                icon="fa-solid fa-sticky-note" /></div>
+    <div
+        :class="`group w-full p-5 hover:bg-slate-300 items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px] ${
+            clicked ? 'bg-slate-300' : ''
+        }`"
+        @click="setClick"
+    >
+        <div
+            :class="`flex-none ${
+                clicked ? 'inline' : 'inline'
+            } duration-300 text-3xl`"
+        >
+            <font-awesome-icon icon="fa-solid fa-sticky-note" />
+        </div>
         <p class="flex-none font-medium">{{ title }}</p>
         <div class="grow" />
-        <div @click.stop="() => $emit('delete')" class="opacity-0 group-hover:opacity-100 duration-300"><font-awesome-icon icon="fa-solid fa-trash"
-                :class="`hover:text-red-500 duration-300 text-xl hidden`" /></div>
+        <div
+            class="opacity-0 group-hover:opacity-100 duration-300"
+            @click.stop="() => $emit('delete')"
+        >
+            <font-awesome-icon
+                icon="fa-solid fa-trash"
+                :class="`hover:text-red-500 duration-300 text-xl hidden`"
+            />
+        </div>
     </div>
     <!-- <div
         :class="`w-full hover:delay-0 hover:bg-slate-300 duration-300 text-slate-400 flex items-center font-normal text-xl cursor-pointer flex ${clicked ? 'block opacity-100 p-3 h-12' : ' opacity-0 p-0 h-0 duration-300'} `">

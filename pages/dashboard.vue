@@ -41,7 +41,7 @@ const createNote = async (title: string, desc: string) => {
         $fetch("/api/todo", { method: "POST", body: { desc } })
     )
 
-    const content = `<h1>${title}</h1>`
+    const content = `<h1></h1>`
 
     console.log("FETCHING :)")
 
@@ -199,7 +199,3 @@ const deleteNote = async () => {
         </DashModal>
     </div>
 </template>
-
-<style>
-
-</style>
