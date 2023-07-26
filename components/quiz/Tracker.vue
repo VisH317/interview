@@ -22,6 +22,11 @@ const chartOptions = ref({
             fontSize: 18,
         },
     },
+    // scales: {
+    //     xAxis: {
+    //         type: "time",
+    //     },
+    // },
 })
 
 const calculateGrade = (): IGrade => {

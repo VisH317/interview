@@ -58,36 +58,36 @@ const onSubmit = async () => {
                 class="w-[60%] flex flex-col items-center justify-center gap-4"
             >
                 <h3 class="text-6xl font-bold text-slate-800">Welcome!</h3>
-                <div class="h-12" />
+                <div class="h-8" />
                 <div
-                    class="transition-all duration-300 p-[1px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[70%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
                         v-model="email"
                         type="text"
-                        class="w-full p-5 rounded-[5px] outline-none text-lg"
+                        class="w-full p-5 rounded-[15px] outline-none text-lg"
                         placeholder="Email: "
                     />
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[70%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
                         v-model="password"
                         type="password"
-                        class="w-full p-5 rounded-md outline-none text-lg"
+                        class="w-full p-5 rounded-[15px] outline-none text-lg"
                         placeholder="Password: "
                     />
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 p-[2px] bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[70%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
                         v-model="retype"
                         type="password"
-                        class="w-full p-5 rounded-md outline-none text-lg"
+                        class="w-full p-5 rounded-[15px] outline-none text-lg"
                         placeholder="Retype Password: "
                     />
                 </div>

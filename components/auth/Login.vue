@@ -68,7 +68,7 @@ const onSubmit = () => {
                 <h3 class="text-6xl font-bold text-slate-800">Welcome Back</h3>
                 <div class="h-12" />
                 <div
-                    class="transition-all duration-300 bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[70%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
                         v-model="email"
@@ -79,7 +79,7 @@ const onSubmit = () => {
                 </div>
                 <div class="h-6" />
                 <div
-                    class="transition-all duration-300 bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
+                    class="transition-all duration-300 bg-slate-200 w-[70%] rounded-[10px] border-[1px] border-slate-200 test w-[70%]"
                 >
                     <input
                         v-model="password"
