@@ -46,7 +46,7 @@ console.log("typeofasdfasdf: ", typeof props.quiz.date)
         </div>
         <div class="w-2" />
         <div
-            :class="`group w-40 rounded-[10px] border-[1px] border-slate-100 ml-[5%] hover:-translate-y-1 ${
+            :class="`group w-40 rounded-[10px] border-[1px] border-slate-100 duration-300 ml-[5%] hover:-translate-y-1 ${
                 hovering ? 'grad-hover' : 'grad'
             }`"
         >
