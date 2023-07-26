@@ -58,7 +58,7 @@ const addWebsite = async () => {
         @click="() => (open = false)"
     >
         <div
-            class="max-w-[50%] w-[650px] h-[43%] bg-white overflow-hidden gap-4 shadow-lg relative rounded-[15px] overflow-hidden p-5 flex flex-col items-center py-10 pb-20"
+            class="max-w-[60%] w-[650px] h-[43%] max-h-[500px] bg-white overflow-hidden gap-4 shadow-lg relative rounded-[15px] overflow-hidden p-5 flex flex-col items-center py-10 pb-20"
             @click.stop
         >
             <div class="flex-none">
