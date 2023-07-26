@@ -84,9 +84,19 @@ const deleteNote = async () => {
 
 <template>
     <div class="font-['Inter',sans-serif]">
-        <div class="relative w-screen min-h-screen overflow-x-hidden flex flex-row">
-            <div :class="`fixed top-0 left-0 w-screen min-h-screen z-[10000] flex justify-center items-center text-5xl font-bold bg-[rgba(15,23,42,0.7)] ${loading ? '' : 'hidden'}`">
-                <p class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">LOADING...</p>
+        <div
+            class="relative w-screen min-h-screen overflow-x-hidden flex flex-row"
+        >
+            <div
+                :class="`fixed top-0 left-0 w-screen min-h-screen z-[10000] flex justify-center items-center text-5xl font-bold bg-[rgba(15,23,42,0.7)] ${
+                    loading ? '' : 'hidden'
+                }`"
+            >
+                <p
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300"
+                >
+                    LOADING...
+                </p>
             </div>
             <Sidebar />
             <div
@@ -189,3 +199,7 @@ const deleteNote = async () => {
         </DashModal>
     </div>
 </template>
+
+<style>
+
+</style>

@@ -17,7 +17,7 @@ const signup = useState<boolean>("signup-modal", () => false)
 </script>
 
 <template>
-    <div class="w-screen min-h-screen overflow-x-hidden">
+    <div class=" min-h-screen overflow-x-hidden">
         <Navbar />
         <Landing />
         <About />
