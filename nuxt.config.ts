@@ -36,7 +36,10 @@ export default defineNuxtConfig({
         { path: "~/components/quiz", extensions: ["vue"] },
         { path: "~/components/website", extensions: ["vue"] },
     ],
-    css: ["@fortawesome/fontawesome-svg-core/styles.css"],
+    css: [
+        "@fortawesome/fontawesome-svg-core/styles.css",
+        "@/assets/css/global.css",
+    ],
     runtimeConfig: {
         openaiKey: process.env.OPENAI_KEY,
     },

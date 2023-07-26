@@ -5,7 +5,7 @@ const { data: note } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
 
-const todos = ref<boolean[]>(note.value?.todo)
+const todos = ref<boolean[]>(note.value?.todo.map(() => false))
 
 console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
 </script>
