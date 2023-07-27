@@ -1,33 +1,23 @@
 <script setup lang="ts">
 import type { Note, Quiz } from "@prisma/client"
-import { Bar, Line } from "vue-chartjs"
-import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-} from "chart.js"
+import { chartConfig } from "../../utils/chartConfig.ts"
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+type Home = { type: "home" }
+type InProgress = {
+    type: "quiz"
+    activeQuizId: string
+}
+type Graded = {
+    type: "graded"
+    activeQuizId: string
+}
 
-const chartOptions = ref({
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-        labels: {
-            fontColor: "blue",
-            fontSize: 18,
-        },
-    },
-    // scales: {
-    //     xAxis: {
-    //         type: "time",
-    //     },
-    // },
-})
+interface IGrade {
+    grade: number
+    num: number
+    gradeList: number[]
+    dateList: string[]
+}
 
 const calculateGrade = (): IGrade => {
     let grade = 0
@@ -50,41 +40,38 @@ const calculateGrade = (): IGrade => {
     return { grade, num, gradeList, dateList }
 }
 
-const chartData = ref({
-    labels: calculateGrade().dateList,
-    datasets: [
-        {
-            backgroundColor: (ctx) => {
-                const canvas = ctx.chart.ctx
-                const gradient = canvas.createLinearGradient(0, 0, 0, 160)
-
-                gradient.addColorStop(0, "#f9a8d4")
-                //   gradient.addColorStop(.5, 'cyan');
-                gradient.addColorStop(1, "#93c5fd")
-
-                return gradient
-            },
-            data: calculateGrade().gradeList,
+const chartOptions = ref({
+    ...chartConfig,
+    xaxis: {
+        type: "datetime",
+        categories: calculateGrade().dateList,
+        tickAmount: 10,
+        axisTicks: {
+            show: true,
+            color: "#64748b",
         },
-    ],
+        axisBorder: {
+            show: true,
+            color: "#64748b",
+        },
+        labels: {
+            show: true,
+            style: {
+                colors: "#64748b",
+                fontSize: "12px",
+                fontFamily: "'Inter', sans-serif'",
+                fontWeight: 400,
+            },
+        },
+    },
 })
 
-type Home = { type: "home" }
-type InProgress = {
-    type: "quiz"
-    activeQuizId: string
-}
-type Graded = {
-    type: "graded"
-    activeQuizId: string
-}
-
-interface IGrade {
-    grade: number
-    num: number
-    gradeList: number[]
-    dateList: string[]
-}
+const chartData = ref([
+    {
+        name: "Score",
+        data: calculateGrade().gradeList,
+    },
+])
 
 const user = useSupabaseUser()
 
@@ -94,7 +81,6 @@ const props = defineProps<{
 }>()
 
 const currentNote = useState<string | null>("currentNote")
-console.log("oawiejfaowij: ", currentNote.value)
 
 const quizModal = useState<boolean>("quiz")
 const quizLoading = useState<boolean>("quizLoading")
@@ -115,8 +101,6 @@ const createQuiz = async () => {
             },
         })
     )
-
-    console.log("data: ", quizData.value)
 
     const data: InProgress = {
         type: "quiz",
@@ -149,11 +133,17 @@ const inProgressQuiz = (quiz: Quiz) => {
                 Average Grade out of {{ calculateGrade().num }} quizzes
             </p>
             <div class="h-4" />
-            <div class="w-[80%] h-[30%]">
-                <Bar
+            <div class="w-[80%] h-[300px]">
+                <!-- <Bar
                     :data="chartData"
                     :options="chartOptions"
                     style="color: white"
+                /> -->
+                <apexchart
+                    type="line"
+                    height="300"
+                    :options="chartOptions"
+                    :series="chartData"
                 />
             </div>
             <div class="h-4" />

@@ -43,4 +43,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
         openaiKey: process.env.OPENAI_KEY,
     },
+    plugins: [
+        "~/plugins/fontawesome.ts",
+        { src: "~/plugins/apexCharts.ts", mode: "client" },
+    ]
 })
