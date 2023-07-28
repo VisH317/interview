@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { watch } from "fs"
 
+type Home = { type: "home" }
+
 type InProgress = {
     type: "quiz"
     activeQuizId: string
 }
 
 type Graded = {
-    type: "graded",
+    type: "graded"
     activeQUizId: string
 }
 
@@ -48,7 +50,7 @@ const { data: note } = await useFetch("/api/noteById", {
 //     { deep: true }
 // )
 
-const quizState = useState<InProgress | Graded>("quizState")
+const quizState = useState<InProgress | Graded | Home>("quizState")
 
 const { data: quiz } = await useFetch("/api/quizById", {
     query: { id: quizState.value.activeQuizId },
@@ -70,13 +72,13 @@ const submitQuiz = async () => {
         body: {
             id: quiz.value?.id,
             questions: formStates.value,
-            text: note.value?.content
-        }
+            text: note.value?.content,
+        },
     })
 
     quizState.value = {
         type: "graded",
-        activeQuizId: quizState.value?.activeQuizId
+        activeQuizId: quizState.value?.activeQuizId,
     }
 }
 </script>
@@ -99,7 +101,7 @@ const submitQuiz = async () => {
             <div class="w-full h-full p-10 flex flex-col gap-5">
                 <div class="flex-none">
                     <p class="text-5xl font-bold text-slate-800">
-                        Question {{ active+1 }}
+                        Question {{ active + 1 }}
                     </p>
                 </div>
                 <div class="flex-none h-6" />
@@ -122,10 +124,10 @@ const submitQuiz = async () => {
                     class="grow w-full flex justify-center"
                 >
                     <textarea
+                        v-model="formStates[active].content"
                         class="w-[90%] h-full outline-none outline-transparent border-0 appearance-none"
                         style="resize: none"
                         placeholder="Your Answer Here..."
-                        v-model="formStates[active].content"
                     />
                 </div>
                 <div
@@ -144,8 +146,8 @@ const submitQuiz = async () => {
                             class="flex items-center mb-4"
                         >
                             <input
-                                v-model="formStates[active].content"
                                 :id="ans"
+                                v-model="formStates[active].content"
                                 type="radio"
                                 :value="ix"
                                 class="w-5 h-5 appearance-none rounded-[50%] text-blue-600 bg-gradient-to-br from-slate-100 to-slate-100 border-white border-2 checked:from-pink-300 checked:to-blue-300 focus:ring-slate-200 focus:ring-2"
@@ -164,6 +166,7 @@ const submitQuiz = async () => {
             :active="active"
             :form-states="formStates"
             @submit="() => void submitQuiz()"
+            @back="() => (quizState = { type: 'home' })"
             @active-change="
                 (ix) =>
                     (active =

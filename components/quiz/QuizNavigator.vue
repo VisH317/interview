@@ -33,7 +33,7 @@ defineEmits<{
             </p>
         </div>
         <div class="flex-none h-10" />
-        <div class="grow flex flex-wrap gap-4 w-[80%] justify-start">
+        <div class="grow flex flex-wrap gap-4 w-[80%] justify-center content-start">
             <div
                 v-for="(state, ix) in formStates"
                 :key="ix"
@@ -74,7 +74,7 @@ defineEmits<{
                 </button>
             </div>
             <button
-                class="group bg-slate-500 w-full justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
+                class="group bg-slate-500 w-full justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-300 font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                 @click="() => $emit('back', active + 1)"
             >
                 <!-- <font-awesome-icon icon="fa-solid fa-caret-right" class="text-white text-4xl"/> -->
