@@ -17,13 +17,12 @@
                             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300"
                             >Powerful</span
                         >
-                        Study Materials from Any Source
+                        Study Materials from Anything
                     </h1>
                     <p
                         class="text-slate-400 text-2xl w-[70%] text-center font-light"
                     >
-                        No more costly courses, long blog posts, and endless
-                        rabbit holes. Just a couple clicks and a couple minutes
+                        No need to waste time writing huge pages of notes, just paste in a couple websites and get well-organized notes in seconds
                     </p>
                 </div>
                 <div class="w-1/2 p-10 pl-20">
@@ -60,18 +59,17 @@
                     <h1
                         class="font-bold text-slate-800 text-5xl w-[85%] text-center"
                     >
-                        Study with a
+                        Create Practice
                         <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300"
-                            >Personal</span
+                            >Flashcards</span
                         >
-                        AI Tutor
+                        Instantly
                     </h1>
                     <p
                         class="text-slate-400 text-2xl w-[70%] text-center font-light"
                     >
-                        No more costly courses, long blog posts, and endless
-                        rabbit holes. Just a couple clicks and a couple minutes
+                        Sifting through your interview notes can be a big pain, so we analyze what you need to know for you interview and create flashcards with important terms to review
                     </p>
                 </div>
             </div>
@@ -86,22 +84,16 @@
                     <h1
                         class="font-bold text-slate-800 text-5xl w-full text-center"
                     >
-                        Create Practice
+                        Create Personalized Practice
                         <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300"
                             >Quizzes</span
-                        >
-                        and
-                        <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300"
-                            >Flashcards</span
                         >
                     </h1>
                     <p
                         class="text-slate-400 text-2xl w-[70%] text-center font-light"
                     >
-                        No more costly courses, long blog posts, and endless
-                        rabbit holes. Just a couple clicks and a couple minutes
+                        Don't know what your interview's gonna be like? Generate a practice quiz to try out some practice interview questions with personalized grading
                     </p>
                 </div>
                 <div class="w-1/2 p-10 pl-20">
