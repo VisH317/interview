@@ -2,7 +2,7 @@
 
 <template>
     <div
-        class="w-full bg-white p-5 flex flex-col items-center gap-14 py-10 pt-40"
+        class="w-[95%] ml-[2.5%] bg-white p-5 flex flex-col items-center gap-14 py-10 pt-40"
     >
         <div class="container flex flex-col gap-20">
             <div class="w-full flex justify-center gap-10">

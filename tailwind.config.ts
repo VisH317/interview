@@ -9,7 +9,7 @@ export default <Partial<Config>>{
             },
         },
         fontFamily: {
-            sans: ["'Inter', sans-serif"],
+            sans: ["Inter", "sans-serif"],
         },
     },
     plugins: [
