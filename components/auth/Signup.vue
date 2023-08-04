@@ -55,7 +55,7 @@ const onSubmit = async () => {
                 </div> -->
             </div>
             <div
-                class="w-[60%] flex flex-col items-center justify-center gap-4"
+                class="w-[60%] flex flex-col items-center justify-center gap-1"
             >
                 <h3 class="text-6xl font-bold text-slate-800">Welcome!</h3>
                 <div class="h-8" />
@@ -108,14 +108,14 @@ const onSubmit = async () => {
                         class="w-64 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600"
                     />
                     <span
-                        class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400"
+                        class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 cursor-pointer"
                         @click="
                             () => {
                                 login = true
                                 signup = false
                             }
                         "
-                        >Sign In Here :)</span
+                        >Sign In Here</span
                     >
                 </div>
                 <div

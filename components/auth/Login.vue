@@ -95,14 +95,14 @@ const onSubmit = () => {
                         class="w-80 h-px my-8 bg-gray-200 border-[1px] border-slate-300 dark:bg-slate-600"
                     />
                     <span
-                        class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400"
+                        class="absolute px-3 font-normal text-slate-600 bg-white mx-auto dark:text-slate-400 cursor-pointer"
                         @click="
                             () => {
                                 login = false
                                 signup = true
                             }
                         "
-                        >Sign Up Here :)</span
+                        >Sign Up Here</span
                     >
                 </div>
                 <div

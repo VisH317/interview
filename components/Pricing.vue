@@ -2,31 +2,38 @@
 // price banner data
 
 interface PB {
-    price: number,
+    price: string,
     main: boolean,
-    points: string[]
+    points: string[],
+    exes: string[]
 }
 
 const pb1: PB = {
-    price: 19,
+    price: "0",
     main: false,
     points: [
-        "Up to 40 note pages",
-        "Up to 10 quizzes per month",
-        "Up to 5 flashcard sets per month",
-        "Up to 200 tutor messages per month"
+        "2 note pages",
+        "5 quizzes per month",
+        "50 flashcards per month",
+    ],
+    exes: [
+        "Advanced Quiz Review",
+        "Unlimited Flashcards",
+        "Tutor Access"
     ]
 }
 
 const pb2: PB = {
-    price: 29,
+    price: "9.99",
     main: true,
     points: [
-        "Unlimited note pages",
-        "Unlimited quizzes per month",
-        "Unlimited flashcard sets per month",
+        "100 note pages per month",
+        "Unlimited quizzes",
+        "Unlimited flashcards per month",
+        "Advanced Quiz Review",
         "Up to 5000 tutor messages per month"
-    ]
+    ],
+    exes: []
 }
 
 
@@ -37,8 +44,8 @@ const pb2: PB = {
         <h1 class="text-6xl text-slate-800 text-center font-bold">Interview<span
                 class='text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300'>Sense</span> Pricing</h1>
         <div class="flex justify-center gap-16">
-            <PriceBanner :price="pb1.price" :main="pb1.main" :points="pb1.points" />
-            <PriceBanner :price="pb2.price" :main="pb2.main" :points="pb2.points" />
+            <PriceBanner :price="pb1.price" :main="pb1.main" :points="pb1.points" :exes="pb1.exes"/>
+            <PriceBanner :price="pb2.price" :main="pb2.main" :points="pb2.points" :exes="pb2.exes"/>
         </div>
     </div>
 </template>
