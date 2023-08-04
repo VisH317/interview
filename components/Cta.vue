@@ -6,7 +6,7 @@ const signup = useState("signup-modal")
     <div class="w-full p-4 bg-white">
         <div class="w-full bg-slate-800 h-[400px] max-[500px]:h-[450px] rounded-xl min-[500px]:px-12 max-[500px]:p-2 py-8 flex flex-col gap-6 min-[500px]:pl-40">
             <div class="w-2/3 p-5">
-                <p class="text-5xl max-[500px]:text-3xl leading-normal text-white bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium">Try InterviewSense Right Now</p>
+                <p class="text-5xl max-[500px]:text-3xl leading-normal text-white bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium">Try InterviewSense Now</p>
             </div>
             <p class="text-xl max-[500px]:w-[90%] max-[500px]:text-lg text-slate-400 font-light ml-5">Prepare for your interview in minutes using our tools, and save your time for the more enjoyable parts of life :)</p>
             <div class="h-4"/>
