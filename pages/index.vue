@@ -23,6 +23,7 @@ const signup = useState<boolean>("signup-modal", () => false)
         <TestimonialList />
         <About />
         <Pricing />
+        <Faq />
         <Footer />
     </div>
     <Login />

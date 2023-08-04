@@ -14,9 +14,10 @@ defineProps<{
                 month</h1>
         </div>
         <div v-for="(point) in points" class="flex-none flex justify-start gap-5 items-center">
-            <!-- <div :class="`aspect-square w-6 h-6 rounded-[50%] ${main ? 'bg-slate-100' : 'bg-slate-400'}`" /> -->
             <font-awesome-icon icon="fa-solid fa-check" :class="`${main ? 'text-white' : 'text-slate-500'} text-xl`"/>
-            <p :class="`font-light text-2xl ${main ? 'text-white' : 'text-slate-600'}`">{{ point }}</p>
+            <div>
+                <p :class="`font-light text-2xl ${main ? 'text-white' : 'text-slate-600'}`">{{ point }}</p>
+            </div>
         </div>
         <div class="grow" />
         <div class="w-full flex justify-center">

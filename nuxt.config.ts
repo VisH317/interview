@@ -40,6 +40,7 @@ export default defineNuxtConfig({
         { path: "~/components/quiz", extensions: ["vue"] },
         { path: "~/components/website", extensions: ["vue"] },
         { path: "~/components/testimonial", extensions: ["vue"] },
+        { path: "~/components/faq", extensions: ["vue"] },
     ],
     css: [
         "@fortawesome/fontawesome-svg-core/styles.css",
