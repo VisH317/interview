@@ -17,12 +17,12 @@
                             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-pink-300"
                             >Powerful</span
                         >
-                        Study Materials from Anything
+                        Study Materials from Nothing
                     </h1>
                     <p
                         class="text-slate-400 text-2xl w-[500px] text-center font-light"
                     >
-                        No need to waste time writing huge pages of notes, just paste in a couple websites and get well-organized notes in seconds
+                        Paste in your job description and links to some resources to get well-organized notes in seconds
                     </p>
                 </div>
                 <div class="w-1/2 p-10 pl-20">
