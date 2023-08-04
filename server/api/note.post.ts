@@ -11,9 +11,15 @@ const payload = z.object({
 export default defineEventHandler(async (event) => {
     console.log("post")
     const body = await readBody(event)
+
     try {
         console.log("body: ", body)
         const val = payload.parse(body)
+        const notes = await prisma.note.findMany({ where: { userid: val.userid } })
+        if(notes.length>=2) {
+            setResponseStatus(event, 401)
+            return "not allowed"
+        }
         await prisma.note.create({
             data: {
                 ...val,
