@@ -40,7 +40,7 @@ const pb2: PB = {
 </script>
 
 <template>
-    <div class="w-full bg-slate-200 flex flex-col p-10 py-20 items-center gap-20">
+    <div class="w-full bg-slate-200 flex flex-col p-10 max-[500px]:p-5 py-20 items-center gap-20">
         <h1 class="text-6xl text-slate-800 text-center font-bold max-[500px]:text-4xl">Interview<span
                 class='text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300'>Sense</span> Pricing</h1>
         <div class="flex justify-center gap-16 max-[500px]:flex-col max-[500px]:p-2">

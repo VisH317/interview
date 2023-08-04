@@ -18,8 +18,8 @@ const faqs: FAQ[] = [
 </script>
 
 <template>
-    <div class="w-full bg-white p-20 pl-48 flex flex-col gap-16">
-        <p class="text-5xl font-bold text-slate-800">Frequently Asked Questions</p>
+    <div class="w-full bg-white min-[500px]:p-20 max-[500px]:py-20 max-[500px]:px-5 min-[500px]:pl-48 flex flex-col gap-16">
+        <p class="text-5xl font-bold text-slate-800 max-[500px]:text-center">Frequently Asked Questions</p>
         <div class="flex flex-col">
             <FaqItem v-for="faq in faqs" :title="faq.title" :desc="faq.desc"/>
         </div>
