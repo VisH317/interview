@@ -1,4 +1,5 @@
 import prisma from "../../utils/prisma"
+import checkUpgraded from "../../utils/checkUpgraded"
 import { z } from "zod"
 
 const payload = z.object({
@@ -13,10 +14,10 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     try {
-        console.log("body: ", body)
         const val = payload.parse(body)
+        const upgraded = await checkUpgraded(val.userid)
         const notes = await prisma.note.findMany({ where: { userid: val.userid } })
-        if(notes.length>=2) {
+        if(!upgraded && notes.length>=2) {
             setResponseStatus(event, 401)
             return "not allowed"
         }
