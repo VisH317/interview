@@ -2,6 +2,7 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter"
 import { z } from "zod"
 import chain from "../../utils/quizChain"
 import prisma from "../../utils/prisma"
+import checkUpgraded from "../../utils/checkUpgraded"
 
 const reqType = z.object({
     userid: z.string(),
@@ -12,7 +13,17 @@ export default defineEventHandler(async (event) => {
     console.log("test")
     const { text, userid } = reqType.parse(await readBody(event))
 
-    console.log("text: ", text)
+    const upgraded = await checkUpgraded(userid)
+    const quizzes = await prisma.quiz.findMany({
+        where: {
+            userid
+        }
+    })
+
+    if(!upgraded && quizzes.length as number>=5) {
+        setResponseStatus(event, 401)
+        return "Not authorized"
+    }
 
     const splitter = RecursiveCharacterTextSplitter.fromLanguage("html", {
         chunkSize: 300,

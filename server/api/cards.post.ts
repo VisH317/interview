@@ -2,6 +2,7 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter"
 import { z } from "zod"
 import chain from "../../utils/cardsChain"
 import prisma from "../../utils/prisma"
+import checkUpgraded from "../../utils/checkUpgraded"
 
 const reqType = z.object({
     id: z.string(),
@@ -10,6 +11,21 @@ const reqType = z.object({
 
 export default defineEventHandler(async (event) => {
     const { text, id } = reqType.parse(await readBody(event))
+
+    const upgraded = await checkUpgraded(id)
+    const note = await prisma.note.findUnique({
+        where: {
+            id
+        }
+    })
+
+    if(!upgraded && (note?.cards.length as number)>=50) {
+        setResponseStatus(event, 401)
+        return "No more flashcards allowed"
+    }
+
+
+    if(!upgraded && )
 
     const splitter = RecursiveCharacterTextSplitter.fromLanguage("html", {
         chunkSize: 300,
