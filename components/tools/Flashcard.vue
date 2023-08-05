@@ -1,9 +1,5 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
-const { data: flashcards, refresh } = await useFetch("/api/cards", {
-    query: { id: user.value?.id },
-})
-
 const flashcard = useState<boolean>("quiz")
 const currentNote = useState<string | null>("currentNote")
 const val = ref<number>(0)
@@ -11,9 +7,9 @@ watch(currentNote, () => {
     if (currentNote === null) flashcard.value = false
 })
 
-// const { data: note, refresh: refreshNotes } = await useFetch("/api/noteById", {
-//     query: { id: currentNote },
-// })
+const { data: upgraded } = await useFetch("/api/user", {
+    query: { id: user.value?.id }
+})
 
 const {
     data: note,
@@ -41,7 +37,10 @@ const decrementVal = () => {
 }
 
 const createCard = async () => {
-    console.log("testing")
+    if(!upgraded && note.value?.cards.length as number >= 50) {
+        alert("You are currently on the free plan, upgrade to create more than 50 flashcards")
+        return
+    }
     const { data: cards } = await useAsyncData(
         `get_cards_${note.value?.id}`,
         () =>
@@ -68,6 +67,7 @@ const createCard = async () => {
                 </h2>
                 <div class="flex flex-col gap-5 items-center w-full">
                     <button
+                        :disabled="!upgraded && note?.cards.length as number >= 50"
                         class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                         @click="() => void createCard()"
                     >
