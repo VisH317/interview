@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const currentNote = useState<string | null>("currentNote")
 
+const user = useSupabaseUser()
+
+const { data: upgraded } = await useFetch("/api/user", {
+    query: { id: user.value?.id }
+})
+
+const { data: notes } = await useFetch("/api/note", {
+    query: { id: user.value?.id },
+})
+
 const name = ref<string>("")
 const desc = ref<string>("")
 
@@ -57,6 +67,22 @@ defineEmits<{
             <div class="h-2" />
             <div class="w-full flex justify-end">
                 <button
+                    v-if="!upgraded && notes.length>=2"
+                    :disabled="true"
+                    class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-44 h-20 relative -left-5 justify-center"
+                >
+                    <!-- <div
+                        class="bg-gradient-to-br from-blue-300 to-pink-300 py-2 px-4 flex justify-center items-center blur-xl w-44 h-full absolute"
+                    ></div> -->
+                    <div
+                        class="group-hover:shadow-lg duration-300 transition ease-in-out bg-slate-500 text-white text-xl font-light flex justify-center rounded-lg items-center w-36 h-12 cursor-pointer text-center z-20 absolute left-3 top-4"
+                        v-tippy="'Upgrade plan to create more notes'"
+                    >
+                        Get Started
+                    </div>
+                </button>
+                <button
+                    v-else
                     class="group relative flex flex-row items-center transition ease-in-out duration-300 hover:-translate-y-1 hover:opacity-[0.85] w-44 h-20 relative -left-5 justify-center"
                 >
                     <div

@@ -10,6 +10,10 @@ onMounted(() => {
     if (!user.value) router.push("/")
 })
 
+const { data: upgraded } = await useFetch("/api/user", {
+    query: { id: user.value?.id }
+})
+
 // note getting
 const { data: notes, refresh } = await useFetch("/api/note", {
     query: { id: user.value?.id },
@@ -137,6 +141,27 @@ const deleteNote = async () => {
                         />
                     </div>
                     <div
+                        v-if="!upgraded && notes.length>=2"
+                        :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
+                            disabled
+                                ? ''
+                                : 'hover:-translate-y-1 hover:opacity-[0.85]'
+                        } w-40 h-24`"
+                        @click="() => void createNote(title, desc)"
+                    >
+                        <div
+                            :class="` ${
+                                true
+                                    ? 'bg-slate-300 cursor-default'
+                                    : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
+                            } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-32 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
+                            v-tippy="'Upgrade to create more notes'"
+                        >
+                            Create
+                        </div>
+                    </div>
+                    <div
+                        v-else
                         :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
                             disabled
                                 ? ''
