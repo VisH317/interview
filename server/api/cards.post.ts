@@ -24,9 +24,6 @@ export default defineEventHandler(async (event) => {
         return "No more flashcards allowed"
     }
 
-
-    if(!upgraded && )
-
     const splitter = RecursiveCharacterTextSplitter.fromLanguage("html", {
         chunkSize: 300,
         chunkOverlap: 20,

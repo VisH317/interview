@@ -67,12 +67,21 @@ const createCard = async () => {
                 </h2>
                 <div class="flex flex-col gap-5 items-center w-full">
                     <button
-                        :disabled="!upgraded && note?.cards.length as number >= 50"
+                        v-if="!upgraded && note?.cards.length as number >= 50"
+                        :disabled="true"
+                        v-tippy="'Upgrade to get more cards'"
+                        class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
+                    >
+                        New Cards
+                    </button>
+                    <button 
+                        v-else
                         class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                         @click="() => void createCard()"
                     >
                         New Cards
                     </button>
+                        
                     <button
                         class="group bg-slate-500 w-[50%] justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                         @click="flashcard = false"

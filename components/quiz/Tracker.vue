@@ -19,13 +19,17 @@ interface IGrade {
     dateList: string[]
 }
 
+const { data: upgraded } = await useFetch("/api/user", {
+    query: { id: user.value?.id }
+})
+
 const calculateGrade = (): IGrade => {
     let grade = 0
     let num = 0
     const gradeList: number[] = []
     const dateList: string[] = []
 
-    props.quizzes.forEach((q) => {
+    props.quizzes.forEach((q: Quiz) => {
         if (q.grade !== null) {
             grade += q.grade / q.questions.length
             num++
@@ -104,7 +108,7 @@ const createQuiz = async () => {
 
     const data: InProgress = {
         type: "quiz",
-        activeQuizId: quizData.value[1],
+        activeQuizId: quizData.value![1],
     }
 
     quizState.value = data
@@ -147,12 +151,21 @@ const inProgressQuiz = (quiz: Quiz) => {
                 />
             </div>
             <div class="h-4" />
-            <div
+            <button
+                v-if="!upgraded && quizzes.length>=5"
+                :disabled="true"
+                v-tippy="'Upgrade to get more quizzes'"
+                class="group bg-gradient-to-r w-40 disabled:bg-slate-500 justify-center from-pink-300 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
+            >
+                Start Quiz
+            </button>
+            <button
+                v-else
                 class="group bg-gradient-to-r w-40 justify-center from-pink-300 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
                 @click="() => void createQuiz()"
             >
                 Start Quiz
-            </div>
+            </button>
             <div class="h-2" />
             <div
                 class="group bg-slate-600 w-40 justify-center items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
