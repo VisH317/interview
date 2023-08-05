@@ -28,8 +28,13 @@ watch([email, password, retype], ([e, p, r]) => {
 })
 
 const onSubmit = async () => {
-    await supabase.auth.signUp({ email: email.value, password: password.value })
-    
+    const user = await supabase.auth.signUp({ email: email.value, password: password.value })
+    await $fetch("/api/user", {
+        method: "POST",
+        body: {
+            id: user.data.user?.id as string
+        }
+    })
     alert("An email has been sent to your inbox, please confirm your email")
     signup.value = false
 }
