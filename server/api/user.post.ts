@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     const { id, email } = bodyType.parse(await readBody(event))
 
     // create stripe customer
-    const customer = stripe.customers.create({
+    const customer = await stripe.customers.create({
         email
     })
 
