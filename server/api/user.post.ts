@@ -1,16 +1,25 @@
 import { z } from "zod"
 import prisma from "../../utils/prisma"
+import stripe from "../../utils/stripe"
 
 const bodyType = z.object({
-    id: z.string()
+    id: z.string(),
+    email: z.string()
 })
 
 export default defineEventHandler(async (event) => {
-    const { id } = bodyType.parse(await readBody(event))
+    const { id, email } = bodyType.parse(await readBody(event))
+
+    // create stripe customer
+    const customer = stripe.customers.create({
+        email
+    })
+
     await prisma.user.create({
         data: {
             id,
-            upgraded: false
+            upgraded: false,
+            customer: customer.id
         }
     })
 

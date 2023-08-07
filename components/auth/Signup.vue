@@ -32,7 +32,8 @@ const onSubmit = async () => {
     await $fetch("/api/user", {
         method: "POST",
         body: {
-            id: user.data.user?.id as string
+            id: user.data.user?.id as string,
+            email: email.value
         }
     })
     alert("An email has been sent to your inbox, please confirm your email")
