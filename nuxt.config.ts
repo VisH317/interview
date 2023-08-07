@@ -51,6 +51,10 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         openaiKey: process.env.OPENAI_KEY,
+        stripePk: process.env.STRIPE_PK,
+        stripeSk: process.env.STRIPE_SK,
+        stripePrice: process.env.STRIPE_PRICE_ID,
+        stripeWebhook: process.env.STRIPE_WEBHOOK_ID
     },
     plugins: [
         "~/plugins/fontawesome.ts",
