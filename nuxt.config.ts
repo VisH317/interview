@@ -44,6 +44,7 @@ export default defineNuxtConfig({
         { path: "~/components/website", extensions: ["vue"] },
         { path: "~/components/testimonial", extensions: ["vue"] },
         { path: "~/components/faq", extensions: ["vue"] },
+        { path: "~/components/upgrade", extensions: ["vue"] },
     ],
     css: [
         "@fortawesome/fontawesome-svg-core/styles.css",
@@ -51,10 +52,12 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         openaiKey: process.env.OPENAI_KEY,
-        stripePk: process.env.STRIPE_PK,
         stripeSk: process.env.STRIPE_SK,
         stripePrice: process.env.STRIPE_PRICE_ID,
-        stripeWebhook: process.env.STRIPE_WEBHOOK_ID
+        stripeWebhook: process.env.STRIPE_WEBHOOK_ID,
+        public: {
+            stripePk: process.env.STRIPE_PK,
+        }
     },
     plugins: [
         "~/plugins/fontawesome.ts",
