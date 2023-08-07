@@ -29,8 +29,9 @@ model Quiz {
 }
 
 model User {
-  id String @unique @db.Uuid
-  upgraded Boolean
+  id       String  @unique @db.Uuid
+  upgraded Boolean @default(false)
+  customer String
 }
 
 model Flashcard {
