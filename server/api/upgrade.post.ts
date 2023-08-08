@@ -8,7 +8,12 @@ const bodyType = z.object({
 
 const { stripePrice } = useAppConfig()
 
-export default defineEventHandler(async (event) => {
+interface UpgradeReturn {
+    subscriptionId: string
+    clientSecret: string
+}
+
+export default defineEventHandler(async (event): Promise<UpgradeReturn> => {
     const { id } = bodyType.parse(await readBody(event))
 
     const user = await prisma.user.findUnique({

@@ -27,9 +27,23 @@ const setDelete = (idx: number) => {
     deleteOpen.value = true
 }
 
+const upgradeModal = useState<boolean>("upgrade-modal")
+const clientSecret = useState<string | null>("client-secret")
+
 const logout = async () => {
     supabase.auth.signOut()
     await router.push("/")
+}
+
+const upgrade = async () => {
+    const res = await useAsyncData(() => $fetch("/api/upgrade", {
+        method: "POST",
+        body: {
+            id: user.value?.id
+        }
+    }))
+    clientSecret.value = (res.data.value as any).clientSecret
+    upgradeModal.value = true
 }
 </script>
 
@@ -88,7 +102,7 @@ const logout = async () => {
                 <SidebarItem icon="sign-out" text="Logout" @select="logout" />
                 <div
                     class="group w-full bg-gradient-to-r from-pink-300 to-blue-300 items-center p-5 hover:-translate-y-1 duration-300 text-white font-medium text-xl cursor-pointer flex gap-4 rounded-[20px]"
-                    @click="() => console.log('upgrade :)')"
+                    @click="() => void upgrade()"
                 >
                     <div class="inline">
                         <font-awesome-icon :icon="`fa-solid fa-angle-double-up`" :class="`text-2xl font-bold ${anim}`" />

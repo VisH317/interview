@@ -222,5 +222,6 @@ const deleteNote = async () => {
                 </div>
             </div>
         </DashModal>
+        <Upgrade />
     </div>
 </template>
