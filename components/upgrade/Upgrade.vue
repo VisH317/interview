@@ -47,7 +47,7 @@ const submit = async () => {
     <div :class="`fixed top-0 left-0 bg-[rgba(0,0,0,0.4)] w-screen h-screen flex justify-center items-center ${!upgradeModal ?? 'hidden'}`">
         <div class="w-1/2 h-1/2 rounded-xl bg-white">
             <div ref="payment"></div>
-            <button @click="submit">Upgrade</button>
+            <button @click="() => void submit()">Upgrade</button>
         </div>
     </div>
 </template>
