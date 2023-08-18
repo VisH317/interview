@@ -19,6 +19,8 @@ interface IGrade {
     dateList: string[]
 }
 
+const user = useSupabaseUser()
+
 const { data: upgraded } = await useFetch("/api/user", {
     query: { id: user.value?.id }
 })
@@ -76,8 +78,6 @@ const chartData = ref([
         data: calculateGrade().gradeList,
     },
 ])
-
-const user = useSupabaseUser()
 
 const props = defineProps<{
     quizzes: typeof Proxy<Array<Quiz>>
