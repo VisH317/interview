@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { loadStripe } from '@stripe/stripe-js'
 
 // global state
@@ -14,7 +14,7 @@ const elements = ref<any>(null)
 
 onMounted(() => {
     elements.value = stripe?.elements({
-        clientSecret.value,
+        clientSecret,
         appearance: {
             theme: "stripe"
         }
@@ -50,4 +50,4 @@ const submit = async () => {
             <button @click="() => void submit()">Upgrade</button>
         </div>
     </div>
-</template>
+</template> -->
