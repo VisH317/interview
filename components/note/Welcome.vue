@@ -34,7 +34,7 @@ defineEmits<{
                 Get ready to ace your interview in half the time using our
                 tools. Use AI to prepare instantly
             </p>
-            <div class="h-4" />
+            <div class="h-2" />
             <h2
                 class="font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase"
             >
@@ -56,7 +56,7 @@ defineEmits<{
                 Paste in your job description
             </h2>
             <div
-                class="bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 ml-[5%] h-64 test"
+                class="bg-slate-200 w-[90%] rounded-[10px] border-[1px] border-slate-200 ml-[5%] h-[100%] test"
             >
                 <textarea
                     v-model="desc"

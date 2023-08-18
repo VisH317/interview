@@ -7,7 +7,7 @@ const website = useState<boolean>("website")
 
 <template>
     <div
-        class="fixed -bottom-0 p-3 right-[5%] h-[400px] rounded-t-[40px] hover:rounded-t-[20px] w-20 pt-10 bg-gradient-to-b from-pink-300 to-blue-300 hover:w-60 duration-300"
+        class="fixed -bottom-0 p-3 right-[5%] h-[450px] rounded-t-[40px] hover:rounded-t-[20px] w-20 pt-10 bg-gradient-to-b from-pink-300 to-blue-300 hover:w-60 duration-300"
         @mouseover="hover = true"
         @mouseout="hover = false"
     >
