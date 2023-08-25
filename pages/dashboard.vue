@@ -79,7 +79,7 @@ const deleteIndex = useState<number>("deleteNoteIndex", () => -1)
 const deleteNote = async () => {
     await $fetch("/api/note", {
         method: "DELETE",
-        query: { id: notes.value![deleteIndex.value].id },
+        query: { id: notes?.value![deleteIndex.value].id },
     })
     await refresh()
     deleteOpen.value = false
@@ -141,7 +141,7 @@ const deleteNote = async () => {
                         />
                     </div>
                     <div
-                        v-if="!upgraded && notes.length>=2"
+                        v-if="!upgraded && notes?.length>=2"
                         :class="`group relative flex flex-row items-center transition ease-in-out duration-300 ${
                             disabled
                                 ? ''

@@ -8,7 +8,7 @@ watch(currentNote, () => {
 })
 
 const { data: upgraded } = await useFetch("/api/user", {
-    query: { id: user.value?.id }
+    query: { id: user.value?.id },
 })
 
 const {
@@ -25,6 +25,7 @@ const {
         watch: [currentNote],
     }
 )
+console.log("note: ", note.value === "")
 
 const incrementVal = () => {
     if (val.value + 1 >= (note.value?.cards.length as number)) val.value = 0
@@ -37,8 +38,10 @@ const decrementVal = () => {
 }
 
 const createCard = async () => {
-    if(!upgraded && note.value?.cards.length as number >= 50) {
-        alert("You are currently on the free plan, upgrade to create more than 50 flashcards")
+    if (!upgraded && (note.value?.cards.length as number) >= 50) {
+        alert(
+            "You are currently on the free plan, upgrade to create more than 50 flashcards"
+        )
         return
     }
     const { data: cards } = await useAsyncData(
@@ -60,6 +63,7 @@ const createCard = async () => {
     <NoteModal open-def="flashcard">
         <div class="p-5 py-5 flex flex items-center gap-5 h-full relative">
             <div
+                v-if="note!==''"
                 class="flex-none flex w-[30%] h-full rounded-[15px] bg-slate-600 items-center flex-col justify-center gap-10 select-none"
             >
                 <h2 class="text-4xl text-slate-400 font-semibold">
@@ -68,20 +72,20 @@ const createCard = async () => {
                 <div class="flex flex-col gap-5 items-center w-full">
                     <button
                         v-if="!upgraded && note?.cards.length as number >= 50"
-                        :disabled="true"
                         v-tippy="'Upgrade to get more cards'"
+                        :disabled="true"
                         class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                     >
                         New Cards
                     </button>
-                    <button 
+                    <button
                         v-else
                         class="group bg-gradient-to-r w-[50%] disabled:bg-slate-500 justify-center from-pink-300 h-14 to-blue-300 items-center px-8 py-3 enabled:hover:-translate-y-1 duration-300 text-white font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                         @click="() => void createCard()"
                     >
                         New Cards
                     </button>
-                        
+
                     <button
                         class="group bg-slate-500 w-[50%] justify-center items-center px-8 py-2 h-14 hover:-translate-y-1 duration-300 text-slate-400 font-light text-2xl cursor-pointer flex gap-4 rounded-[15px]"
                         @click="flashcard = false"
@@ -92,7 +96,7 @@ const createCard = async () => {
                 </div>
             </div>
             <div
-                v-if="!note?.cards || (note.cards && note.cards.length === 0)"
+                v-if="!note?.cards || (note.cards && note?.cards.length === 0)"
                 class="grow flex justify-center items-center text-2xl text-slate-400 font-medium w-full"
             >
                 <p>

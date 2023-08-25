@@ -62,6 +62,6 @@ export default defineNuxtConfig({
     plugins: [
         "~/plugins/fontawesome.ts",
         { src: "~/plugins/apexCharts.ts", mode: "client" },
-        { src: "~/plugins/tippy.ts", mode: "client" },
+        // { src: "~/plugins/tippy.ts", mode: "client" },
     ],
 })
