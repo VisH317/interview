@@ -150,12 +150,14 @@ const inProgressQuiz = (quiz: Quiz) => {
                     :options="chartOptions"
                     style="color: white"
                 /> -->
-                <apexchart
-                    type="line"
-                    height="300"
-                    :options="chartOptions"
-                    :series="chartData"
-                />
+                <ClientOnly>
+                    <apexchart
+                        type="line"
+                        height="300"
+                        :options="chartOptions"
+                        :series="chartData"
+                    />
+                </ClientOnly>
             </div>
             <div class="h-4" />
             <button
