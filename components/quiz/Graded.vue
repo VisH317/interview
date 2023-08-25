@@ -25,7 +25,7 @@ const {
 
 <template>
     <div class="w-full h-full flex p-5">
-        <div class="w-[70%]">
+        <div v-if="!error" class="w-[70%]">
             <div class="w-full h-full p-10 flex flex-col gap-5">
                 <div class="flex-none">
                     <p
@@ -172,6 +172,12 @@ const {
                     </div>
                 </div>
             </div>
+        </div>
+        <div
+            v-else
+            class="w-[70%] flex justify-center items-center text-4xl text-slate-400 font-light"
+        >
+            An error has occurred :(, please try again
         </div>
         <GradedNavigator
             :active="active"
