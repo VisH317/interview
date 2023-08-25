@@ -133,24 +133,24 @@ const inProgressQuiz = (quiz: Quiz) => {
             class="w-[30%] h-full bg-slate-700 flex flex-col justify-center items-center gap-2"
         >
             <p
-                v-if="state === 'pending]'"
+                v-if="state === 'received'"
                 class="text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium"
             >
                 {{ calculateGrade().grade }}%
             </p>
             <SkeletonLoader
-                v-else-if="state === 'received'"
+                v-else-if="state === 'pending'"
                 bg-class="bg-slate-600"
                 shimmer-color="#64748b"
                 class=""
             >
                 <p class="text-7xl text-transparent">{{ 100 }}%</p>
             </SkeletonLoader>
-            <p v-if="state === 'pending'" class="text-xl text-slate-300">
+            <p v-if="state === 'received'" class="text-xl text-slate-300">
                 Average Grade out of {{ calculateGrade().num }} quizzes
             </p>
             <SkeletonLoader
-                v-else-if="state === 'received'"
+                v-else-if="state === 'pending'"
                 bg-class="bg-slate-600"
                 shimmer-color="#64748b"
                 class=""
@@ -162,27 +162,28 @@ const inProgressQuiz = (quiz: Quiz) => {
             <div class="h-4" />
             <div class="w-[80%] h-[300px]">
                 <SkeletonLoader
+                    v-if="state === 'pending'"
                     bg-class="bg-slate-600"
                     shimmer-color="#64748b"
                     class="w-full h-full"
                 />
-                <!-- <ClientOnly v-else>
+                <ClientOnly v-else-if="state === 'received'">
                     <apexchart
                         type="line"
                         height="300"
                         :options="chartOptions"
                         :series="chartData"
                     />
-                </ClientOnly> -->
+                </ClientOnly>
             </div>
             <div class="h-4" />
             <button
                 v-if="
-                    state === 'received' || (!upgraded && quizzes.length >= 5)
+                    state !== 'received' || (!upgraded && quizzes.length >= 5)
                 "
                 v-tippy="'Upgrade to get more quizzes'"
                 :disabled="true"
-                class="group bg-gradient-to-r w-40 disabled:bg-slate-500 justify-center from-pink-300 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
+                class="group bg-slate-600 w-40 justify-center items-center px-8 py-3 duration-300 text-slate-400 font-light text-xl cursor-no flex gap-4 rounded-[15px]"
             >
                 Start Quiz
             </button>
@@ -195,7 +196,7 @@ const inProgressQuiz = (quiz: Quiz) => {
             </button>
             <div class="h-2" />
             <div
-                class="group bg-slate-600 w-40 justify-center items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
+                class="group bg-slate-500 w-40 justify-center items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-300 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
                 @click="
                     () => {
                         quizModal = false
@@ -219,7 +220,7 @@ const inProgressQuiz = (quiz: Quiz) => {
             </div>
             <div class="flex-none h-4" />
             <div
-                v-if="state === 'pending'"
+                v-if="state === 'received'"
                 :class="`grow ${
                     quizzes.length === 0
                         ? 'flex justify-center items-center'
@@ -237,7 +238,7 @@ const inProgressQuiz = (quiz: Quiz) => {
                 />
             </div>
             <div
-                v-else-if="state === 'received'"
+                v-else-if="state === 'pending'"
                 :class="`grow gap-4 ${
                     quizzes.length === 0
                         ? 'flex justify-center items-center'
