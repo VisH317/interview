@@ -20,12 +20,10 @@ interface IGrade {
     dateList: string[]
 }
 
-
-
 const user = useSupabaseUser()
 
 const { data: upgraded } = await useFetch("/api/user", {
-    query: { id: user.value?.id }
+    query: { id: user.value?.id },
 })
 
 const calculateGrade = (): IGrade => {
@@ -127,7 +125,6 @@ const inProgressQuiz = (quiz: Quiz) => {
         activeQuizId: quiz.id,
     }
 }
-
 </script>
 
 <template>
@@ -136,34 +133,55 @@ const inProgressQuiz = (quiz: Quiz) => {
             class="w-[30%] h-full bg-slate-700 flex flex-col justify-center items-center gap-2"
         >
             <p
+                v-if="state === 'pending]'"
                 class="text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300 font-medium"
             >
                 {{ calculateGrade().grade }}%
             </p>
-            <p class="text-xl text-slate-300">
+            <SkeletonLoader
+                v-else-if="state === 'received'"
+                bg-class="bg-slate-600"
+                shimmer-color="#64748b"
+                class=""
+            >
+                <p class="text-7xl text-transparent">{{ 100 }}%</p>
+            </SkeletonLoader>
+            <p v-if="state === 'pending'" class="text-xl text-slate-300">
                 Average Grade out of {{ calculateGrade().num }} quizzes
             </p>
+            <SkeletonLoader
+                v-else-if="state === 'received'"
+                bg-class="bg-slate-600"
+                shimmer-color="#64748b"
+                class=""
+            >
+                <p class="text-xl text-transparent">
+                    Average Grade out of 7 quizzes
+                </p>
+            </SkeletonLoader>
             <div class="h-4" />
             <div class="w-[80%] h-[300px]">
-                <!-- <Bar
-                    :data="chartData"
-                    :options="chartOptions"
-                    style="color: white"
-                /> -->
-                <ClientOnly>
+                <SkeletonLoader
+                    bg-class="bg-slate-600"
+                    shimmer-color="#64748b"
+                    class="w-full h-full"
+                />
+                <!-- <ClientOnly v-else>
                     <apexchart
                         type="line"
                         height="300"
                         :options="chartOptions"
                         :series="chartData"
                     />
-                </ClientOnly>
+                </ClientOnly> -->
             </div>
             <div class="h-4" />
             <button
-                v-if="!upgraded && quizzes.length>=5"
-                :disabled="true"
+                v-if="
+                    state === 'received' || (!upgraded && quizzes.length >= 5)
+                "
                 v-tippy="'Upgrade to get more quizzes'"
+                :disabled="true"
                 class="group bg-gradient-to-r w-40 disabled:bg-slate-500 justify-center from-pink-300 to-blue-300 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-white font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
             >
                 Start Quiz
@@ -201,6 +219,7 @@ const inProgressQuiz = (quiz: Quiz) => {
             </div>
             <div class="flex-none h-4" />
             <div
+                v-if="state === 'pending'"
                 :class="`grow ${
                     quizzes.length === 0
                         ? 'flex justify-center items-center'
@@ -216,6 +235,24 @@ const inProgressQuiz = (quiz: Quiz) => {
                     :quiz="quiz"
                     @review="(quiz: Quiz) => inProgressQuiz(quiz)"
                 />
+            </div>
+            <div
+                v-else-if="state === 'received'"
+                :class="`grow gap-4 ${
+                    quizzes.length === 0
+                        ? 'flex justify-center items-center'
+                        : 'flex flex-col w-[90%] items-center'
+                }`"
+            >
+                <div class="h-6" />
+                <SkeletonLoader class="w-full h-20 rounded-lg" />
+                <SkeletonLoader class="w-full h-20 rounded-lg" />
+                <SkeletonLoader class="w-full h-20 rounded-lg" />
+            </div>
+            <div v-else class="grow gap-4 flex justify-center items-center">
+                <p class="text-xl font-light text-slate-300">
+                    An error has occurred :(, please try again
+                </p>
             </div>
         </div>
     </div>

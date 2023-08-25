@@ -71,7 +71,6 @@ export default defineNuxtConfig({
     },
     plugins: [
         "~/plugins/fontawesome.ts",
-        { src: "~/plugins/primevue.ts" },
         // { src: "~/plugins/tippy.ts", mode: "client" },
     ],
 })
