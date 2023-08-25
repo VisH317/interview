@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Note, Quiz } from "@prisma/client"
+import VueApexCharts from "vue3-apexcharts"
 import { chartConfig } from "../../utils/chartConfig.ts"
 
 type Home = { type: "home" }
@@ -18,6 +19,8 @@ interface IGrade {
     gradeList: number[]
     dateList: string[]
 }
+
+
 
 const user = useSupabaseUser()
 
@@ -82,6 +85,8 @@ const chartData = ref([
 const props = defineProps<{
     quizzes: typeof Proxy<Array<Quiz>>
     note: Note
+    refresh: () => Promise<void>
+    state: "error" | "pending" | "received"
 }>()
 
 const currentNote = useState<string | null>("currentNote")
@@ -113,6 +118,7 @@ const createQuiz = async () => {
 
     quizState.value = data
     quizLoading.value = false
+    await props.refresh()
 }
 
 const inProgressQuiz = (quiz: Quiz) => {
@@ -121,6 +127,7 @@ const inProgressQuiz = (quiz: Quiz) => {
         activeQuizId: quiz.id,
     }
 }
+
 </script>
 
 <template>

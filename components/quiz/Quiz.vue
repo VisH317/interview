@@ -22,6 +22,8 @@ const visState = useState<Home | InProgress | Graded>("quizState", () => ({
 const {
     data: quizzes,
     pending,
+    error,
+    refresh,
 } = await useFetch("/api/quiz", {
     query: { id: user.value?.id },
 })
@@ -29,7 +31,12 @@ const {
 
 <template>
     <NoteModal open-def="quiz">
-        <Tracker v-if="visState.type === 'home'" :quizzes="quizzes" />
+        <Tracker
+            v-if="visState.type === 'home'"
+            :quizzes="quizzes"
+            :refresh="refresh"
+            :state="error ? 'error' : pending ? 'pending' : 'received'"
+        />
         <QuizView v-if="visState.type === 'quiz'" />
         <Graded v-if="visState.type === 'graded'" />
     </NoteModal>

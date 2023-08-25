@@ -48,6 +48,7 @@
     "apexcharts": "^3.41.0",
     "langchain": "^0.0.102",
     "openai-edge": "^1.1.0",
+    "primevue": "^3.32.2",
     "sass": "^1.63.6",
     "stripe": "^12.17.0",
     "vue-apexcharts": "^1.6.2",

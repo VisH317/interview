@@ -1,4 +1,3 @@
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
@@ -18,8 +17,15 @@ export default defineNuxtConfig({
         head: {
             link: [
                 { rel: "icon", type: "image/png", href: "/logo.png" },
-                { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-                { rel : "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@200;300;400;500;600&display=swap" }
+                {
+                    rel: "preconnect",
+                    href: "https://fonts.gstatic.com",
+                    crossorigin: "",
+                },
+                {
+                    rel: "stylesheet",
+                    href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@200;300;400;500;600&display=swap",
+                },
             ],
         },
         pageTransition: {
@@ -49,6 +55,7 @@ export default defineNuxtConfig({
     css: [
         "@fortawesome/fontawesome-svg-core/styles.css",
         "@/assets/css/global.css",
+        "primevue/resources/themes/lara-light-blue/theme.css",
     ],
     runtimeConfig: {
         openaiKey: process.env.OPENAI_KEY,
@@ -57,11 +64,14 @@ export default defineNuxtConfig({
         stripeWebhook: process.env.STRIPE_WEBHOOK_ID,
         public: {
             stripePk: process.env.STRIPE_PK,
-        }
+        },
+    },
+    build: {
+        transpile: ["primevue"],
     },
     plugins: [
         "~/plugins/fontawesome.ts",
-        { src: "~/plugins/apexCharts.ts", mode: "client" },
+        { src: "~/plugins/primevue.ts" },
         // { src: "~/plugins/tippy.ts", mode: "client" },
     ],
 })
