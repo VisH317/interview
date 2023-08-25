@@ -1,13 +1,11 @@
 <script setup lang="ts">
 const currentNote = useState<string>("currentNote")
 
-const { data: note } = await useFetch("/api/noteById", {
+const { data: note, pending, error } = await useFetch("/api/noteById", {
     query: { id: currentNote.value as string },
 })
 
 const todos = ref<boolean[]>(note.value?.todo.map(() => false))
-
-console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
 </script>
 
 <template>
@@ -24,7 +22,7 @@ console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
                     </p>
                 </div>
                 <div class="h-2 flex-none" />
-                <ul class="p-5 grow overflow-y-auto flex flex-col gap-5">
+                <ul v-if="!error && !pending" class="p-5 grow overflow-y-auto flex flex-col gap-5">
                     <div
                         v-for="(todo, ix) in note?.todo"
                         :key="todo"
@@ -55,6 +53,19 @@ console.log("aowiefjaosidjflsakfjeoijf currentNOte: ", note)
                         <label :for="todo" class="text-slate-500 font-light">{{ todo }}</label>
                     </div>
                 </ul>
+                <ul
+                    v-else-if="pending"
+                    class="p-5 grow overflow-y-auto flex flex-col gap-5 w-[420px]"
+                >
+                    <skeleton-loader class="w-full h-8" />
+                    <skeleton-loader class="w-full h-8" />
+                    <skeleton-loader class="w-full h-8" />
+                    <skeleton-loader class="w-full h-8" />
+                </ul>
+                <div v-else class="w-full">
+                    <div class="h-8"/>
+                    <p class="font-light text-2xl text-slate-500">An error has occurred :(, please try again</p>
+                </div>
             </div>
         </div>
         <div class="h-16 rounded-b-[15px] bg-slate-300"></div>
