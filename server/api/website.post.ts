@@ -3,7 +3,10 @@ import prisma from "../../utils/prisma"
 
 const type = z.object({
     id: z.string(),
-    content: z.string(),
+    content: z.object({
+        url: z.string(),
+        output: z.string()
+    }),
 })
 
 export default defineEventHandler(async (event) => {
@@ -14,7 +17,7 @@ export default defineEventHandler(async (event) => {
             statusCode: 400,
             statusMessage: "note not found",
         })
-    const newContent = note?.content + content
+    const newContent = note?.content + content.output
 
     await prisma.note.update({ where: { id }, data: { content: newContent } })
 

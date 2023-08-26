@@ -38,11 +38,13 @@ const addWebsite = async () => {
         })
     )
 
+    console.log("data: ", newContent.value)
+
     await $fetch("/api/website", {
         method: "POST",
         body: {
             id: note.value?.id,
-            content: newContent,
+            content: newContent.value,
         },
     })
     open.value = false
