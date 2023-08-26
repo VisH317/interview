@@ -23,7 +23,7 @@ const loading = useState<boolean>("loading")
 const web = ref<string>("")
 
 const addWebsite = async () => {
-    const { data: note } = await useFetch("/api/noteById", {
+    const { data: note, refresh } = await useFetch("/api/noteById", {
         query: { id: currentNote.value as string },
     })
     loading.value = true
@@ -49,6 +49,7 @@ const addWebsite = async () => {
     })
     open.value = false
     loading.value = false
+    await refresh()
 }
 </script>
 
