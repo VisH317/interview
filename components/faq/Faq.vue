@@ -4,15 +4,15 @@ type FAQ = { title: string, desc: string }
 const faqs: FAQ[] = [
     {
         title: "How does InterviewSense write my notes?",
-        desc: "First, you paste in your job description. From there, we'll analyze it to create a to do list of things you need to know for your interview. From there, you can write your own notes or paste in website links. We'll take those links and generate organized notes from them for you to look over"
+        desc: "First, you paste in your job description. From there, we'll analyze it to create a to do list of things you need to know for your interview. From there, you can write your own notes or paste in website links. We'll take those links and generate organized notes from them for you to look over",
     },
     {
         title: "How do I create practice interview questions?",
-        desc: "We'll use the notes generated before to create practice interview questions for you. You can generate a quiz with open ended and multiple choice interview questoins, which are generated using interview question data and info from your notes"
+        desc: "We'll use the notes generated before to create practice interview questions for you. You can generate a quiz with open ended and multiple choice interview questoins, which are generated using interview question data and info from your notes",
     },
     {
-        title: "Faq 3",
-        desc: ""
+        title: "Is it faster than Quizlet or Notion?",
+        desc: "Notion and Quizlet are great, but notion doesn't provide any helpful study tools to review your notes. Quizlet is too rigid in what you can do with it. We use AI to make your experience flexible and similar to a real tutor using AI note taking and AI study tools with flashcards and quizzes",
     },
 ]
 </script>
