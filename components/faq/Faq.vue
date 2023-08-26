@@ -3,16 +3,16 @@ type FAQ = { title: string, desc: string }
 
 const faqs: FAQ[] = [
     {
-        title: "Faq 1",
-        desc: "Donec sed ipsum vel nunc ornare auctor non eget dui. Ut eget dolor at erat faucibus pellentesque vitae et tortor. Etiam dapibus neque eget semper convallis. Cras vel cursus arcu, et molestie lorem. Aenean id leo congue, hendrerit erat et, elementum massa. Etiam velit urna, interdum a sollicitudin ac, maximus eu dolor. Integer vel semper libero. Maecenas sed justo non orci auctor pulvinar nec non ante. Suspendisse sit amet sagittis tellus, vel tempor sapien."
+        title: "How does InterviewSense write my notes?",
+        desc: "First, you paste in your job description. From there, we'll analyze it to create a to do list of things you need to know for your interview. From there, you can write your own notes or paste in website links. We'll take those links and generate organized notes from them for you to look over"
     },
     {
-        title: "Faq 2",
-        desc: "Suspendisse mattis nunc et euismod vestibulum. Duis posuere nisi vulputate luctus ultricies. Curabitur facilisis aliquet nulla vel mollis. Aenean nec eros vitae odio fermentum bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec congue tristique risus, at luctus purus tristique sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque varius tellus sapien, "
+        title: "How do I create practice interview questions?",
+        desc: "We'll use the notes generated before to create practice interview questions for you. You can generate a quiz with open ended and multiple choice interview questoins, which are generated using interview question data and info from your notes"
     },
     {
         title: "Faq 3",
-        desc: "Phasellus at venenatis ex. Cras orci tortor, euismod scelerisque imperdiet at, gravida sit amet nisl. Proin sed accumsan diam, nec imperdiet erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus nec aliquet nibh. Donec vel ante nisi. Praesent hendrerit, dolor vitae auctor volutpat, enim ante rutrum mauris, eu maximus urna ante in enim. Etiam nec mauris velit. Mauris id ex aliquet, sagittis sem sit amet, pulvinar nunc. Vivamus efficitur, "
+        desc: ""
     },
 ]
 </script>

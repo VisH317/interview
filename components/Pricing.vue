@@ -19,7 +19,7 @@ const pb1: PB = {
     exes: [
         "Advanced Quiz Review",
         "Unlimited Flashcards",
-        "Tutor Access"
+        "Tutor Access (beta)"
     ]
 }
 
@@ -31,7 +31,7 @@ const pb2: PB = {
         "Unlimited quizzes",
         "Unlimited flashcards per month",
         "Advanced Quiz Review",
-        "Up to 5000 tutor messages per month"
+        "Up to 5000 tutor messages per month (beta)"
     ],
     exes: []
 }
