@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { useEditor, EditorContent } from "@tiptap/vue-3"
+import { useEditor, EditorContent, mergeAttributes } from "@tiptap/vue-3"
 import { StarterKit } from "@tiptap/starter-kit"
 import { Placeholder } from "@tiptap/extension-placeholder"
 import { Heading } from "@tiptap/extension-heading"
-import { mergeAttributes } from "@tiptap/vue-3"
 import suggestion from "../../utils/suggestion"
 import Commands from "../../utils/commands"
 
 const currentNote = useState<string | null>("currentNote")
 
-const { data: note, refresh, pending, error } = await useFetch("/api/noteById", {
-    query: { id: currentNote.value as string },
-})
+const {
+    data: note,
+    refresh,
+    pending,
+    error,
+} = await useAsyncData(`note_${currentNote.value as string}`, () =>
+    $fetch("/api/noteById", {
+        query: { id: currentNote.value as string },
+    })
+)
 
 const visible = ref<boolean>(true)
 
@@ -77,7 +83,7 @@ const editor = useEditor({
     },
     onUpdate({ editor }) {
         console.log("editor: ", editor)
-    }
+    },
 })
 
 onBeforeUnmount(async () => {
@@ -96,12 +102,15 @@ onBeforeUnmount(async () => {
 
 <template>
     <div
+        v-if="currentNote !== null"
         class="flex w-[1200px] min-w-[50%] pt-[5%] max-w-[65%] ml-[8%] gap-10 relative flex-col"
         @keyup="() => console.log('test')"
         @click="() => editor?.commands.focus()"
-        v-if="currentNote !== null"
     >
-        <h1 v-if="!pending && !error" class="text-slate-800 text-7xl font-bold pl-[10%]">
+        <h1
+            v-if="!pending && !error"
+            class="text-slate-800 text-7xl font-bold pl-[10%]"
+        >
             {{ note?.title }}
         </h1>
         <skeleton-loader v-else-if="pending" class="w-1/2 h-20" />
@@ -111,14 +120,18 @@ onBeforeUnmount(async () => {
             class="min-h-20 outline-none p-5 w-full"
         />
         <div v-else-if="pending" class="flex flex-col gap-4">
-            <skeleton-loader class="w-[80%] h-6"/>
-            <skeleton-loader class="w-[80%] h-6"/>
-            <skeleton-loader class="w-[80%] h-6"/>
-            <skeleton-loader class="w-[45%] h-6"/>
+            <skeleton-loader class="w-[80%] h-6" />
+            <skeleton-loader class="w-[80%] h-6" />
+            <skeleton-loader class="w-[80%] h-6" />
+            <skeleton-loader class="w-[45%] h-6" />
         </div>
         <!-- <div :class="`${visible ? 'h-0' : 'h-16'} duration-300`"/> -->
         <div class="h-16" />
-        <div :class="`fixed flex flex-row bottom-14 pl-[10%] gap-5 ${visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'} duration-300`">
+        <div
+            :class="`fixed flex flex-row bottom-14 pl-[10%] gap-5 ${
+                visible ? 'visible opacity-100' : 'opacity-30 hover:opacity-100'
+            } duration-300`"
+        >
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
                 :disabled="visible"

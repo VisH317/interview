@@ -23,9 +23,13 @@ const loading = useState<boolean>("loading")
 const web = ref<string>("")
 
 const addWebsite = async () => {
-    const { data: note, refresh } = await useFetch("/api/noteById", {
-        query: { id: currentNote.value as string },
-    })
+    const { data: note, refresh } = await useAsyncData(
+        `note_${currentNote.value as string}`,
+        () =>
+            $fetch("/api/noteById", {
+                query: { id: currentNote.value as string },
+            })
+    )
     loading.value = true
     if (web.value.length < 4) return
     const { data: newContent } = await useAsyncData(`website`, () =>

@@ -41,11 +41,11 @@ watch(currentNote, () => {
         <div
             :class="`flex-none ${
                 clicked ? 'inline' : 'inline'
-            } duration-300 text-3xl`"
+            } duration-300 text-2xl`"
         >
             <font-awesome-icon icon="fa-solid fa-sticky-note" />
         </div>
-        <p class="flex-none font-medium">{{ title }}</p>
+        <p class="flex-none font-medium text-lg">{{ title }}</p>
         <div class="grow" />
         <div
             class="opacity-0 group-hover:opacity-100 duration-300"
