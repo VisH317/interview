@@ -33,7 +33,7 @@ watch(currentNote, () => {
 
 <template>
     <div
-        :class="`group w-full p-5 hover:bg-slate-300 items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px] ${
+        :class="`group w-full p-5 hover:bg-slate-300 relative items-center duration-300 text-slate-600 font-medium text-xl cursor-pointer flex gap-4 rounded-[20px] ${
             clicked ? 'bg-slate-300' : ''
         }`"
         @click="setClick"
@@ -45,10 +45,11 @@ watch(currentNote, () => {
         >
             <font-awesome-icon icon="fa-solid fa-sticky-note" />
         </div>
-        <p class="flex-none font-medium text-lg">{{ title }}</p>
-        <div class="grow" />
+        <div class="grow">
+            <p class="flex-none font-medium text-lg">{{ title }}</p>
+        </div>
         <div
-            class="opacity-0 group-hover:opacity-100 duration-300"
+            class="opacity-0 group-hover:opacity-100 duration-300 "
             @click.stop="() => $emit('delete')"
         >
             <font-awesome-icon
