@@ -7,7 +7,13 @@ const router = useRouter()
 const user = useSupabaseUser()
 
 onMounted(() => {
-    if (!user.value) navigateTo("/")
+    if (!user.value) {
+        reloadNuxtApp({
+            path: "/dashboard",
+            ttl: 1000,
+        })
+        navigateTo("/")
+    }
 })
 
 const { data: upgraded } = await useFetch("/api/user", {

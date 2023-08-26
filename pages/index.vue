@@ -7,7 +7,13 @@ const user = useSupabaseUser()
 const router = useRouter()
 
 watch(user, () => {
-    if (user.value) navigateTo("/dashboard")
+    if (user.value) {
+        reloadNuxtApp({
+            path: "/dashboard",
+            ttl: 1000,
+        })
+        navigateTo("/dashboard")
+    }
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

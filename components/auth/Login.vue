@@ -34,6 +34,10 @@ const onSubmit = () => {
         .then(async (u) => {
             console.log("u: ", u.data)
             await navigateTo("/dashboard")
+            reloadNuxtApp({
+                path: "/dashboard",
+                ttl: 1000,
+            })
         })
 }
 
