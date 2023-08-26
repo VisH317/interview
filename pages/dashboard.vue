@@ -7,7 +7,7 @@ const router = useRouter()
 const user = useSupabaseUser()
 
 onMounted(() => {
-    if (!user.value) router.push("/")
+    if (!user.value) navigateTo("/")
 })
 
 const { data: upgraded } = await useFetch("/api/user", {

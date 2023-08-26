@@ -7,7 +7,7 @@ const user = useSupabaseUser()
 const router = useRouter()
 
 watch(user, () => {
-    if (user.value) router.push("/dashboard")
+    if (user.value) navigateTo("/dashboard")
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

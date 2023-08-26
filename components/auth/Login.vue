@@ -31,9 +31,9 @@ const onSubmit = () => {
             email: email.value,
             password: password.value,
         })
-        .then((u) => {
+        .then(async (u) => {
             console.log("u: ", u.data)
-            router.push("/dashboard")
+            await navigateTo("/dashboard")
         })
 }
 

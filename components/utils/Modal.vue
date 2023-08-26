@@ -14,7 +14,7 @@ const open = useState<boolean>(props.openDef)
         @click="() => (open = false)"
     >
         <div
-            class="w-[12`00px] max-w-[80%] h-[800px] max-h-[90%] bg-white rounded-lg overflow-hidden"
+            class="w-[1200px] max-w-[80%] h-[800px] max-h-[90%] bg-white rounded-lg overflow-hidden"
             @click.stop
         >
             <slot />
