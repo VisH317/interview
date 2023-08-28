@@ -44,6 +44,9 @@ const createCard = async () => {
         )
         return
     }
+
+    console.log("creating card...")
+
     const { data: cards } = await useAsyncData(
         `get_cards_${note.value?.id}`,
         () =>
@@ -51,6 +54,7 @@ const createCard = async () => {
                 method: "POST",
                 body: {
                     id: note.value?.id,
+                    userid: user.value?.id,
                     text: note.value?.content,
                 },
             })

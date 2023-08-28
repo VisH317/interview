@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     const upgraded = await checkUpgraded(userid)
     const quizzes = await prisma.quiz.findMany({
         where: {
-            userid
+            userid,
         }
     })
 

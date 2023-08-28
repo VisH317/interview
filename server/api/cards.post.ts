@@ -5,21 +5,26 @@ import prisma from "../../utils/prisma"
 import checkUpgraded from "../../utils/checkUpgraded"
 
 const reqType = z.object({
+    userid: z.string(),
     id: z.string(),
     text: z.string(),
 })
 
 export default defineEventHandler(async (event) => {
-    const { text, id } = reqType.parse(await readBody(event))
+    const { text, id, userid } = reqType.parse(await readBody(event))
 
-    const upgraded = await checkUpgraded(id)
+    console.log("cards post")
+
+    const upgraded = await checkUpgraded(userid)
+    console.log("upgraded: ", upgraded)
+
     const note = await prisma.note.findUnique({
         where: {
-            id
-        }
+            id,
+        },
     })
 
-    if(!upgraded && (note?.cards.length as number)>=50) {
+    if (!upgraded && (note?.cards.length as number) >= 50) {
         setResponseStatus(event, 401)
         return "No more flashcards allowed"
     }
@@ -34,6 +39,8 @@ export default defineEventHandler(async (event) => {
     const res = await chain.call({
         input_documents: docs,
     })
+
+    console.log("res called")
 
     if (res.text.split("\n")[1].split(":").length < 2) {
         throw createError({

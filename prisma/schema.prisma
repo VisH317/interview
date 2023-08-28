@@ -31,7 +31,7 @@ model Quiz {
 model User {
   id       String  @unique @db.Uuid
   upgraded Boolean @default(false)
-  customer String
+  customer String?
 }
 
 model Flashcard {

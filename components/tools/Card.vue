@@ -35,7 +35,7 @@ const flipFront = () => {
                 {{ term }}
             </div>
             <div
-                class="p-20 rounded-lg w-full h-full overflow-hidden duration-300 bg-slate-600 absolute top-0 left-0 text-xl text-slate-200 font-normal flex justify-center items-center"
+                class="p-20 rounded-lg w-full h-full overflow-hidden duration-300 bg-slate-600 absolute top-0 left-0 text-xl text-slate-200 font-normal flex justify-center items-center text-center"
                 :style="`transform-style: preserve-3d; transform: ${b}; backface-visibility: hidden`"
                 @click="flipFront"
             >
