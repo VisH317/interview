@@ -7,11 +7,7 @@ export default async function checkUpgraded(userid: string): Promise<boolean> {
         },
     })
 
-    console.log("checking upgraded")
-
     if (!user) throw createError("user not found")
-
-    console.log("check")
 
     return user?.upgraded
 }

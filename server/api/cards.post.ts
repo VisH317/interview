@@ -13,10 +13,8 @@ const reqType = z.object({
 export default defineEventHandler(async (event) => {
     const { text, id, userid } = reqType.parse(await readBody(event))
 
-    console.log("cards post")
 
     const upgraded = await checkUpgraded(userid)
-    console.log("upgraded: ", upgraded)
 
     const note = await prisma.note.findUnique({
         where: {
@@ -40,8 +38,6 @@ export default defineEventHandler(async (event) => {
         input_documents: docs,
     })
 
-    console.log("res called")
-
     if (res.text.split("\n")[1].split(":").length < 2) {
         throw createError({
             statusCode: 400,
@@ -52,7 +48,7 @@ export default defineEventHandler(async (event) => {
     await prisma.note.update({
         where: { id },
         data: {
-            cards: res.text.split("\n"),
+            cards: [...note!.cards, res.text.split("\n")],
         },
     })
 

@@ -25,7 +25,8 @@ const {
         watch: [currentNote],
     }
 )
-console.log("note: ", note.value === "")
+
+const loading = ref<boolean>(false)
 
 const incrementVal = () => {
     if (val.value + 1 >= (note.value?.cards.length as number)) val.value = 0
@@ -47,6 +48,8 @@ const createCard = async () => {
 
     console.log("creating card...")
 
+    loading.value = true
+
     const { data: cards } = await useAsyncData(
         `get_cards_${note.value?.id}`,
         () =>
@@ -60,6 +63,8 @@ const createCard = async () => {
             })
     )
     await refreshNotes()
+
+    loading.value = false
 }
 </script>
 
