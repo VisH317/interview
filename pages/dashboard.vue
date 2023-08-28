@@ -31,6 +31,8 @@ const title = ref<string>("")
 const desc = ref<string>("")
 const disabled = ref<boolean>(true)
 
+const currentNoteLoading = useState<boolean>("currentNoteLoading", () => false)
+
 // global loading
 const loading = useState<boolean>("loading", () => false)
 
@@ -41,6 +43,7 @@ watch([title, desc], () => {
 })
 
 const createNote = async (title: string, desc: string) => {
+    currentNoteLoading.value = true
     // create summary and to do list
 
     // const { data: description } = await useAsyncData(`desc_${desc}`, () =>
@@ -69,6 +72,8 @@ const createNote = async (title: string, desc: string) => {
 
     await refresh()
     open.value = false
+
+    currentNoteLoading.value = true
 }
 
 useState<string | null>("currentNote", () => null)

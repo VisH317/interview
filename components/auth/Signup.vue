@@ -28,10 +28,16 @@ watch([email, password, retype], ([e, p, r]) => {
 })
 
 const onSubmit = async () => {
+    console.log("test")
     supabase.auth
         .signUp({ email: email.value, password: password.value })
         .then((user) => {
-            if (user.error) alert(`An error has occurred: ${user.error}`)
+            if (user.error) {
+                alert(`An error has occurred: ${user.error}`)
+                return
+            }
+
+            console.log("test")
 
             $fetch("/api/user", {
                 method: "POST",

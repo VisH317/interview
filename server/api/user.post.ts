@@ -15,13 +15,18 @@ export default defineEventHandler(async (event) => {
         email
     })
 
-    await prisma.user.create({
-        data: {
-            id,
-            upgraded: false,
-            customer: customer.id
-        }
-    })
+    try {
+        await prisma.user.create({
+            data: {
+                id,
+                upgraded: false,
+                customer: customer.id,
+            },
+        })
+    } catch (error) {
+        setResponseStatus(event, 201)
+        return "user already created"
+    }
 
     setResponseStatus(event, 201)
     return "user created successfully"
