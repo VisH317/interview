@@ -10,6 +10,8 @@ const signup = useState<boolean>("signup-modal")
 const email = ref<string>("")
 const password = ref<string>("")
 
+const message = ref<string>("")
+
 const disabled = ref<boolean>(true)
 
 watch([email, password], ([e, p]) => {
@@ -31,8 +33,11 @@ const onSubmit = () => {
             email: email.value,
             password: password.value,
         })
-        .then(async (u) => {
-            console.log("u: ", u.data)
+        .then(async u => {
+            if (u.error) {
+                message.value = u.error.message
+                return
+            }
             await navigateTo("/dashboard")
             reloadNuxtApp({
                 path: "/dashboard",
@@ -91,6 +96,16 @@ const onSubmit = () => {
                         class="w-full p-5 rounded-[11px] outline-none text-lg"
                         placeholder="Password: "
                     />
+                </div>
+                <div
+                    v-if="message.length > 0"
+                    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                    role="alert"
+                >
+                    <strong class="font-bold">Hold up! </strong>
+                    <span class="block sm:inline"
+                        >{{ message }}</span
+                    >
                 </div>
                 <div
                     class="relative inline-flex items-center justify-center w-full"
