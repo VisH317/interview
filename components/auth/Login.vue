@@ -33,7 +33,7 @@ const onSubmit = () => {
             email: email.value,
             password: password.value,
         })
-        .then(async u => {
+        .then(async (u) => {
             if (u.error) {
                 message.value = u.error.message
                 return
@@ -144,7 +144,7 @@ const onSubmit = () => {
                                 : 'group-hover:shadow-lg bg-slate-800 cursor-pointer'
                         } text-white duration-300 transition ease-in-out text-2xl font-light rounded-lg h-14 w-40 text-center flex justify-center items-center z-20 absolute left-4 top-5`"
                     >
-                        Sign Up
+                        Sign In
                     </div>
                 </div>
             </div>

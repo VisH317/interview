@@ -5,7 +5,7 @@ const type = z.object({
     id: z.string(),
     content: z.object({
         url: z.string(),
-        output: z.string()
+        output: z.string(),
     }),
 })
 

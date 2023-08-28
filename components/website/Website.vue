@@ -22,38 +22,40 @@ const loading = useState<boolean>("loading")
 
 const web = ref<string>("")
 
-const addWebsite = async () => {
-    const { data: note, refresh } = await useAsyncData(
-        `note_${currentNote.value as string}`,
-        () =>
-            $fetch("/api/noteById", {
-                query: { id: currentNote.value as string },
-            })
-    )
-    loading.value = true
-    if (web.value.length < 4) return
-    const { data: newContent } = await useAsyncData(`website`, () =>
-        $fetch("http://localhost:8000/scrape", {
-            method: "POST",
-            body: {
-                job_desc: note.value?.desc,
-                url: web.value,
-            },
-        })
-    )
+const addWebsite = () => {
+    // const { data: note, refresh } = await useAsyncData(
+    //     `note_${currentNote.value as string}`,
+    //     () =>
+    //         $fetch("/api/noteById", {
+    //             query: { id: currentNote.value as string },
+    //         })
+    // )
+    // loading.value = true
+    // if (web.value.length < 4) return
+    // const { data: newContent } = await useAsyncData(`website`, () =>
+    //     $fetch("http://localhost:8000/scrape", {
+    //         method: "POST",
+    //         body: {
+    //             job_desc: note.value?.desc,
+    //             url: web.value,
+    //         },
+    //     })
+    // )
 
-    console.log("data: ", newContent.value)
+    // console.log("data: ", newContent.value)
 
-    await $fetch("/api/website", {
-        method: "POST",
-        body: {
-            id: note.value?.id,
-            content: newContent.value,
-        },
-    })
+    // await $fetch("/api/website", {
+    //     method: "POST",
+    //     body: {
+    //         id: note.value?.id,
+    //         content: newContent.value,
+    //     },
+    // })
+    // open.value = false
+    // loading.value = false
+    // await refresh()
+    alert("This feature is currently in development, we'll let you know when it's ready (probably in a couple days)")
     open.value = false
-    loading.value = false
-    await refresh()
 }
 </script>
 
