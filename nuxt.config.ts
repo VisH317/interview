@@ -5,6 +5,7 @@ export default defineNuxtConfig({
         "@nuxtjs/google-fonts",
         "@nuxt/image",
         "@nuxtjs/supabase",
+        "nuxt-vercel-analytics",
         // async (options, nuxt) => {
         //   nuxt.hooks.hook("vite:extendConfig", (config) =>
         //     // @ts-ignore
