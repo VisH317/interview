@@ -20,10 +20,10 @@ const click = () => {
                     class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-blue-300">Sense</span></p>
         </div>
         <div class="flex flex-row gap-10 items-center w-[30%] justify-end max-[500px]:hidden">
-            <nuxt-link to="/about"
+            <!-- <nuxt-link to="/about"
                 class="text-slate-900 font-light text-xl duration-300 hover:text-slate-400">About</nuxt-link>
             <nuxt-link to="/about"
-                class="text-slate-900 font-light text-xl duration-300 hover:text-slate-400">Pricing</nuxt-link>
+                class="text-slate-900 font-light text-xl duration-300 hover:text-slate-400">Pricing</nuxt-link> -->
             <Button :action="click" text="Sign In" />
     </div>
 </div></template>
