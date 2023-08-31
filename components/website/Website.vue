@@ -67,7 +67,7 @@ const addWebsite = () => {
         @click="() => (open = false)"
     >
         <div
-            class="max-w-[60%] w-[650px] h-[43%] max-h-[500px] bg-white overflow-hidden gap-4 shadow-lg relative rounded-[15px] overflow-hidden p-5 flex flex-col items-center py-10 pb-20"
+            class="max-w-[60%] w-[650px] h-[60%] max-h-[700px] bg-white overflow-hidden gap-4 shadow-lg relative rounded-[15px] overflow-hidden p-5 flex flex-col items-center py-10 pb-20"
             @click.stop
         >
             <div class="flex-none">
@@ -81,20 +81,22 @@ const addWebsite = () => {
                     </p>
                 </h1>
             </div>
+            <div class="h-2"/>
             <div class="grow flex flex-col justify-center gap-4 w-[70%]">
                 <h2
-                    class="font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase ml-[5%]"
+                    class="flex-none font-['Inter',sans-serif] text-sm text-slate-400 font-bold uppercase ml-[5%]"
                 >
-                    website url
+                    copy text from website here
                 </h2>
-                <div class="bg-slate-200 rounded-[10px] h-16 border-[1px] test">
-                    <input
+                <div class="grow bg-slate-200 rounded-[10px] h-60 border-[1px] test">
+                    <textarea
                         v-model="web"
                         type="text"
                         class="py-5 px-5 outline-none rounded-[9px] w-full h-full border-none"
                     />
                 </div>
             </div>
+            <div class="h-2"/>
             <div class="flex justify-center gap-4">
                 <div
                     class="group bg-gradient-to-r w- h-12 justify-center border-slate-400 w-40 border-2 items-center px-8 py-3 hover:-translate-y-1 duration-300 text-slate-400 font-light text-xl cursor-pointer flex gap-4 rounded-[15px]"
