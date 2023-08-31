@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
-const flashcard = useState<boolean>("quiz")
+const flashcard = useState<boolean>("flashcard")
 const currentNote = useState<string | null>("currentNote")
 const val = ref<number>(0)
 watch(currentNote, () => {

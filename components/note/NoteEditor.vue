@@ -86,6 +86,11 @@ const editor = useEditor({
     },
 })
 
+// modal states
+const websiteOpen = useState<boolean>("website")
+const flashcardOpen = useState<boolean>("flashcard")
+const quizOpen = useState<boolean>("quiz")
+
 onBeforeUnmount(async () => {
     const html = editor.value?.getHTML()
     console.log("WHY ARE YOU UNOMUNTING???")
@@ -134,29 +139,29 @@ onBeforeUnmount(async () => {
         >
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
-                :disabled="visible"
-                @click.stop
+                :disabled="false"
+                @click="websiteOpen = true"
             >
                 Add Website
             </button>
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
-                :disabled="visible"
+                :disabled="false"
                 @click.stop
             >
                 Add Video
             </button>
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
-                :disabled="visible"
-                @click.stop
+                :disabled="false"
+                @click.stop="quizOpen = true"
             >
                 Start Quiz
             </button>
             <button
                 class="bg-gradient-to-r from-pink-300 to-blue-300 px-4 py-2 text-white font-light rounded-[40px] hover:opacity-80 duration-300 disabled:cursor-pointer"
-                :disabled="visible"
-                @click.stop
+                :disabled="false"
+                @click.stop="flashcardOpen = true"
             >
                 Open Flashcards
             </button>
